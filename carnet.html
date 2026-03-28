@@ -1145,79 +1145,156 @@ function telechargerFacture(payId) {
 }
 
 function buildFactureHTML(c, p) {
-  return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
-  <style>body{font-family:'Jost',Arial,sans-serif;font-size:13px;color:#1c1c1c;max-width:680px;margin:40px auto;padding:0 20px;}
-  .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;border-bottom:2px solid #1c1c1c;padding-bottom:20px;}
-  .atelier{font-size:0.7em;color:#888;line-height:1.8;}
-  .doc-title{font-size:1.6em;font-style:italic;margin-bottom:4px;}
-  table{width:100%;border-collapse:collapse;margin:20px 0;}
-  td,th{padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:0.9em;}
-  th{font-size:0.6em;letter-spacing:0.16em;text-transform:uppercase;color:#888;font-weight:400;}
-  .total-row td{font-weight:500;border-top:2px solid #1c1c1c;padding-top:12px;}
-  .sig{margin-top:30px;padding:12px 16px;background:#f5f9f5;border-left:3px solid #7A9B7A;font-size:0.78em;}
-  @media print{body{margin:0;}}</style></head>
-  <body>
+  const dateDoc = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  const livraisonStr = c.livraison ? new Date(c.livraison).toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}) : '—';
+  const isPaid = p.statut === 'paid';
+  const isAcompte = (p.label||'').toLowerCase().includes('acompte');
+  const total = c.prixTotal || 0;
+  const pct = c.pct || 30;
+  const acompte = Math.round(total * pct) / 100;
+  const solde = total - acompte;
+
+  const lignesH = (c.devisLignes||[]).map(l => `
+    <tr>
+      <td style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:0.85em;">${l.nom||''}</td>
+      <td style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:0.78em;color:#888;">${l.desc||''}</td>
+      <td style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:0.85em;text-align:right;">${fmtEur(l.prix||0)}</td>
+    </tr>`).join('') || `<tr><td colspan="3" style="padding:8px 0;font-size:0.85em;font-style:italic;color:#888;">Création sur mesure — ${c.robe||''}</td></tr>`;
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Jost',Arial,sans-serif;font-size:13px;color:#1c1c1c;background:white;}
+  .page{max-width:700px;margin:0 auto;padding:40px;}
+  .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;padding-bottom:20px;border-bottom:2px solid #1c1c1c;}
+  .atelier-name{font-family:'Cormorant Garamond',serif;font-size:1.4em;font-style:italic;color:#1c1c1c;}
+  .atelier-info{font-size:0.72em;color:#888;line-height:1.9;margin-top:4px;}
+  .doc-meta{text-align:right;}
+  .doc-type{font-family:'Cormorant Garamond',serif;font-size:1.6em;font-style:italic;margin-bottom:4px;}
+  .doc-ref{font-size:0.72em;color:#888;}
+  .section{margin-bottom:24px;}
+  .section-label{font-size:0.58em;letter-spacing:0.2em;text-transform:uppercase;color:#aaa;margin-bottom:8px;}
+  .client-name{font-size:1em;font-weight:500;}
+  .client-info{font-size:0.82em;color:#888;line-height:1.8;}
+  table{width:100%;border-collapse:collapse;}
+  th{font-size:0.6em;letter-spacing:0.16em;text-transform:uppercase;color:#aaa;text-align:left;padding-bottom:10px;border-bottom:1px solid #e0e0e0;}
+  th:last-child{text-align:right;}
+  .total-section{margin-top:16px;border-top:2px solid #1c1c1c;padding-top:12px;}
+  .total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+  .total-label{font-size:0.85em;color:#888;}
+  .total-amount{font-family:'Cormorant Garamond',serif;font-size:1.1em;}
+  .total-main{font-weight:500;font-size:1em;}
+  .total-main-amount{font-family:'Cormorant Garamond',serif;font-size:1.4em;}
+  .highlighted{background:#f9f6f1;padding:16px 20px;margin:20px 0;border-left:3px solid #c09a6b;}
+  .payment-section{background:#f5f5f5;padding:16px 20px;margin-top:20px;}
+  .payment-label{font-size:0.58em;letter-spacing:0.18em;text-transform:uppercase;color:#aaa;margin-bottom:8px;}
+  .iban{font-family:monospace;font-size:0.88em;letter-spacing:0.05em;}
+  .legal{font-size:0.65em;color:#aaa;line-height:1.8;margin-top:24px;padding-top:16px;border-top:1px solid #e0e0e0;}
+  .sig-section{margin-top:24px;padding:14px 18px;background:#f5f9f5;border-left:3px solid #7A9B7A;}
+  .sig-label{font-size:0.7em;color:#5a8a5a;font-weight:500;margin-bottom:4px;}
+  .sig-date{font-size:0.68em;color:#888;}
+  .qr-info{background:#1c1c1c;color:white;padding:14px 20px;margin-top:24px;display:flex;align-items:center;gap:20px;}
+  .qr-text{font-size:0.72em;line-height:1.8;color:rgba(255,255,255,0.8);}
+  .qr-code{font-size:0.68em;letter-spacing:0.08em;font-family:monospace;color:#c09a6b;margin-top:4px;}
+  .footer{text-align:center;margin-top:32px;font-size:0.62em;color:#ccc;letter-spacing:0.08em;}
+  @media print{body{margin:0;}.page{padding:20px;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- En-tête -->
   <div class="header">
     <div>
-      <div class="doc-title">${p.label||'Facture'}</div>
-      <div style="font-size:0.7em;color:#888;">${p.factureNum||''} · ${new Date().toLocaleDateString('fr-FR')}</div>
+      <div class="atelier-name">Joséphine Bono</div>
+      <div class="atelier-info">
+        26 avenue de la Gare · 33470 Gujan-Mestras<br>
+        SIRET 522 106 384 · EI JOSEPHINE BONO<br>
+        hello@josephinebono.com · 06 98 94 20 00<br>
+        josephinebono.com
+      </div>
     </div>
-    <div class="atelier">
-      <strong>Joséphine Bono</strong><br>
-      26 avenue de la Gare<br>33470 Gujan-Mestras<br>
-      SIRET 522 106 384<br>hello@josephinebono.com
+    <div class="doc-meta">
+      <div class="doc-type">${isAcompte ? 'Facture d\u2019acompte' : p.label||'Facture'}</div>
+      <div class="doc-ref">Réf. ${p.factureNum||''}<br>${dateDoc}</div>
     </div>
   </div>
-  <div style="margin-bottom:20px;font-size:0.85em;"><strong>${c.nom}</strong>${c.email?'<br>'+c.email:''}${c.mariage?'<br>Mariage le '+fmtDate(c.mariage):''}</div>
-  <table>
-    <tr><th>Désignation</th><th style="text-align:right;">Montant</th></tr>
-    <tr><td>${p.label||''}</td><td style="text-align:right;">${fmtEur(p.montant)}</td></tr>
-    <tr class="total-row"><td><strong>Total</strong></td><td style="text-align:right;"><strong>${fmtEur(p.montant)}</strong></td></tr>
-  </table>
-  <div style="font-size:0.78em;color:#888;margin-top:20px;">
-    Paiement par virement : ${p.iban||''} · ${p.titulaire||''}<br>
-    TVA non applicable — Art. 293B du CGI
+
+  <!-- Cliente -->
+  <div class="section">
+    <div class="section-label">Destinataire</div>
+    <div class="client-name">${c.nom}</div>
+    <div class="client-info">
+      ${c.email||''}<br>
+      ${c.mariage ? 'Mariage prévu le ' + livraisonStr : ''}
+    </div>
   </div>
-  ${c.devisSigneAt && c.signatureImage ? '<div class="sig">✓ Devis signé électroniquement le ' + fmtDate(c.devisSigneAt.split('T')[0]) + '<br><img src="'+c.signatureImage+'" style="height:32px;margin-top:6px;opacity:0.6;"></div>' : ''}
-  </body></html>`;
+
+  <!-- Lignes -->
+  <div class="section">
+    <table>
+      <thead><tr><th>Désignation</th><th>Détail</th><th style="text-align:right;">Montant HT</th></tr></thead>
+      <tbody>${lignesH}</tbody>
+    </table>
+
+    <div class="total-section">
+      ${isAcompte ? '<div class="total-row"><span class="total-label">Total commande</span><span class="total-amount">'+fmtEur(total)+'</span></div>' : ''}
+      <div class="total-row">
+        <span class="total-main">${isAcompte ? 'Acompte ' + pct + '%' : 'Total'}</span>
+        <span class="total-main-amount">${fmtEur(p.montant)}</span>
+      </div>
+      ${isAcompte ? '<div class="total-row"><span class="total-label">Solde restant</span><span class="total-amount">'+fmtEur(solde)+'</span></div>' : ''}
+    </div>
+  </div>
+
+  <!-- Paiement -->
+  <div class="payment-section">
+    <div class="payment-label">Modalités de règlement</div>
+    <div style="font-size:0.82em;line-height:2;">
+      Virement bancaire<br>
+      Titulaire : EI JOSEPHINE BONO<br>
+      <span class="iban">IBAN : FR76 4061 8804 7200 0403 8233 463</span><br>
+      Référence à indiquer : <strong>${p.factureNum||''}</strong>
+    </div>
+  </div>
+
+  <!-- Carnet de création -->
+  <div class="qr-info">
+    <div>
+      <div style="font-size:0.6em;letter-spacing:0.2em;text-transform:uppercase;color:#c09a6b;margin-bottom:6px;">Votre Carnet de Création</div>
+      <div class="qr-text">Suivez l'avancement de votre robe en temps réel.<br>Accédez à votre espace personnel :</div>
+      <div class="qr-code">josephinebonoatelier.github.io/carnet-creation/carnet.html</div>
+      <div style="font-size:0.65em;color:rgba(255,255,255,0.5);margin-top:6px;">Code d'accès : ${c.password||''}</div>
+    </div>
+  </div>
+
+  <!-- Signature -->
+  ${c.devisSigneAt ? `<div class="sig-section">
+    <div class="sig-label">✓ Devis signé électroniquement</div>
+    <div class="sig-date">Le ${fmtDate(c.devisSigneAt.split('T')[0])} à ${new Date(c.devisSigneAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</div>
+    ${c.signatureImage ? '<img src="'+c.signatureImage+'" style="height:36px;margin-top:8px;opacity:0.65;">' : ''}
+    <div class="sig-date" style="margin-top:4px;">Réf. devis : ${c.devisRef||''}</div>
+  </div>` : ''}
+
+  <!-- Mentions légales -->
+  <div class="legal">
+    TVA non applicable — Art. 293B du CGI<br>
+    Pénalités de retard : taux légal en vigueur + indemnité forfaitaire de 40 € (Art. D441-5 C.com)<br>
+    Médiateur : www.mediateur-conso.fr<br>
+    En cas de litige : Tribunal compétent de Bordeaux
+  </div>
+
+  <div class="footer">JOSÉPHINE BONO · ATELIER DE COUTURE · GUJAN-MESTRAS</div>
+
+</div>
+</body>
+</html>`;
 }
 
-// ═══════════════════════════════════════════════════════════
-//  RENDER — DOCUMENTS
-// ═══════════════════════════════════════════════════════════
-function renderDocuments() {
-  const c = G;
-  let h = '';
-  // Devis
-  if (c.devisRef) {
-    h += `<div class="section-title">Devis</div>
-    <div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <div>
-        <div style="font-family:var(--serif);font-size:1rem;font-style:italic;">Devis ${c.devisRef}</div>
-        ${c.devisSigneAt ? '<div style="font-size:0.7rem;color:var(--green);">✓ Signé le ' + fmtDate(c.devisSigneAt.split('T')[0]) + '</div>' : '<div style="font-size:0.7rem;color:var(--taupe);">En attente de signature</div>'}
-      </div>
-      <button onclick="voirDevis()" class="btn btn-outline btn-sm">Consulter</button>
-    </div>`;
-  }
-  // Factures
-  const facturesPaid = (c.paiements||[]).filter(p => p.statut !== 'pending');
-  if (facturesPaid.length) {
-    h += '<div class="section-title">Factures</div>';
-    h += facturesPaid.map(p => {
-      const isPaid = p.statut === 'paid';
-      return `<div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
-        <div>
-          <div style="font-family:var(--serif);font-size:0.95rem;font-style:italic;">${p.label||p.factureNum}</div>
-          <div style="font-size:0.7rem;color:var(--taupe);">Réf. ${p.factureNum||''} · ${fmtEur(p.montant)}</div>
-          <div style="margin-top:4px;">${isPaid?'<span class="badge badge-green">✓ Réglée</span>':'<span class="badge badge-orange">En attente</span>'}</div>
-        </div>
-        <button onclick="telechargerFacture('${p.id}')" class="btn btn-outline btn-sm">↓ Télécharger</button>
-      </div>`;
-    }).join('');
-  }
-  if (!h) h = '<div class="card" style="text-align:center;padding:32px;color:var(--taupe);font-style:italic;">Aucun document disponible pour le moment.</div>';
-  el('documents-content').innerHTML = h;
-}
 
 function voirDevis() {
   const c = G;
