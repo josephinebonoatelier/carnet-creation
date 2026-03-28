@@ -2,1305 +2,1547 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Mon Carnet de Création — Joséphine Bono</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --cream:#FAF8F4;--white:#FFFFFF;--sand:#EDE5D8;--sand2:#D9CEBD;
-  --taupe:#B8A898;--brown:#8B7260;--gold:#C09A6B;--gold2:#A07D4F;
-  --dark:#2A2018;--text:#3D3025;--muted:#9B8C7E;
-  --green:#7A9B7A;--blue:#6B8BAA;--warn:#C4956A;
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#f9f6f1;--white:#ffffff;--sand:#e8e0d5;--gold:#c09a6b;--gold-dark:#a07d50;
+  --black:#1c1c1c;--text:#2d2d2d;--muted:#888;--taupe:#9a8878;
+  --green:#7A9B7A;--orange:#e07c2a;--red:#c0392b;--blue:#3a6ea5;
   --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'Jost',sans-serif;
+  --sans:'Jost',system-ui,sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:var(--sans);background:var(--cream);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh;}
+body{font-family:var(--sans);background:var(--cream);color:var(--text);font-size:15px;line-height:1.6;}
 a{color:inherit;text-decoration:none;}
 button{cursor:pointer;font-family:var(--sans);}
-input,textarea,select{font-family:var(--sans);}
+input,select,textarea{font-family:var(--sans);font-size:14px;outline:none;}
 
-/* LOGIN */
-#screen-login{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
-.login-logo{width:68px;height:68px;object-fit:contain;margin-bottom:1.5rem;filter:brightness(0);}
-.login-brand{font-family:var(--serif);font-size:1.5rem;font-weight:300;letter-spacing:0.2em;color:var(--dark);margin-bottom:0.25rem;}
-.login-tagline{font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--taupe);margin-bottom:3rem;}
-.login-card{background:var(--white);border:1px solid var(--sand);padding:2.5rem;max-width:380px;width:100%;text-align:center;}
-.login-title{font-family:var(--serif);font-size:1.6rem;font-style:italic;font-weight:300;margin-bottom:0.5rem;color:var(--dark);}
-.login-sub{font-size:0.75rem;color:var(--muted);margin-bottom:2rem;line-height:1.6;}
-.login-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);text-align:left;display:block;margin-bottom:0.4rem;}
-.login-input{width:100%;border:1px solid var(--sand);background:var(--cream);padding:0.85rem 1rem;font-family:monospace;font-size:1.1rem;letter-spacing:0.2em;text-align:center;text-transform:uppercase;outline:none;color:var(--dark);transition:border-color 0.2s;margin-bottom:1rem;}
-.login-input:focus{border-color:var(--gold);}
-.login-btn{width:100%;padding:0.9rem;background:var(--dark);border:none;color:white;font-family:var(--sans);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;transition:background 0.2s;cursor:pointer;}
-.login-btn:hover{background:var(--brown);}
-.login-btn:disabled{background:var(--taupe);cursor:not-allowed;}
-.login-error{color:#b84a3a;font-size:0.72rem;margin-top:0.75rem;min-height:1rem;}
+/* ── ÉCRAN LOGIN ── */
+#screen-login{
+  position:fixed;inset:0;background:var(--cream);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 24px;z-index:1000;overflow-y:auto;
+}
+.login-logo{width:64px;margin-bottom:24px;filter:brightness(0);}
+.login-title{font-family:var(--serif);font-size:1.8rem;font-style:italic;margin-bottom:8px;text-align:center;}
+.login-sub{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:40px;text-align:center;}
+.login-box{width:100%;max-width:360px;}
+.login-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:8px;display:block;}
+.login-input{width:100%;padding:14px 16px;border:1px solid var(--sand);background:white;font-size:1rem;letter-spacing:0.12em;text-align:center;margin-bottom:12px;}
+.login-btn{width:100%;padding:14px;background:var(--black);color:white;border:none;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;transition:background 0.2s;}
+.login-btn:hover{background:#333;}
+.login-error{font-size:0.78rem;color:var(--red);text-align:center;min-height:20px;}
 
-/* APP */
+/* ── ÉCRAN APP ── */
 #screen-app{display:none;flex-direction:column;min-height:100vh;}
 #screen-app.show{display:flex;}
-.topbar{background:var(--white);border-bottom:1px solid var(--sand);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.topbar-logo{height:30px;width:auto;object-fit:contain;filter:brightness(0);}
-.topbar-name{font-size:0.72rem;color:var(--muted);}
-.topbar-logout{background:none;border:none;font-size:0.65rem;letter-spacing:0.1em;color:var(--taupe);text-transform:uppercase;padding:4px 8px;cursor:pointer;}
-.topbar-logout:hover{color:var(--dark);}
 
-/* Bottom nav */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--sand);display:flex;z-index:200;}
-.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 12px;gap:4px;border:none;background:transparent;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--taupe);transition:color 0.2s;}
-.bnav-item.active{color:var(--gold);}
-.bnav-item svg{width:20px;height:20px;stroke-width:1.4;display:block;}
+/* ── TOPBAR ── */
+.topbar{background:white;border-bottom:1px solid var(--sand);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.topbar-logo{height:28px;filter:brightness(0);}
+.topbar-name{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);}
+.topbar-logout{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);cursor:pointer;opacity:0.7;}
+.topbar-logout:hover{opacity:1;}
 
-/* Desktop sidebar */
-.sidebar{display:none;}
-@media(min-width:768px){
-  .bottom-nav{display:none;}
-  .app-layout{display:flex;min-height:calc(100vh - 56px);}
-  .sidebar{display:block;width:200px;background:var(--white);border-right:1px solid var(--sand);padding:24px 0;flex-shrink:0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
-  .sidebar-hidden{display:none;}
-  .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);border:none;background:transparent;width:100%;text-align:left;transition:all 0.2s;border-left:2px solid transparent;}
-  .sidebar-item:hover{color:var(--text);background:var(--cream);}
-  .sidebar-item.active{color:var(--text);border-left-color:var(--gold);background:var(--cream);}
-  .sidebar-item svg{width:14px;height:14px;stroke-width:1.2;opacity:0.5;}
-  .sidebar-item.active svg{opacity:0.8;}
-}
+/* ── LAYOUT PRINCIPAL ── */
+.app-layout{display:flex;flex:1;}
 
-/* Panels */
-.panel{display:none;padding:32px 24px;flex:1;}
+/* ── SIDEBAR (desktop) ── */
+.sidebar{width:220px;flex-shrink:0;background:white;border-right:1px solid var(--sand);padding:32px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
+.sidebar-section{padding:0 24px;margin-bottom:28px;}
+.sidebar-label{font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--taupe);margin-bottom:12px;display:block;}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:8px 24px;font-size:0.78rem;color:var(--text);cursor:pointer;transition:background 0.15s;border-left:2px solid transparent;}
+.sidebar-item:hover{background:var(--cream);}
+.sidebar-item.active{background:var(--cream);border-left-color:var(--gold);color:var(--black);font-weight:500;}
+.sidebar-item svg{width:14px;height:14px;opacity:0.6;flex-shrink:0;}
+.sidebar-item.active svg{opacity:1;}
+
+/* ── CONTENU PRINCIPAL ── */
+.main-content{flex:1;padding:32px 40px;max-width:860px;}
+
+/* ── PANELS ── */
+.panel{display:none;}
 .panel.active{display:block;}
-.app-content{flex:1;padding-bottom:72px;}
-@media(max-width:767px){.panel{padding:20px 16px;}}
 
-/* Cards */
-.card{background:var(--white);border:1px solid var(--sand);padding:20px 24px;margin-bottom:12px;}
-.card-title{font-family:var(--serif);font-size:1.2rem;font-style:italic;margin-bottom:4px;color:var(--dark);}
+/* ── COMPOSANTS ── */
+.page-title{font-family:var(--serif);font-size:2.2rem;font-style:italic;margin-bottom:4px;}
+.page-sub{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:32px;}
+.section-title{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:16px;margin-top:28px;padding-bottom:8px;border-bottom:1px solid var(--sand);}
+.card{background:white;border:1px solid var(--sand);padding:20px 24px;margin-bottom:12px;}
+.card-gold{background:white;border:1px solid var(--gold);padding:20px 24px;margin-bottom:12px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.stat-card{background:white;border:1px solid var(--sand);padding:16px 20px;text-align:center;}
+.stat-val{font-family:var(--serif);font-size:1.6rem;color:var(--black);}
+.stat-lbl{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-top:2px;}
 
-/* Dashboard */
-.dash-greeting{font-family:var(--serif);font-size:2.2rem;font-weight:300;font-style:italic;color:var(--dark);line-height:1.2;margin-bottom:0.25rem;}
-.dash-robe{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
-.progress-track{height:2px;background:var(--sand);margin:8px 0;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--taupe),var(--gold));transition:width 1s ease;}
-.progress-pct{font-family:var(--serif);font-size:1.8rem;font-style:italic;color:var(--gold);}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0;}
-@media(max-width:500px){.stat-grid{grid-template-columns:1fr 1fr;}}
-.stat{background:var(--white);border:1px solid var(--sand);padding:16px;}
-.stat-label{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:4px;}
-.stat-value{font-family:var(--serif);font-size:1.3rem;color:var(--dark);}
-.msg-box{background:var(--white);border:1px solid var(--sand);border-left:3px solid var(--gold);padding:20px 24px;margin-bottom:1.5rem;}
-.msg-from{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-.msg-text{font-family:var(--serif);font-size:1rem;font-style:italic;line-height:1.8;color:var(--dark);}
-.next-box{padding:16px 20px;margin-bottom:12px;}
-.next-label{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:4px;}
-.next-text{font-family:var(--serif);font-size:1.05rem;color:var(--dark);}
+/* ── BOUTONS ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;}
+.btn-gold{background:var(--gold);color:white;}
+.btn-gold:hover{background:var(--gold-dark);}
+.btn-black{background:var(--black);color:white;}
+.btn-black:hover{background:#333;}
+.btn-outline{background:none;border:1px solid var(--sand);color:var(--text);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-ghost{background:none;border:none;color:var(--taupe);font-size:0.7rem;padding:6px 10px;}
+.btn-sm{padding:6px 14px;font-size:0.6rem;}
+.btn-stripe{background:#635BFF;color:white;width:100%;justify-content:center;padding:12px 20px;border-radius:2px;}
+.btn-stripe:hover{background:#4f46e5;}
 
-/* Frise */
-.frise{position:relative;}
-.frise::before{content:'';position:absolute;left:20px;top:30px;bottom:30px;width:1px;background:var(--sand);}
-.frise-step{display:flex;gap:20px;padding:12px 0;}
-.frise-dot-wrap{flex-shrink:0;width:42px;display:flex;justify-content:center;padding-top:3px;}
-.frise-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--sand);background:var(--white);z-index:1;position:relative;}
-.frise-step.done .frise-dot{background:var(--dark);border-color:var(--dark);}
-.frise-step.active .frise-dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(192,154,107,.15);}
-.frise-body{flex:1;padding-bottom:10px;border-bottom:1px solid var(--sand);}
-.frise-step:last-child .frise-body{border-bottom:none;}
-.frise-num{font-size:0.58rem;color:var(--taupe);margin-right:6px;}
-.frise-name{font-family:var(--serif);font-size:1rem;}
-.frise-step.pending .frise-name{color:var(--taupe);}
-.frise-date{font-size:0.68rem;color:var(--muted);}
-.frise-comment{font-size:0.78rem;color:var(--muted);margin-top:4px;line-height:1.5;}
-.badge{display:inline-block;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;padding:2px 8px;border-radius:20px;}
-.badge-done{background:#f0f5f0;color:var(--green);}
-.badge-active{background:#fdf6ee;color:var(--warn);}
-.badge-pending{background:var(--sand);color:var(--taupe);}
+/* ── FORMULAIRES ── */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;}
+.field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1px solid var(--sand);background:white;font-size:0.85rem;resize:vertical;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);}
 
-/* Journal */
-.journal-post{display:flex;gap:16px;padding-bottom:24px;position:relative;}
-.journal-post::before{content:'';position:absolute;left:17px;top:38px;bottom:0;width:1px;background:var(--sand);}
-.journal-post:last-child::before{display:none;}
-.journal-dot{width:36px;height:36px;border-radius:50%;background:var(--white);border:1px solid var(--sand);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;z-index:1;}
-.journal-date{font-size:0.65rem;letter-spacing:0.1em;color:var(--gold);}
-.journal-text{font-family:var(--serif);font-size:0.95rem;line-height:1.8;color:var(--dark);font-style:italic;margin-top:4px;}
+/* ── BADGES ── */
+.badge{display:inline-block;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;}
+.badge-green{background:#f0f5f0;color:var(--green);}
+.badge-orange{background:#fff3e0;color:var(--orange);}
+.badge-red{background:#fef0f0;color:var(--red);}
+.badge-grey{background:var(--cream);color:var(--taupe);}
+.badge-gold{background:#fdf6ee;color:var(--gold-dark);}
 
-/* Paiements */
-.pay-summary{padding:20px 24px;margin-bottom:20px;background:var(--white);border:1px solid var(--sand);}
-.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;}
-.pay-stat{text-align:center;}
-.pay-amt{font-family:var(--serif);font-size:1.5rem;color:var(--dark);}
-.pay-lbl{font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);margin-top:2px;}
-.pay-bar{height:2px;background:var(--sand);margin-top:12px;}
-.pay-bar-fill{height:100%;background:var(--green);}
-.pay-item{background:var(--white);border:1px solid var(--sand);padding:16px 20px;margin-bottom:10px;}
-.pay-name{font-family:var(--serif);font-size:1rem;}
-.pay-date{font-size:0.68rem;color:var(--muted);margin-top:2px;}
-.pay-amount{font-family:var(--serif);font-size:1.3rem;}
+/* ── BARRE PROGRESS ── */
+.progress-bar{height:4px;background:var(--sand);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);transition:width 0.4s;}
+.progress-fill.green{background:var(--green);}
 
-/* Validations */
-.val-item{background:var(--white);border:1px solid var(--sand);padding:14px 18px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
-.val-name{font-family:var(--serif);font-size:0.95rem;}
+/* ── FRISE ── */
+.frise-step{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--sand);}
+.frise-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.frise-dot.done{background:var(--black);}
+.frise-dot.active{background:var(--gold);}
+.frise-dot.pending{background:var(--sand);border:1px solid var(--taupe);}
 
-/* Signature */
-.sig-wrap{border:1px solid var(--sand);background:var(--cream);position:relative;margin:8px 0;}
-.sig-wrap canvas{display:block;touch-action:none;}
-.sig-clear{position:absolute;top:6px;right:6px;background:none;border:1px solid var(--sand2);color:var(--muted);font-size:0.6rem;padding:2px 8px;cursor:pointer;}
+/* ── PAIEMENTS ── */
+.payment-card{background:white;border:1px solid var(--sand);padding:20px 24px;margin-bottom:10px;}
+.payment-card.active-card{border-color:var(--gold);}
+.payment-card.done-card{opacity:0.7;}
 
-/* Mesures */
-.mesure-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-@media(max-width:500px){.mesure-grid{grid-template-columns:1fr;}}
-.mesure-item{background:var(--white);border:1px solid var(--sand);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;}
-.mesure-label{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);}
-.mesure-value{font-family:var(--serif);font-size:1.1rem;color:var(--dark);}
+/* ── TODO ── */
+.todo-cat{margin-bottom:28px;}
+.todo-cat-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;cursor:pointer;}
+.todo-cat-title{font-family:var(--serif);font-size:1.1rem;font-style:italic;}
+.todo-progress{font-size:0.65rem;color:var(--taupe);margin-left:auto;}
+.todo-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--cream);}
+.todo-item:last-child{border-bottom:none;}
+.todo-check{width:18px;height:18px;border:1.5px solid var(--sand);border-radius:3px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-top:2px;}
+.todo-check.checked{background:var(--gold);border-color:var(--gold);}
+.todo-check.checked::after{content:'✓';color:white;font-size:11px;font-weight:700;}
+.todo-label{flex:1;font-size:0.85rem;line-height:1.5;}
+.todo-label.checked{text-decoration:line-through;color:var(--taupe);}
+.todo-deadline{font-size:0.65rem;color:var(--taupe);white-space:nowrap;margin-left:8px;}
+.todo-deadline.urgent{color:var(--red);}
+.todo-deadline.soon{color:var(--orange);}
 
-/* Aventure */
-.aventure-wrap{text-align:center;padding:2rem 1rem;}
-@media(max-width:767px){.aventure-wrap .aventure-steps{display:none;}}
-.aventure-title{font-family:var(--serif);font-size:2.5rem;font-weight:300;font-style:italic;color:var(--dark);margin-bottom:1rem;}
-.aventure-text{font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--muted);line-height:2;max-width:480px;margin:0 auto 2rem;}
-.aventure-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;max-width:640px;margin:0 auto;text-align:left;}
-.aventure-step{padding:1rem 1.2rem;border:1px solid var(--sand);background:var(--white);}
-.aventure-step-num{font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--sand2);line-height:1;margin-bottom:0.4rem;}
-.aventure-step-label{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dark);}
+/* ── JOURNAL ── */
+.journal-post{border-left:2px solid var(--sand);padding:12px 0 12px 20px;margin-bottom:20px;}
+.journal-date{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;}
+.journal-text{font-family:var(--serif);font-size:1rem;font-style:italic;line-height:1.8;}
+.journal-photo{max-width:100%;max-height:220px;object-fit:cover;margin-top:10px;border:1px solid var(--sand);}
 
-/* Validation devis */
-.devis-signed{background:#f0f5f0;border:1px solid var(--green);padding:1.5rem;text-align:center;color:var(--green);margin-bottom:1rem;}
-.btn-valider{width:100%;padding:1rem;background:var(--dark);border:none;color:white;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;margin-top:0.75rem;}
-.btn-valider:hover{background:var(--brown);}
-.btn-valider:disabled{background:var(--taupe);cursor:not-allowed;}
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:9000;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
+.modal-overlay.hidden{display:none;}
+.modal-box{background:white;width:100%;max-width:580px;margin:auto;}
+.modal-header{background:var(--black);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1.05rem;}
+.modal-close{background:none;border:none;color:rgba(255,255,255,0.6);font-size:1.4rem;cursor:pointer;padding:0;line-height:1;}
+.modal-body{padding:24px;}
 
-/* WhatsApp */
-.wa-fab{position:fixed;bottom:80px;right:18px;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(37,211,102,.4);z-index:300;transition:transform 0.2s;}
-.wa-fab:hover{transform:scale(1.1);}
-@media(min-width:768px){.wa-fab{bottom:24px;}}
+/* ── SIGNATURE ── */
+#sig-canvas{border:1px solid var(--sand);background:#fafaf8;cursor:crosshair;touch-action:none;width:100%;}
+
+/* ── MESURES ── */
+.mes-groupe{margin-bottom:20px;}
+.mes-groupe-title{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--sand);}
+.mes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;}
+.mes-item{background:var(--cream);border:1px solid var(--sand);padding:8px 12px;display:flex;justify-content:space-between;align-items:center;}
+.mes-label{font-size:0.7rem;color:var(--taupe);}
+.mes-val{font-weight:500;font-size:0.85rem;}
+
+/* ── ENCART SIGNATURE ── */
+.sig-proof{background:#f5f9f5;border-left:3px solid var(--green);padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.sig-proof-text{font-size:0.75rem;color:var(--green);}
+.sig-img{height:32px;opacity:0.6;}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--sand);z-index:200;padding:0;}
+.mobile-nav-inner{display:flex;justify-content:space-around;}
+.mnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px 12px;cursor:pointer;color:var(--taupe);border:none;background:none;font-family:var(--sans);}
+.mnav-item.active{color:var(--black);}
+.mnav-item svg{width:20px;height:20px;margin-bottom:3px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.mnav-label{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .main-content{padding:20px 16px 80px;}
+  .mobile-nav{display:block;}
+  .grid2{grid-template-columns:1fr;}
+  .grid3{grid-template-columns:1fr 1fr;}
+  .page-title{font-size:1.8rem;}
+}
+@media(min-width:769px){
+  .mobile-nav{display:none;}
+}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ═══════════════════════════════════════════════
+     ÉCRAN LOGIN
+═══════════════════════════════════════════════ -->
 <div id="screen-login">
-  <img src="data:image/png;base64,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" class="login-logo" alt="JB">
-  <div class="login-brand">Joséphine Bono</div>
-  <div class="login-tagline">Atelier — Bassin d'Arcachon</div>
-  <div class="login-card">
-    <div class="login-title">Votre Carnet de Création</div>
-    <div class="login-sub">Saisissez le code d'accès indiqué sur votre devis pour accéder à votre espace personnel.</div>
+  <img src="data:image/png;base64,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" alt="Joséphine Bono" class="login-logo">
+  <div class="login-title">Votre Carnet de Création</div>
+  <div class="login-sub">Joséphine Bono · Atelier</div>
+  <div class="login-box">
     <label class="login-label">Code d'accès</label>
-    <input type="text" id="code-input" class="login-input" placeholder="ex : NATH26206"
-      oninput="this.value=this.value.toUpperCase()"
-      onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" id="login-btn" onclick="doLogin()">Accéder à mon Carnet →</button>
+    <input type="text" id="login-input" class="login-input" placeholder="ex : MARI26206" autocomplete="off" autocapitalize="characters">
+    <button class="login-btn" id="login-btn" onclick="doLogin()">Accéder à mon espace →</button>
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- ═══════════════════════════════════════════════
+     ÉCRAN APP
+═══════════════════════════════════════════════ -->
 <div id="screen-app">
+
+  <!-- Topbar -->
   <div class="topbar">
-    <img src="data:image/png;base64,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" class="topbar-logo" alt="JB">
-    <span class="topbar-name" id="topbar-name"></span>
-    <button class="topbar-logout" onclick="doLogout()">Déconnexion</button>
+    <img src="data:image/png;base64,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" alt="Joséphine Bono" class="topbar-logo">
+    <div style="display:flex;align-items:center;gap:20px;">
+      <span class="topbar-name" id="topbar-name"></span>
+      <span class="topbar-logout" onclick="doLogout()">Déconnexion</span>
+    </div>
   </div>
 
   <div class="app-layout">
+
+    <!-- Sidebar desktop -->
     <nav class="sidebar">
-      <button class="sidebar-item active" data-panel="dashboard" onclick="switchPanel(this,'dashboard')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <div class="sidebar-item active" data-panel="accueil" onclick="showPanel('accueil',this)">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         Tableau de bord
-      </button>
-      <button class="sidebar-item" data-panel="aventure" onclick="switchPanel(this,'aventure')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        Votre aventure
-      </button>
-      <button class="sidebar-item" data-panel="frise" onclick="switchPanel(this,'frise')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="17" r="2"/></svg>
+      </div>
+      <div class="sidebar-item" data-panel="todo" onclick="showPanel('todo',this)">
+        <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Mes préparatifs
+      </div>
+      <div class="sidebar-item" data-panel="frise" onclick="showPanel('frise',this)">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         Frise de création
-      </button>
-      <button class="sidebar-item" data-panel="journal" onclick="switchPanel(this,'journal')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-        Journal
-      </button>
-      <button class="sidebar-item" data-panel="validations" onclick="switchPanel(this,'validations')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="9 12 11 14 15 10"/></svg>
-        Validations
-      </button>
-      <button class="sidebar-item" data-panel="paiements" onclick="switchPanel(this,'paiements')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><line x1="2" y1="11" x2="22" y2="11"/></svg>
+      </div>
+      <div class="sidebar-item" data-panel="paiements" onclick="showPanel('paiements',this)">
+        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         Paiements
-      </button>
-      <button class="sidebar-item" data-panel="mesures" onclick="switchPanel(this,'mesures')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20"/></svg>
+      </div>
+      <div class="sidebar-item" data-panel="documents" onclick="showPanel('documents',this)">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Documents
+      </div>
+      <div class="sidebar-item" data-panel="journal" onclick="showPanel('journal',this)">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Journal
+      </div>
+      <div class="sidebar-item" data-panel="validations" onclick="showPanel('validations',this)">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Validations
+      </div>
+      <div class="sidebar-item" data-panel="mesures" onclick="showPanel('mesures',this)">
+        <svg viewBox="0 0 24 24"><path d="M2 12h20M12 2v20"/></svg>
         Mes mesures
-      </button>
+      </div>
     </nav>
 
-    <div class="app-content">
+    <!-- Contenu -->
+    <main class="main-content">
 
-      <div class="panel active" id="panel-dashboard">
-        <div style="margin-bottom:2rem;">
-          <div class="dash-greeting" id="dash-greeting">Bonjour ✦</div>
-          <div class="dash-robe" id="dash-robe">—</div>
-        </div>
-        <!-- Texte d'aventure (avant signature du devis) -->
-        <div id="dash-aventure-text" style="font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--muted);line-height:1.9;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--sand);">
+      <!-- ── ACCUEIL ── -->
+      <div class="panel active" id="panel-accueil">
+        <div class="page-title" id="dash-greeting">Bonjour</div>
+        <div class="page-sub" id="dash-robe"></div>
+
+        <div id="dash-aventure" style="font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--taupe);line-height:1.9;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--sand);">
           De la première esquisse à la remise de votre robe, chaque étape de votre création sera partagée ici. Suivez l'avancement en temps réel, validons les choix ensemble, et gardez une trace de cette aventure unique.
         </div>
 
-        <div class="msg-box" id="msg-box" style="display:none;">
-          <div class="msg-from">Message de l'atelier</div>
-          <div class="msg-text" id="msg-text"></div>
-          <div style="font-size:0.7rem;color:var(--muted);margin-top:10px;font-family:var(--sans);">— Joséphine Bono, créatrice</div>
-        </div>
-        <div style="margin-bottom:1.5rem;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-            <span style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);">Avancement global</span>
-            <span class="progress-pct" id="dash-pct">0%</span>
+        <!-- Encart signature -->
+        <div id="dash-sig-proof" class="sig-proof" style="display:none;margin-bottom:16px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <div class="sig-proof-text" style="font-weight:500;" id="dash-sig-label">Devis signé électroniquement</div>
+            <div style="font-size:0.65rem;color:var(--taupe);" id="dash-sig-date"></div>
           </div>
-          <div class="progress-track"><div class="progress-fill" id="dash-fill" style="width:0%"></div></div>
+          <img id="dash-sig-img" class="sig-img" style="display:none;margin-left:auto;">
         </div>
-        <div class="stat-grid" id="dash-stats"></div>
-        <div id="dash-sig-proof" style="display:none;background:#f5f9f5;border:1px solid #c8dcc8;padding:10px 14px;margin-bottom:10px;border-radius:2px;"></div>
-      <div class="card next-box" id="next-step-box">
-          <div class="next-label" style="color:var(--warn);">Prochaine étape</div>
-          <div class="next-text" id="next-step">—</div>
+
+        <!-- Stats -->
+        <div class="grid3" style="margin-bottom:20px;" id="dash-stats"></div>
+
+        <!-- Prochaine étape -->
+        <div class="card" id="dash-next-step-card" style="display:none;margin-bottom:12px;">
+          <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;">Prochaine étape</div>
+          <div style="font-family:var(--serif);font-size:1.1rem;" id="dash-next-step-text"></div>
         </div>
+
+        <!-- Prochain paiement -->
+        <div class="card-gold" id="dash-next-pay-card" style="display:none;margin-bottom:20px;">
+          <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;">Prochain paiement</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+            <div>
+              <div style="font-family:var(--serif);font-size:1rem;" id="dash-next-pay-label"></div>
+              <div style="font-size:0.72rem;margin-top:2px;" id="dash-next-pay-echeance"></div>
+            </div>
+            <div style="font-family:var(--serif);font-size:1.4rem;" id="dash-next-pay-amount"></div>
+          </div>
+          <button class="btn btn-gold btn-sm" style="margin-top:12px;" onclick="showPanel('paiements',document.querySelector('[data-panel=paiements]'))">Voir mes paiements →</button>
+        </div>
+
         <!-- Mesures clés -->
-        <div id="dash-mesures" style="display:none;background:var(--white);border:1px solid var(--sand);padding:16px 20px;margin-bottom:12px;"></div>
+        <div id="dash-mesures" style="display:none;margin-bottom:20px;"></div>
 
-        <!-- Documents : devis + factures -->
-        <div id="dash-documents" style="display:none;background:var(--white);border:1px solid var(--sand);padding:16px 20px;margin-bottom:12px;">
-          <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:12px;font-family:var(--sans);">Vos documents</div>
-          <div id="dash-docs-list"></div>
-        </div>
-
-        <!-- Mesures complètes -->
-        <div id="dash-mesures-full" style="display:none;background:var(--white);border:1px solid var(--sand);padding:16px 20px;margin-bottom:12px;">
-          <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:10px;">Vos mensurations</div>
-          <div id="dash-mesures-full-content"></div>
-        </div>
-
-        <div class="card next-box" id="next-pay-box" style="display:none;">
-          <div class="next-label" style="color:var(--blue);">Prochain paiement</div>
-          <div class="next-text" id="next-pay">—</div>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:1rem;">
-          <a id="wa-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#25D366;color:white;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.013 22l4.974-1.303A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.963 7.963 0 01-4.077-1.115l-.292-.174-3.029.794.808-2.955-.19-.303A7.965 7.965 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/></svg>
+        <!-- Boutons contact -->
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+          <a href="https://wa.me/33698942000" target="_blank" class="btn btn-outline btn-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
             Contacter l'atelier
           </a>
-          <a id="calendly-link" href="https://calendly.com/josephine-bono-rendez-vous" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--white);border:1px solid var(--sand);color:var(--text);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <a href="https://calendly.com/josephine-bono-rendez-vous" target="_blank" class="btn btn-outline btn-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Prendre rendez-vous
           </a>
         </div>
       </div>
 
-      <div class="panel" id="panel-aventure">
-        <div class="aventure-wrap">
-          <div class="aventure-title">Votre robe vous attend.</div>
-          <div class="aventure-text">De la première esquisse à la remise, chaque étape de la création de votre robe est partagée ici. Suivez l'avancement, validons les choix ensemble, et gardez une trace de cette aventure unique.</div>
-          <div class="aventure-steps">
-            <div class="aventure-step"><div class="aventure-step-num">01</div><div class="aventure-step-label">Premier échange & devis</div></div>
-            <div class="aventure-step"><div class="aventure-step-num">02</div><div class="aventure-step-label">Prise de mesures</div></div>
-            <div class="aventure-step"><div class="aventure-step-num">03</div><div class="aventure-step-label">Patronnage & toile</div></div>
-            <div class="aventure-step"><div class="aventure-step-num">04</div><div class="aventure-step-label">Essayages</div></div>
-            <div class="aventure-step"><div class="aventure-step-num">05</div><div class="aventure-step-label">Finitions & livraison</div></div>
-          </div>
-        </div>
+      <!-- ── TO-DO PRÉPARATIFS ── -->
+      <div class="panel" id="panel-todo">
+        <div class="page-title">Mes préparatifs</div>
+        <div class="page-sub">Liste de tâches pour votre mariage</div>
+        <div id="todo-progress-global" style="margin-bottom:24px;"></div>
+        <div id="todo-content"></div>
       </div>
 
+      <!-- ── FRISE ── -->
       <div class="panel" id="panel-frise">
-        <h2 style="font-family:var(--serif);font-size:1.8rem;font-weight:300;margin-bottom:4px;">Frise de création</h2>
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:1.5rem;">Les étapes de votre robe</div>
-        <div class="frise" id="frise-container"></div>
+        <div class="page-title">Frise de création</div>
+        <div class="page-sub">L'avancement de votre robe, étape par étape</div>
+        <div id="frise-content"></div>
       </div>
 
-      <div class="panel" id="panel-journal">
-        <h2 style="font-family:var(--serif);font-size:1.8rem;font-weight:300;margin-bottom:4px;">Journal de création</h2>
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:1.5rem;">Les coulisses de l'atelier</div>
-        <div id="journal-container"></div>
-        <div id="journal-empty" style="text-align:center;padding:3rem;color:var(--taupe);display:none;">
-          <p style="font-family:var(--serif);font-size:1.1rem;font-style:italic;">Le journal sera alimenté au fil de la création.</p>
-        </div>
-      </div>
-
-      <div class="panel" id="panel-validations">
-        <h2 style="font-family:var(--serif);font-size:1.8rem;font-weight:300;margin-bottom:4px;">Validations</h2>
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:1.5rem;">Signature de votre devis & éléments confirmés</div>
-        <div id="devis-validation-section"></div>
-        <div id="validations-container" style="margin-top:1.5rem;"></div>
-      </div>
-
+      <!-- ── PAIEMENTS ── -->
       <div class="panel" id="panel-paiements">
-        <h2 style="font-family:var(--serif);font-size:1.8rem;font-weight:300;margin-bottom:4px;">Paiements</h2>
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:1.5rem;">Suivi financier de votre commande</div>
-        <div id="paiements-container"></div>
+        <div class="page-title">Paiements</div>
+        <div class="page-sub">Suivi financier de votre commande</div>
+        <div id="paiements-content"></div>
       </div>
 
+      <!-- ── DOCUMENTS ── -->
+      <div class="panel" id="panel-documents">
+        <div class="page-title">Mes documents</div>
+        <div class="page-sub">Devis et factures disponibles</div>
+        <div id="documents-content"></div>
+      </div>
+
+      <!-- ── JOURNAL ── -->
+      <div class="panel" id="panel-journal">
+        <div class="page-title">Journal de création</div>
+        <div class="page-sub">Les coulisses de votre robe</div>
+        <div id="journal-content"></div>
+      </div>
+
+      <!-- ── VALIDATIONS ── -->
+      <div class="panel" id="panel-validations">
+        <div class="page-title">Validations</div>
+        <div class="page-sub">Signature de votre devis & éléments confirmés ensemble</div>
+        <div id="validations-content"></div>
+      </div>
+
+      <!-- ── MESURES ── -->
       <div class="panel" id="panel-mesures">
-        <h2 style="font-family:var(--serif);font-size:1.8rem;font-weight:300;margin-bottom:4px;">Mes mensurations</h2>
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:1.5rem;">Prises à l'atelier — à conserver précieusement</div>
-        <div id="mesures-container"></div>
+        <div class="page-title">Mes mesures</div>
+        <div class="page-sub">Mensurations prises à l'atelier</div>
+        <div id="mesures-content"></div>
       </div>
 
-    </div>
+    </main>
   </div>
 
-  <nav class="bottom-nav">
-    <button class="bnav-item active" data-panel="dashboard" onclick="switchPanel(this,'dashboard')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      Accueil
-    </button>
-    <button class="bnav-item" data-panel="frise" onclick="switchPanel(this,'frise')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="17" r="2"/></svg>
-      Frise
-    </button>
-    <button class="bnav-item" data-panel="validations" onclick="switchPanel(this,'validations')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="9 12 11 14 15 10"/></svg>
-      Valider
-    </button>
-    <button class="bnav-item" data-panel="paiements" onclick="switchPanel(this,'paiements')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-      Paiements
-    </button>
-    <button class="bnav-item" data-panel="journal" onclick="switchPanel(this,'journal')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-      Journal
-    </button>
+  <!-- Mobile nav -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav-inner">
+      <button class="mnav-item active" data-panel="accueil" onclick="showPanel('accueil',this)">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="mnav-label">Accueil</span>
+      </button>
+      <button class="mnav-item" data-panel="todo" onclick="showPanel('todo',this)">
+        <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <span class="mnav-label">Prépas</span>
+      </button>
+      <button class="mnav-item" data-panel="paiements" onclick="showPanel('paiements',this)">
+        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span class="mnav-label">Paiements</span>
+      </button>
+      <button class="mnav-item" data-panel="validations" onclick="showPanel('validations',this)">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span class="mnav-label">Valider</span>
+      </button>
+      <button class="mnav-item" data-panel="journal" onclick="showPanel('journal',this)">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span class="mnav-label">Journal</span>
+      </button>
+    </div>
   </nav>
 
-  <a id="wa-fab" href="#" target="_blank" class="wa-fab">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.013 22l4.974-1.303A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.963 7.963 0 01-4.077-1.115l-.292-.174-3.029.794.808-2.955-.19-.303A7.965 7.965 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/></svg>
-  </a>
+</div><!-- /screen-app -->
+
+<!-- ═══════════════════════════════════════════════
+     MODAL GÉNÉRIQUE
+═══════════════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modal-global">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title">—</span>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
 </div>
 
+
 <script>
+// ═══════════════════════════════════════════════════════════
+//  CONSTANTES
+// ═══════════════════════════════════════════════════════════
 const SUPA_URL = 'https://yjnzydmytimqbusnitqr.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlqbnp5ZG15dGltcWJ1c25pdHFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzODI4MDMsImV4cCI6MjA4OTk1ODgwM30.uuHWWlBtdML7NrnC1RPa2mS07GMtLfmlSTs13dfCgBQ';
+const STRIPE_LINK = 'https://buy.stripe.com/cNi14gfeRabUdwb8BxaEE00';
+const CALENDLY_URL = 'https://calendly.com/josephine-bono-rendez-vous';
+const WHATSAPP_URL = 'https://wa.me/33698942000';
 
+// ═══════════════════════════════════════════════════════════
+//  DONNÉES GLOBALES
+// ═══════════════════════════════════════════════════════════
+let G = null; // carnet courant
+
+// Frise Bianco (11 étapes)
 const STEPS_BIANCO = [
-  {id:'s01',label:'Validation du devis',emoji:'✅'},
-  {id:'s02',label:'Acompte reçu',emoji:'💳'},
-  {id:'s03',label:'Prise de mesures',emoji:'📐'},
-  {id:'s04',label:'Commande des pièces',emoji:'📦'},
-  {id:'s05',label:'Premier essayage',emoji:'👗'},
-  {id:'s06',label:'Modifications 1er essayage',emoji:'✂️'},
-  {id:'s07',label:'Deuxième essayage',emoji:'👗'},
-  {id:'s08',label:'Modifications & finitions',emoji:'🎀'},
-  {id:'s09',label:'Essayage final',emoji:'✨'},
-  {id:'s10',label:'Robe prête',emoji:'🌸'},
-  {id:'s11',label:'Livraison effectuée',emoji:'💐'},
+  {id:'s01',e:'&#9989;',l:'Validation du devis'},
+  {id:'s02',e:'&#128179;',l:'Acompte reçu'},
+  {id:'s03',e:'&#128208;',l:'Prise de mesures'},
+  {id:'s04',e:'&#9986;',l:'Choix des matières'},
+  {id:'s05',e:'&#129525;',l:'Confection en cours'},
+  {id:'s06',e:'&#128439;',l:'Premier essayage'},
+  {id:'s07',e:'&#128295;',l:'Retouches & ajustements'},
+  {id:'s08',e:'&#10024;',l:'Essayage final'},
+  {id:'s09',e:'&#128176;',l:'Solde réglé'},
+  {id:'s10',e:'&#128230;',l:'Conditionnement'},
+  {id:'s11',e:'&#127881;',l:'Livraison effectuée'},
 ];
 
+// Frise Création (19 étapes)
 const STEPS_CREATION = [
-  {id:'s01',label:'Validation du devis',emoji:'✅'},
-  {id:'s02',label:'Acompte reçu',emoji:'💳'},
-  {id:'s03',label:'Prise de mesures',emoji:'📐'},
-  {id:'s04',label:'Patronnage en cours',emoji:'✏️'},
-  {id:'s05',label:'Toile en cours',emoji:'🧵'},
-  {id:'s06',label:'Premier essayage toile',emoji:'👗'},
-  {id:'s07',label:'Modifications 1er essayage',emoji:'✂️'},
-  {id:'s08',label:'Deuxième essayage toile',emoji:'👗'},
-  {id:'s09',label:'Toile validée',emoji:'✅'},
-  {id:'s10',label:'Coupe des matières',emoji:'✂️'},
-  {id:'s11',label:'Montage de la robe',emoji:'🪡'},
-  {id:'s12',label:'Essayage sans finitions',emoji:'👗'},
-  {id:'s13',label:'Modifications',emoji:'✂️'},
-  {id:'s14',label:'Réalisation des finitions',emoji:'🎀'},
-  {id:'s15',label:'Essayage avec finitions',emoji:'✨'},
-  {id:'s16',label:'Corrections si besoin',emoji:'🔧'},
-  {id:'s17',label:'Essayage final',emoji:'🌸'},
-  {id:'s18',label:'Robe prête',emoji:'🌷'},
-  {id:'s19',label:'Livraison effectuée',emoji:'💐'},
+  {id:'s01',e:'&#9989;',l:'Validation du devis'},
+  {id:'s02',e:'&#128179;',l:'Acompte reçu'},
+  {id:'s03',e:'&#128208;',l:'Prise de mesures'},
+  {id:'s04',e:'&#127912;',l:'Conception du croquis'},
+  {id:'s05',e:'&#9999;',l:'Validation du croquis'},
+  {id:'s06',e:'&#129526;',l:'Choix des matières & dentelles'},
+  {id:'s07',e:'&#128203;',l:'Patronnage'},
+  {id:'s08',e:'&#9986;',l:'Coupe toile de travail'},
+  {id:'s09',e:'&#129697;',l:'Confection toile'},
+  {id:'s10',e:'&#128439;',l:'Essayage toile 1'},
+  {id:'s11',e:'&#128295;',l:'Corrections patronnage'},
+  {id:'s12',e:'&#9986;',l:'Coupe tissu définitif'},
+  {id:'s13',e:'&#129525;',l:'Confection robe'},
+  {id:'s14',e:'&#128142;',l:'Pose dentelles & ornements'},
+  {id:'s15',e:'&#128439;',l:'Essayage robe 1'},
+  {id:'s16',e:'&#128295;',l:'Retouches finales'},
+  {id:'s17',e:'&#10024;',l:'Essayage final'},
+  {id:'s18',e:'&#128176;',l:'Solde réglé'},
+  {id:'s19',e:'&#127881;',l:'Livraison effectuée'},
 ];
 
-function getSteps(carnet) {
-  return (carnet && carnet.typeCommande === 'bianco') ? STEPS_BIANCO : STEPS_CREATION;
+// Groupes de mesures
+const MESURES = [
+  {g:'Général', items:[{k:'stature',l:'Stature'}]},
+  {g:'Buste', items:[
+    {k:'tour_poitrine',l:'Tour de poitrine'},{k:'tour_dessus_poitrine',l:'Tour dessus poitrine'},
+    {k:'tour_dessous_poitrine',l:'Tour dessous poitrine'},{k:'tour_taille',l:'Tour de taille'},
+    {k:'tour_hanches',l:'Tour de hanches'},{k:'long_hanches',l:'Long. position hanches'},
+    {k:'tour_bassin',l:'Tour de bassin'},{k:'long_bassin',l:'Long. position bassin'},
+    {k:'tour_cou',l:'Tour de cou'},{k:'carrure_devant',l:'Carrure devant'},
+    {k:'long_encolure',l:'Long. base encolure milieu devant'},{k:'long_epaule',l:"Long. d'épaule"},
+    {k:'long_epaule_sein',l:'Pointe encolure - pointe sein'},{k:'sein_taille',l:'Sein - hauteur taille'},
+    {k:'ecart_sein',l:'Écartement pointe sein'},{k:'long_aisselle_taille',l:'Longueur aisselle taille'},
+    {k:'carrure_dos',l:'Carrure dos'},{k:'montant_dos',l:'Montant dos'},
+    {k:'long_cervicale_taille',l:'7ème cervicale - taille dos'},
+    {k:'haut_taille_sol',l:'Hauteur taille dos - sol'},
+    {k:'long_taille_cote_sol',l:'Long. taille côté - sol'},
+    {k:'haut_cervicale_sol',l:'Hauteur 7ème cervicale - sol'},
+    {k:'montant_perineal',l:'Montant périnéal'},
+  ]},
+  {g:'Bras droit / gauche', items:[
+    {k:'tour_bras_aisselle',l:"Tour de bras à l'aisselle"},{k:'tour_biceps',l:'Tour de biceps'},
+    {k:'tour_coude',l:'Tour de coude'},{k:'tour_poignet',l:'Tour de poignet'},
+    {k:'long_epaule_coude',l:'Long. épaule - coude'},{k:'long_bras',l:'Long. de bras'},
+  ]},
+  {g:'Jambe', items:[
+    {k:'tour_cuisse',l:'Tour de cuisse'},{k:'tour_genou',l:'Tour de genou'},
+    {k:'tour_mollet',l:'Tour de mollet'},{k:'tour_cheville',l:'Tour de cheville'},
+    {k:'haut_entrejambe',l:"Hauteur d'entrejambe"},{k:'haut_taille_genou',l:'Hauteur taille - genou'},
+    {k:'haut_genou_sol',l:'Hauteur genou - sol'},{k:'enfourchure_devant',l:'Enfourchure devant'},
+    {k:'enfourchure_dos',l:'Enfourchure dos'},{k:'long_jupe_taille',l:'Long. jupe à partir taille'},
+  ]},
+  {g:'Tête', items:[
+    {k:'tour_tete',l:'Tour de tête'},{k:'haut_tete_cervicale',l:'Hauteur tête - 7ème cervicale'},
+  ]},
+];
+
+// To-do de mariage par catégorie avec délais relatifs (mois avant mariage)
+function buildTodo(mariageDate) {
+  const m = mariageDate ? new Date(mariageDate) : null;
+  function deadline(moisAvant) {
+    if (!m) return null;
+    const d = new Date(m);
+    d.setMonth(d.getMonth() - moisAvant);
+    return d.toISOString().split('T')[0];
+  }
+  return [
+    {
+      id:'cat-robe', icon:'&#128439;', title:'Votre robe Joséphine Bono',
+      items:[
+        {id:'t01',l:'Premier rendez-vous à l\'atelier',dl:deadline(12)},
+        {id:'t02',l:'Validation du croquis et des matières',dl:deadline(10)},
+        {id:'t03',l:'Essayage toile de travail',dl:deadline(7)},
+        {id:'t04',l:'Premier essayage de la robe',dl:deadline(5)},
+        {id:'t05',l:'Essayage final & retouches',dl:deadline(2)},
+        {id:'t06',l:'Choisir mes chaussures de mariage',dl:deadline(6)},
+        {id:'t07',l:'Prévoir la lingerie adaptée à la robe',dl:deadline(3)},
+      ]
+    },
+    {
+      id:'cat-beaute', icon:'&#128132;', title:'Beauté & bien-être',
+      items:[
+        {id:'t10',l:'Réserver ma coiffeuse',dl:deadline(9)},
+        {id:'t11',l:'Réserver ma maquilleuse',dl:deadline(9)},
+        {id:'t12',l:'Test coiffure & maquillage',dl:deadline(2)},
+        {id:'t13',l:'Soin du visage régulier',dl:deadline(6)},
+        {id:'t14',l:'Pédicure avant le mariage',dl:deadline(0.25)},
+        {id:'t15',l:'Manucure la veille',dl:deadline(0.1)},
+        {id:'t16',l:'Définir ma routine skincare',dl:deadline(6)},
+      ]
+    },
+    {
+      id:'cat-logistique', icon:'&#128203;', title:'Organisation générale',
+      items:[
+        {id:'t20',l:'Fixer la date et réserver la salle',dl:deadline(12)},
+        {id:'t21',l:'Établir la liste des invités',dl:deadline(11)},
+        {id:'t22',l:'Envoyer les save-the-dates',dl:deadline(8)},
+        {id:'t23',l:'Envoyer les faire-parts',dl:deadline(4)},
+        {id:'t24',l:'Réserver le traiteur',dl:deadline(10)},
+        {id:'t25',l:'Réserver le photographe',dl:deadline(12)},
+        {id:'t26',l:'Réserver le vidéaste',dl:deadline(12)},
+        {id:'t27',l:'Réserver les musiciens ou DJ',dl:deadline(10)},
+        {id:'t28',l:'Réserver le fleuriste',dl:deadline(8)},
+        {id:'t29',l:'Organiser le transport des invités',dl:deadline(3)},
+        {id:'t30',l:'Créer le plan de table',dl:deadline(1)},
+        {id:'t31',l:'Confirmer tous les prestataires',dl:deadline(0.5)},
+      ]
+    },
+    {
+      id:'cat-administratif', icon:'&#128196;', title:'Démarches administratives',
+      items:[
+        {id:'t40',l:'Déposer le dossier de mariage en mairie',dl:deadline(3)},
+        {id:'t41',l:'Préparer les documents officiels',dl:deadline(2)},
+        {id:'t42',l:'Faire les annonces légales si changement de nom',dl:deadline(-1)},
+        {id:'t43',l:'Mettre à jour les documents d\'identité',dl:deadline(-2)},
+        {id:'t44',l:'Informer banque, assurances, employeur',dl:deadline(-2)},
+      ]
+    },
+    {
+      id:'cat-voyage', icon:'&#9992;', title:'Voyage de noces',
+      items:[
+        {id:'t50',l:'Choisir la destination',dl:deadline(10)},
+        {id:'t51',l:'Réserver les billets d\'avion',dl:deadline(8)},
+        {id:'t52',l:'Réserver l\'hôtel ou location',dl:deadline(8)},
+        {id:'t53',l:'Vérifier les passeports et visas',dl:deadline(6)},
+        {id:'t54',l:'Souscrire une assurance voyage',dl:deadline(2)},
+        {id:'t55',l:'Préparer les valises',dl:deadline(0.1)},
+      ]
+    },
+    {
+      id:'cat-details', icon:'&#10024;', title:'Petits détails qui font tout',
+      items:[
+        {id:'t60',l:'Choisir les alliances',dl:deadline(6)},
+        {id:'t61',l:'Choisir les bijoux',dl:deadline(4)},
+        {id:'t62',l:'Écrire mes vœux',dl:deadline(1)},
+        {id:'t63',l:'Préparer les cadeaux témoins',dl:deadline(2)},
+        {id:'t64',l:'Organiser le EVJF',dl:deadline(2)},
+        {id:'t65',l:'Commander le livre d\'or',dl:deadline(3)},
+        {id:'t66',l:'Prévoir les cadeaux d\'invités',dl:deadline(2)},
+        {id:'t67',l:'Créer la playlist de la soirée',dl:deadline(1)},
+        {id:'t68',l:'Préparer le discours des mariés',dl:deadline(1)},
+      ]
+    },
+  ];
 }
 
-let currentCarnet = null;
+// ═══════════════════════════════════════════════════════════
+//  UTILITAIRES
+// ═══════════════════════════════════════════════════════════
+function fmtDate(s) {
+  if (!s) return '—';
+  try {
+    return new Date(s).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'});
+  } catch(e) { return s; }
+}
+function fmtDateShort(s) {
+  if (!s) return '—';
+  try {
+    return new Date(s).toLocaleDateString('fr-FR', {day:'2-digit',month:'short',year:'numeric'});
+  } catch(e) { return s; }
+}
+function fmtEur(n) {
+  return (parseFloat(n)||0).toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+}
+function daysUntil(dateStr) {
+  if (!dateStr) return null;
+  return Math.ceil((new Date(dateStr) - new Date()) / 86400000);
+}
+function el(id) { return document.getElementById(id); }
+function html(id, h) { const e = el(id); if(e) e.innerHTML = h; }
+function show(id) { const e = el(id); if(e) e.style.display = 'block'; }
+function hide(id) { const e = el(id); if(e) e.style.display = 'none'; }
 
-// ── Supabase ──
+// ═══════════════════════════════════════════════════════════
+//  SUPABASE
+// ═══════════════════════════════════════════════════════════
 async function supaFetch(path, method, body) {
   try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 8000);
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
     const opts = {
       method: method || 'GET',
-      signal: controller.signal,
+      signal: ctrl.signal,
       headers: {
         'apikey': SUPA_KEY,
         'Authorization': 'Bearer ' + SUPA_KEY,
         'Content-Type': 'application/json',
-        'Prefer': method === 'POST' ? 'resolution=merge-duplicates,return=minimal' : ''
+        'Prefer': method === 'POST' ? 'resolution=merge-duplicates,return=minimal' : '',
       }
     };
-    if(body) opts.body = JSON.stringify(body);
+    if (body) opts.body = JSON.stringify(body);
     const r = await fetch(SUPA_URL + '/rest/v1/' + path, opts);
     clearTimeout(timer);
-    if(!r.ok) { console.warn('Supabase', r.status, path); return null; }
-    const text = await r.text();
-    return text ? JSON.parse(text) : null;
+    if (!r.ok) { console.warn('Supabase', r.status, path); return null; }
+    const t = await r.text();
+    return t ? JSON.parse(t) : null;
   } catch(e) {
-    if(e.name === 'AbortError') console.warn('Supabase timeout:', path);
-    else console.error('supaFetch:', e.message, path);
+    if (e.name !== 'AbortError') console.error('supaFetch:', e.message);
     return null;
   }
 }
 
-async function supaFindCarnetByCode(code) {
-  const clean = code.trim().toUpperCase();
-  console.log('[CARNET] supaFetch exact:', 'carnets?password=eq.' + clean);
-  // Recherche exacte
-  let data = await supaFetch('carnets?password=eq.' + encodeURIComponent(clean) + '&limit=1');
-  console.log('[CARNET] Résultat exact:', data);
-  // Fallback ilike si pas trouvé
-  if(!data || !data.length) {
-    console.log('[CARNET] supaFetch ilike:', clean);
-    data = await supaFetch('carnets?password=ilike.' + encodeURIComponent(clean) + '&limit=1');
-    console.log('[CARNET] Résultat ilike:', data);
+async function supaFindByCode(code) {
+  const c = code.trim().toUpperCase();
+  let data = await supaFetch('carnets?password=eq.' + encodeURIComponent(c) + '&limit=1');
+  if (!data || !data.length) {
+    data = await supaFetch('carnets?password=ilike.' + encodeURIComponent(c) + '&limit=1');
   }
-  if(!data || !data.length) return null;
+  if (!data || !data.length) return null;
   const r = data[0];
-  // Récupérer nb_mensualites depuis la table devis si absent du carnet
-  var nbMens = r.nb_mensualites || 1;
-  if(nbMens === 1 && r.devis_ref) {
+
+  // Récupérer nb_mensualites depuis la table devis si absent
+  let nbM = r.nb_mensualites || 1;
+  if (nbM === 1 && r.devis_ref) {
     try {
-      const devisData = await supaFetch('devis?devis_num=eq.' + encodeURIComponent(r.devis_ref) + '&limit=1');
-      if(devisData && devisData.length && devisData[0].data) {
-        nbMens = devisData[0].data.nbMensualites || 1;
-      }
+      const d = await supaFetch('devis?devis_num=eq.' + encodeURIComponent(r.devis_ref) + '&limit=1');
+      if (d && d[0] && d[0].data) nbM = d[0].data.nbMensualites || 1;
     } catch(e) {}
   }
+
   return {
-    clientId: r.client_id, nom: r.nom, email: r.email, tel: r.tel,
-    robe: r.robe, mariage: r.mariage, livraison: r.livraison,
-    password: r.password, message: r.message,
-    devisRef: r.devis_ref, prixTotal: r.prix_total,
-    typeCommande: r.type_commande || '',
-    acompte: r.acompte || 0, pct: r.pct || 30, nbMensualites: nbMens,
-    devisLignes: r.devis_lignes || [],
-    devisSigneAt: r.devis_signe_at || null,
-    steps: r.steps || {}, journal: r.journal || [],
-    essayages: r.essayages || [], validations: r.validations || {},
-    paiements: r.paiements || [], actions: r.actions || [],
-    mesures: r.mesures || {}, croquis: r.croquis || null,
-    calendlyUrl: r.calendly_url || '',
-    lienPaiementStripe: r.lien_paiement_stripe || '',
-    iban: r.iban || 'FR76 4061 8804 7200 0403 8233 463',
-    titulaire: r.titulaire || 'EI JOSEPHINE BONO',
+    clientId: r.client_id, nom: r.nom, email: r.email||'', tel: r.tel||'',
+    robe: r.robe||'', mariage: r.mariage||'', livraison: r.livraison||'',
+    password: r.password||'', message: r.message||'',
+    devisRef: r.devis_ref||'', prixTotal: r.prix_total||0,
+    acompte: r.acompte||0, pct: r.pct||30, nbMensualites: nbM,
+    devisLignes: r.devis_lignes||[], devisSigneAt: r.devis_signe_at||null,
+    signatureImage: r.signature_image||null, typeCommande: r.type_commande||'creation',
+    steps: r.steps||{}, journal: r.journal||[], essayages: r.essayages||[],
+    validations: r.validations||{}, paiements: r.paiements||[],
+    actions: r.actions||[], mesures: r.mesures||{},
+    mesuresHistorique: r.mesures_historique||[],
+    todoChecked: r.todo_checked||{},
   };
 }
 
-async function supaUpsertCarnet(carnet) {
-  if(!carnet) return;
-  await supaFetch('carnets?on_conflict=id', 'POST', {
+async function supaUpsert(carnet) {
+  if (!carnet) return;
+  return await supaFetch('carnets?on_conflict=id', 'POST', {
     id: carnet.clientId,
     client_id: carnet.clientId,
     nom: carnet.nom, email: carnet.email, tel: carnet.tel,
     robe: carnet.robe, mariage: carnet.mariage, livraison: carnet.livraison,
     password: carnet.password, message: carnet.message,
     devis_ref: carnet.devisRef, prix_total: carnet.prixTotal,
-    steps: carnet.steps, journal: carnet.journal,
-    essayages: carnet.essayages, validations: carnet.validations,
-    paiements: carnet.paiements, actions: carnet.actions,
-    mesures: carnet.mesures, croquis: carnet.croquis,
-    devis_signe_at: carnet.devisSigneAt || null,
-    signature_image: carnet.signatureImage || null,
-    nb_mensualites: carnet.nbMensualites || 1,
-    acompte: carnet.acompte || 0,
-    pct: carnet.pct || 30,
-    mesures_historique: carnet.mesuresHistorique || [],
-    updated_at: new Date().toISOString()
+    acompte: carnet.acompte, pct: carnet.pct, nb_mensualites: carnet.nbMensualites,
+    type_commande: carnet.typeCommande||'creation',
+    devis_signe_at: carnet.devisSigneAt||null,
+    signature_image: carnet.signatureImage||null,
+    steps: carnet.steps||{}, journal: carnet.journal||[],
+    essayages: carnet.essayages||[], validations: carnet.validations||{},
+    paiements: carnet.paiements||[], actions: carnet.actions||[],
+    mesures: carnet.mesures||{}, mesures_historique: carnet.mesuresHistorique||[],
+    todo_checked: carnet.todoChecked||{},
+    updated_at: new Date().toISOString(),
   });
 }
 
-// ── LocalStorage fallback ──
-function getCarnets() {
-  try { return JSON.parse(localStorage.getItem('jb2_carnets') || '[]'); } catch(e) { return []; }
-}
-function findCarnetByCode(code) {
-  return getCarnets().find(c => (c.password||'').toUpperCase() === code.toUpperCase()) || null;
+async function supaUpsertFacture(f) {
+  return await supaFetch('factures?on_conflict=id', 'POST', f);
 }
 
-// ── Login ──
+// ═══════════════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════════════
+function showPanel(panelId, triggerEl) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item,.mnav-item').forEach(i => i.classList.remove('active'));
+  const panel = el('panel-' + panelId);
+  if (panel) panel.classList.add('active');
+  if (triggerEl) {
+    if (triggerEl.classList) triggerEl.classList.add('active');
+    // Sync sidebar et mobile nav
+    document.querySelectorAll('[data-panel="' + panelId + '"]').forEach(i => i.classList.add('active'));
+  }
+  renderPanel(panelId);
+}
+
+function renderPanel(id) {
+  if (!G) return;
+  if (id === 'accueil') renderAccueil();
+  else if (id === 'todo') renderTodo();
+  else if (id === 'frise') renderFrise();
+  else if (id === 'paiements') renderPaiements();
+  else if (id === 'documents') renderDocuments();
+  else if (id === 'journal') renderJournal();
+  else if (id === 'validations') renderValidations();
+  else if (id === 'mesures') renderMesures();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  LOGIN / LOGOUT
+// ═══════════════════════════════════════════════════════════
 async function doLogin() {
-  const code = (document.getElementById('code-input').value || '').trim().toUpperCase();
-  const errEl = document.getElementById('login-error');
-  const btn = document.getElementById('login-btn');
-  if(!code) { errEl.textContent = 'Veuillez saisir votre code.'; return; }
-
-  btn.textContent = 'Connexion en cours…';
-  btn.disabled = true;
-  errEl.textContent = '';
-
+  const code = (el('login-input').value || '').trim().toUpperCase();
+  const errEl = el('login-error');
+  const btn = el('login-btn');
+  if (!code) { errEl.textContent = 'Veuillez saisir votre code d\'accès.'; return; }
+  btn.textContent = 'Connexion en cours…'; btn.disabled = true; errEl.textContent = '';
   try {
     let carnet = null;
-
-    // Essai Supabase avec timeout 5s
     try {
-      console.log('[CARNET] Recherche code:', code);
-      const supaPromise = supaFindCarnetByCode(code);
-      const timeout = new Promise(resolve => setTimeout(() => resolve(null), 5000));
-      carnet = await Promise.race([supaPromise, timeout]);
-      console.log('[CARNET] Résultat Supabase:', carnet ? 'trouvé → ' + carnet.nom : 'non trouvé');
-    } catch(e) {
-      console.warn('[CARNET] Supabase erreur:', e.message);
-    }
-
+      const t = new Promise(r => setTimeout(() => r(null), 6000));
+      carnet = await Promise.race([supaFindByCode(code), t]);
+    } catch(e) {}
     // Fallback localStorage
-    if(!carnet) {
-      carnet = findCarnetByCode(code);
-      console.log('[CARNET] Fallback localStorage:', carnet ? 'trouvé' : 'non trouvé');
+    if (!carnet) {
+      try {
+        const loc = JSON.parse(localStorage.getItem('jb_carnet_' + code) || 'null');
+        if (loc) carnet = loc;
+      } catch(e) {}
     }
-
-    btn.textContent = 'Accéder à mon Carnet →';
-    btn.disabled = false;
-
-    if(!carnet) {
+    if (!carnet) {
       errEl.textContent = 'Code incorrect. Vérifiez le code indiqué sur votre devis.';
-      document.getElementById('code-input').value = '';
-      document.getElementById('code-input').focus();
+      el('login-input').value = '';
+      el('login-input').focus();
       return;
     }
-
-    errEl.textContent = '';
-    currentCarnet = carnet;
-    sessionStorage.setItem('jb_carnet_code', code);
-    showApp(carnet);
-
-  } catch(e) {
-    console.error('doLogin erreur:', e);
-    btn.textContent = 'Accéder à mon Carnet →';
-    btn.disabled = false;
-    errEl.textContent = 'Erreur de connexion. Réessayez.';
+    // Restaurer données locales si plus récentes
+    try {
+      const local = JSON.parse(localStorage.getItem('jb_local_' + carnet.clientId) || '{}');
+      if (local.devisSigneAt && !carnet.devisSigneAt) carnet.devisSigneAt = local.devisSigneAt;
+      if (local.signatureImage && !carnet.signatureImage) carnet.signatureImage = local.signatureImage;
+      if (local.paiements && local.paiements.length && !carnet.paiements.length) carnet.paiements = local.paiements;
+      if (local.todoChecked) carnet.todoChecked = Object.assign(carnet.todoChecked||{}, local.todoChecked);
+    } catch(e) {}
+    // Générer paiements si devis signé et pas encore de paiements
+    if (carnet.devisSigneAt && carnet.prixTotal && !carnet.paiements.length) {
+      genererPaiements(carnet);
+    }
+    sessionStorage.setItem('jb_code', code);
+    startApp(carnet);
+  } finally {
+    btn.textContent = 'Accéder à mon espace →'; btn.disabled = false;
   }
 }
 
 function doLogout() {
-  currentCarnet = null;
-  sessionStorage.removeItem('jb_carnet_code');
-  document.getElementById('screen-app').classList.remove('show');
-  document.getElementById('screen-login').style.display = 'flex';
-  document.getElementById('code-input').value = '';
+  G = null; sessionStorage.removeItem('jb_code');
+  el('screen-app').classList.remove('show');
+  el('screen-login').style.display = 'flex';
+  el('login-input').value = '';
 }
 
-// ── Navigation ──
-function switchPanel(btn, panelId) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.sidebar-item, .bnav-item').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + panelId).classList.add('active');
-  document.querySelectorAll('[data-panel="' + panelId + '"]').forEach(b => b.classList.add('active'));
+function startApp(carnet) {
+  G = carnet;
+  el('screen-login').style.display = 'none';
+  el('screen-app').classList.add('show');
+  el('topbar-name').textContent = carnet.nom;
+  window.scrollTo(0, 0);
+  showPanel('accueil', document.querySelector('[data-panel="accueil"]'));
 }
 
-// ── App ──
-function handleConfirmerPay(e) {
-  var btn = e.target.closest('.btn-confirmer-pay');
-  if(btn) confirmerPaiement(btn.getAttribute('data-id'));
-  var btnD = e.target.closest('.btn-consulter-devis');
-  if(btnD) {
-    var panel = document.querySelector('[data-panel="valider"]');
-    if(panel) switchPanel(panel, 'valider');
-  }
-}
-document.addEventListener('click', handleConfirmerPay);
+// ═══════════════════════════════════════════════════════════
+//  PAIEMENTS — GÉNÉRATION
+// ═══════════════════════════════════════════════════════════
+function genererPaiements(carnet) {
+  const total = carnet.prixTotal || 0;
+  const pct = carnet.pct || 30;
+  const nbM = carnet.nbMensualites || 1;
+  const acompte = Math.round(total * pct) / 100;
+  const solde = Math.round((total - acompte) * 100) / 100;
+  const mens = nbM > 1 ? Math.round(solde / nbM * 100) / 100 : solde;
+  const reste = Math.round((solde - mens * (nbM - 1)) * 100) / 100;
+  const ref = carnet.devisRef || 'JB';
+  const iban = carnet.iban || 'FR76 4061 8804 7200 0403 8233 463';
+  const tit = carnet.titulaire || 'EI JOSEPHINE BONO';
 
-function showApp(carnet) {
-  // Restaurer données locales si plus récentes
-  try {
-    var local = JSON.parse(localStorage.getItem('jb_carnet_local_' + carnet.clientId) || '{}');
-    if(local.devisSigneAt && !carnet.devisSigneAt) carnet.devisSigneAt = local.devisSigneAt;
-    if(local.signatureImage && !carnet.signatureImage) carnet.signatureImage = local.signatureImage;
-    if(local.paiements && local.paiements.length && !carnet.paiements.length) carnet.paiements = local.paiements;
-  } catch(e) {}
-  // Si devis signé mais pas de paiements → les générer
-  if(carnet.devisSigneAt && carnet.prixTotal && (!carnet.paiements || !carnet.paiements.length)) {
-    genererPaiementsDepuisDevis(carnet);
-  }
-  document.getElementById('screen-login').style.display = 'none';
-  document.getElementById('screen-app').classList.add('show');
-  document.getElementById('topbar-name').textContent = carnet.nom;
+  // Échéance acompte = J+8
+  const echeanceAcompte = new Date();
+  echeanceAcompte.setDate(echeanceAcompte.getDate() + 8);
 
-  const waUrl = 'https://wa.me/33698942000?text=' + encodeURIComponent('Bonjour, je vous contacte depuis mon Carnet de Création.');
-  document.getElementById('wa-link').href = waUrl;
-  document.getElementById('wa-fab').href = waUrl;
+  carnet.paiements = [{
+    id: 'p-acompte',
+    factureNum: ref + '-F01',
+    label: 'Acompte ' + pct + '% — Facture d\'acompte',
+    montant: acompte,
+    echeance: echeanceAcompte.toISOString().split('T')[0],
+    statut: 'due',
+    iban, titulaire: tit, ref,
+  }];
 
-  renderDashboard(carnet);
-  renderFrise(carnet);
-  renderJournal(carnet);
-  renderDevisValidation(carnet);
-  renderValidations(carnet);
-  renderPaiements(carnet);
-  renderMesures(carnet);
-}
-
-// ── Helpers ──
-function fmtDate(d) {
-  if(!d) return '';
-  try {
-    var dt;
-    // Gérer les formats "Août 2026", "août 2026" (texte libre)
-    if(typeof d === 'string' && !/\d{4}-\d{2}/.test(d) && !/^\d/.test(d.trim())) return d;
-    dt = new Date(d);
-    if(isNaN(dt.getTime())) return d; // Retourner tel quel si invalide
-    return dt.toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'});
-  } catch(e) { return d; }
-}
-function fmtEur(n) { return parseFloat(n||0).toLocaleString('fr-FR',{minimumFractionDigits:2}) + ' €'; }
-
-function getProgress(carnet) {
-  if(!carnet.steps) return 0;
-  const steps = getSteps(carnet);
-  const done = steps.filter(s => carnet.steps[s.id] && carnet.steps[s.id].status === 'done').length;
-  return Math.round((done / steps.length) * 100);
-}
-
-function getNextStep(carnet) {
-  const steps = getSteps(carnet);
-  for(var i = 0; i < steps.length; i++) {
-    if(!carnet.steps[steps[i].id] || carnet.steps[steps[i].id].status !== 'done') return steps[i].label;
-  }
-  return 'Robe terminée 🎉';
-}
-
-// ── Dashboard ──
-function renderDashboard(carnet) {
-  document.getElementById('dash-greeting').textContent = 'Bonjour, ' + carnet.nom.split(' ')[0] + ' ✦';
-  document.getElementById('dash-robe').textContent = carnet.robe || '—';
-  // Texte aventure sous le bonjour
-  var aventureEl = document.getElementById('dash-aventure-text');
-  if(aventureEl) {
-    aventureEl.style.display = carnet.devisSigneAt ? 'none' : 'block';
-  }
-  var pct = getProgress(carnet);
-  setTimeout(function() {
-    document.getElementById('dash-fill').style.width = pct + '%';
-    document.getElementById('dash-pct').textContent = pct + '%';
-  }, 300);
-  if(carnet.message) {
-    document.getElementById('msg-box').style.display = 'block';
-    document.getElementById('msg-text').textContent = carnet.message;
-  }
-  document.getElementById('dash-stats').innerHTML = [
-    {label:'Date du mariage', value: carnet.mariage ? (carnet.mariage.includes('-') ? fmtDate(carnet.mariage) : carnet.mariage) : '—'},
-    {label:'Avancement', value: pct + '%'},
-
-  ].map(function(s) {
-    return '<div class="stat"><div class="stat-label">' + s.label + '</div><div class="stat-value">' + s.value + '</div></div>';
-  }).join('');
-  document.getElementById('next-step').textContent = getNextStep(carnet);
-
-  // Encart preuve de signature
-  var sigProofEl = document.getElementById('dash-sig-proof');
-  if(sigProofEl) {
-    if(carnet.devisSigneAt) {
-      var sigDate = new Date(carnet.devisSigneAt);
-      var sigStr = sigDate.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})
-        + ' à ' + sigDate.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-      sigProofEl.style.display = 'block';
-      sigProofEl.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">'
-        + '<div style="width:8px;height:8px;background:#7A9B7A;border-radius:50%;flex-shrink:0;"></div>'
-        + '<div>'
-        + '<div style="font-size:0.7rem;font-weight:500;color:#7A9B7A;">✓ Devis signé électroniquement</div>'
-        + '<div style="font-size:0.65rem;color:var(--taupe);">Le ' + sigStr + ' — Réf. ' + (carnet.devisRef||'—') + '</div>'
-        + '</div>'
-        + (carnet.signatureImage ? '<img src="'+carnet.signatureImage+'" style="height:28px;opacity:0.5;margin-left:auto;">' : '')
-        + '</div>';
-    } else {
-      sigProofEl.style.display = 'none';
-    }
-  }
-
-  // Afficher les mesures clés sur le dashboard
-  var m = carnet.mesures || {};
-  // ─── Mesures clés (cartes en haut) ───
-  var mesuresDash = document.getElementById('dash-mesures');
-  if(mesuresDash) {
-    var mesCles = [
-      {key:'tour_poitrine',label:'Poitrine'},{key:'tour_taille',label:'Taille'},
-      {key:'tour_hanches',label:'Hanches'},{key:'haut_taille_sol',label:'Taille-sol'},
-      {key:'tour_bras_aisselle',label:'Tour bras'},
-    ];
-    var hasMes = mesCles.some(function(c){return m[c.key];});
-    if(hasMes) {
-      mesuresDash.style.display = 'block';
-      mesuresDash.innerHTML = '<div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:10px;">Mensurations clés</div>'
-        + '<div style="display:flex;flex-wrap:wrap;gap:8px;">'
-        + mesCles.filter(function(c){return m[c.key];}).map(function(c){
-            return '<div style="background:var(--cream);border:1px solid var(--sand);padding:8px 14px;text-align:center;">'
-              + '<div style="font-family:var(--serif);font-size:1.1rem;">' + m[c.key] + ' <span style="font-size:0.6rem;color:var(--taupe);">cm</span></div>'
-              + '<div style="font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--taupe);margin-top:2px;">' + c.label + '</div>'
-              + '</div>';
-          }).join('') + '</div>';
-    } else { mesuresDash.style.display = 'none'; }
-  }
-
-  // ─── Mesures complètes ───
-  var mesFullEl = document.getElementById('dash-mesures-full');
-  var mesFullContent = document.getElementById('dash-mesures-full-content');
-  if(mesFullEl && mesFullContent) {
-    var hasMesFull = Object.keys(m).some(function(k){return m[k];});
-    if(hasMesFull) {
-      mesFullEl.style.display = 'block';
-      var hist = carnet.mesuresHistorique || [];
-      var dernDate = hist.length ? ' — prise le ' + fmtDate(hist[hist.length-1].date) : '';
-      mesFullContent.innerHTML = (hist.length>1?'<div style="font-size:0.65rem;color:var(--taupe);margin-bottom:8px;">'+hist.length+' prises de mesures enregistrées'+dernDate+'</div>':'')
-        + MESURES_CLIENT_GROUPES.map(function(g){
-            var champs = g.champs.filter(function(c){return m[c.key];});
-            if(!champs.length) return '';
-            return '<div style="margin-bottom:10px;">'
-              + '<div style="font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">' + g.groupe + '</div>'
-              + '<div style="display:flex;flex-wrap:wrap;gap:4px;">'
-              + champs.map(function(c){
-                  return '<div style="display:flex;justify-content:space-between;padding:4px 8px;border:1px solid var(--sand);background:var(--cream);min-width:160px;flex:1;">'
-                    + '<span style="font-size:0.68rem;color:var(--taupe);">' + c.label + '</span>'
-                    + '<span style="font-size:0.75rem;font-weight:500;margin-left:8px;">' + m[c.key] + ' cm</span>'
-                    + '</div>';
-                }).join('') + '</div></div>';
-          }).join('');
-    } else { mesFullEl.style.display = 'none'; }
-  }
-
-  // ─── Documents (devis + factures) ───
-  var docsEl = document.getElementById('dash-documents');
-  var docsListEl = document.getElementById('dash-docs-list');
-  if(docsEl && docsListEl) {
-    var docs = [];
-    // Devis
-    if(carnet.devisRef) {
-      docs.push({
-        type: 'devis', ref: carnet.devisRef,
-        label: 'Devis ' + carnet.devisRef,
-        date: carnet.devisSigneAt || '',
-        signed: !!carnet.devisSigneAt,
-      });
-    }
-    // Factures depuis paiements
-    var paiements = carnet.paiements || [];
-    paiements.filter(function(p){return p.statut==='paid'||p.statut==='confirming';}).forEach(function(p){
-      docs.push({type:'facture', ref:p.factureNum, label:p.label||p.factureNum, date:p.paidAt||'', pid:p.id});
+  for (let i = 1; i <= nbM; i++) {
+    carnet.paiements.push({
+      id: 'p-v' + i,
+      factureNum: ref + '-F' + String(i + 1).padStart(2, '0'),
+      label: nbM > 1 ? 'Versement ' + i + '/' + nbM + ' — Solde' : 'Solde — Facture finale',
+      montant: i === nbM ? reste : mens,
+      echeance: '', statut: 'pending',
+      iban, titulaire: tit, ref,
     });
-    if(docs.length) {
-      docsEl.style.display = 'block';
-      docsListEl.innerHTML = docs.map(function(d){
-        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--sand);">'
-          + '<div>'
-          + '<div style="font-family:var(--serif);font-size:0.95rem;font-style:italic;">' + d.label + '</div>'
-          + (d.signed ? '<div style="font-size:0.62rem;color:#7A9B7A;">✓ Signé le ' + fmtDate(d.date.split('T')[0]) + '</div>'
-             : d.date ? '<div style="font-size:0.62rem;color:var(--taupe);">' + fmtDate(d.date.split('T')[0]) + '</div>' : '')
-          + '</div>'
-          + (d.type==='facture' && d.pid
-            ? '<button onclick="telechargerFacture(this)" data-pid="'+d.pid+'" style="font-size:0.6rem;padding:4px 10px;background:none;border:1px solid var(--sand);cursor:pointer;letter-spacing:0.1em;font-family:var(--sans);text-transform:uppercase;">↓ Télécharger</button>'
-            : d.type==='devis'
-              ? '<button class="btn-consulter-devis" style="font-size:0.6rem;padding:4px 10px;background:none;border:1px solid var(--sand);cursor:pointer;letter-spacing:0.1em;font-family:var(--sans);text-transform:uppercase;">Consulter</button>'
-              : '')
-          + '</div>';
-      }).join('');
-    } else {
-      docsEl.style.display = 'none';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER — ACCUEIL
+// ═══════════════════════════════════════════════════════════
+function renderAccueil() {
+  const c = G;
+  el('dash-greeting').textContent = 'Bonjour, ' + (c.nom.split(' ')[0]) + ' ✦';
+  el('dash-robe').textContent = c.robe || '';
+
+  // Texte aventure — masqué si devis signé
+  el('dash-aventure').style.display = c.devisSigneAt ? 'none' : 'block';
+
+  // Signature proof
+  if (c.devisSigneAt) {
+    const d = new Date(c.devisSigneAt);
+    el('dash-sig-proof').style.display = 'flex';
+    el('dash-sig-label').textContent = '✓ Devis signé électroniquement';
+    el('dash-sig-date').textContent = 'Le ' + d.toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'})
+      + ' à ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+    if (c.signatureImage) {
+      el('dash-sig-img').src = c.signatureImage;
+      el('dash-sig-img').style.display = 'inline';
     }
+  } else {
+    el('dash-sig-proof').style.display = 'none';
   }
-  var pays = carnet.paiements || [];
-  var du = pays.find(function(p) { return p.statut === 'due'; });
-  if(du) {
-    document.getElementById('next-pay-box').style.display = 'block';
-    document.getElementById('next-pay').textContent = du.label + ' — ' + fmtEur(du.montant) + (du.echeance ? ' avant le ' + fmtDate(du.echeance) : '');
+
+  // Stats
+  const steps = c.typeCommande === 'bianco' ? STEPS_BIANCO : STEPS_CREATION;
+  const doneCnt = steps.filter(s => (c.steps[s.id]||{}).status === 'done').length;
+  const pctTravail = Math.round(doneCnt / steps.length * 100);
+  const pays = c.paiements || [];
+  const totalPay = c.prixTotal || pays.reduce((s,p) => s + (p.montant||0), 0);
+  const paye = pays.filter(p => p.statut === 'paid').reduce((s,p) => s + (p.montant||0), 0);
+  const pctPay = totalPay ? Math.round(paye / totalPay * 100) : 0;
+  const jours = c.mariage ? daysUntil(c.mariage) : null;
+
+  el('dash-stats').innerHTML = [
+    {val: pctTravail + '%', lbl: 'Avancement robe'},
+    {val: pctPay + '%', lbl: 'Paiements'},
+    {val: jours !== null ? (jours > 0 ? 'J-' + jours : 'Aujourd\'hui &#10024;') : '—', lbl: 'Avant le mariage'},
+  ].map(s => `<div class="stat-card"><div class="stat-val">${s.val}</div><div class="stat-lbl">${s.lbl}</div></div>`).join('');
+
+  // Prochaine étape
+  const nextStep = steps.find(s => (c.steps[s.id]||{}).status !== 'done');
+  if (nextStep) {
+    el('dash-next-step-card').style.display = 'block';
+    el('dash-next-step-text').textContent = nextStep.e + ' ' + nextStep.l;
   }
-}
 
-// ── Frise ──
-function renderFrise(carnet) {
-  var el = document.getElementById('frise-container');
-  var steps = getSteps(carnet);
-  el.innerHTML = steps.map(function(s, i) {
-    var st = (carnet.steps && carnet.steps[s.id]) || {status:'pending'};
-    var cls = st.status === 'done' ? 'done' : st.status === 'active' ? 'active' : 'pending';
-    var badge = st.status === 'done' ? '<span class="badge badge-done">Terminé</span>'
-      : st.status === 'active' ? '<span class="badge badge-active">En cours</span>'
-      : '<span class="badge badge-pending">À venir</span>';
-    return '<div class="frise-step ' + cls + '">'
-      + '<div class="frise-dot-wrap"><div class="frise-dot"></div></div>'
-      + '<div class="frise-body">'
-      + '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:2px;">'
-      + '<div><span class="frise-num">' + String(i+1).padStart(2,'0') + '.</span>'
-      + '<span class="frise-name">' + s.label + '</span></div>'
-      + '<div style="display:flex;align-items:center;gap:8px;">' + badge
-      + (st.date ? '<span class="frise-date">' + fmtDate(st.date) + '</span>' : '') + '</div>'
-      + '</div>'
-      + (st.comment ? '<div class="frise-comment">' + st.comment + '</div>' : '')
-      + '</div></div>';
-  }).join('');
-}
+  // Prochain paiement
+  const nextPay = pays.find(p => p.statut === 'due' || p.statut === 'confirming');
+  if (nextPay) {
+    el('dash-next-pay-card').style.display = 'block';
+    el('dash-next-pay-label').textContent = nextPay.label;
+    el('dash-next-pay-amount').textContent = fmtEur(nextPay.montant);
+    if (nextPay.echeance) {
+      const diff = daysUntil(nextPay.echeance);
+      let msg = '';
+      if (diff < 0) msg = '<span style="color:var(--red);">En retard de ' + Math.abs(diff) + ' j.</span>';
+      else if (diff === 0) msg = '<span style="color:var(--red);">Échéance aujourd\'hui</span>';
+      else if (diff <= 7) msg = '<span style="color:var(--orange);">Dans ' + diff + ' jours</span>';
+      else msg = '<span style="color:var(--taupe);">Avant le ' + fmtDateShort(nextPay.echeance) + '</span>';
+      el('dash-next-pay-echeance').innerHTML = msg;
+    }
+  } else {
+    el('dash-next-pay-card').style.display = 'none';
+  }
 
-// ── Journal ──
-function renderJournal(carnet) {
-  var posts = (carnet.journal || []).slice().sort(function(a,b) { return new Date(b.date) - new Date(a.date); });
-  var el = document.getElementById('journal-container');
-  var empty = document.getElementById('journal-empty');
-  if(!posts.length) { el.innerHTML = ''; empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  var allSteps = STEPS_CREATION.concat(STEPS_BIANCO);
-  el.innerHTML = posts.map(function(p) {
-    var step = allSteps.find(function(s) { return s.id === p.step; });
-    return '<div class="journal-post">'
-      + '<div class="journal-dot">' + (step ? step.emoji : '✨') + '</div>'
-      + '<div style="flex:1;">'
-      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">'
-      + '<span class="journal-date">' + fmtDate(p.date) + '</span>'
-      + (step ? '<span style="font-size:0.6rem;color:var(--muted);background:var(--sand);padding:1px 8px;border-radius:20px;">' + step.label + '</span>' : '')
-      + '</div>'
-      + '<div class="journal-text">' + p.text + '</div>'
-      + '</div></div>';
-  }).join('');
-}
-
-// ── Validation devis ──
-var sigDevisDrawing = false, sigDevisLx = 0, sigDevisLy = 0;
-
-function renderDevisValidation(carnet) {
-  var el = document.getElementById('devis-validation-section');
-  if(!el) return;
-  if(carnet.devisSigneAt) {
-    el.innerHTML = '<div class="devis-signed">'
-      + '<div style="font-size:1.5rem;margin-bottom:6px;">✓</div>'
-      + '<div style="font-family:var(--serif);font-size:1.1rem;font-style:italic;">Devis signé et validé</div>'
-      + '<div style="font-size:0.72rem;margin-top:4px;opacity:0.7;">Le ' + fmtDate(carnet.devisSigneAt) + '</div>'
+  // Mesures clés
+  const m = c.mesures || {};
+  const mesCles = [
+    {k:'tour_poitrine',l:'Poitrine'},{k:'tour_taille',l:'Taille'},
+    {k:'tour_hanches',l:'Hanches'},{k:'haut_taille_sol',l:'Taille-sol'},
+    {k:'tour_bras_aisselle',l:'Tour bras'},
+  ].filter(x => m[x.k]);
+  if (mesCles.length) {
+    el('dash-mesures').style.display = 'block';
+    el('dash-mesures').innerHTML = '<div class="section-title">Mensurations clés</div>'
+      + '<div style="display:flex;flex-wrap:wrap;gap:8px;">'
+      + mesCles.map(x => `<div class="stat-card" style="min-width:100px;"><div class="stat-val" style="font-size:1.1rem;">${m[x.k]} <span style="font-size:0.6rem;">cm</span></div><div class="stat-lbl">${x.l}</div></div>`).join('')
       + '</div>';
+  } else {
+    el('dash-mesures').style.display = 'none';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER — TODO
+// ═══════════════════════════════════════════════════════════
+function renderTodo() {
+  const c = G;
+  const cats = buildTodo(c.mariage);
+  const checked = c.todoChecked || {};
+  const totalItems = cats.reduce((s,cat) => s + cat.items.length, 0);
+  const doneItems = Object.values(checked).filter(Boolean).length;
+  const pct = Math.round(doneItems / totalItems * 100);
+
+  let h = `<div style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:6px;">
+      <span>${doneItems} tâche${doneItems>1?'s':''} complétée${doneItems>1?'s':''} sur ${totalItems}</span>
+      <span style="font-weight:500;">${pct}%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill green" style="width:${pct}%"></div></div>
+  </div>`;
+
+  h += cats.map(cat => {
+    const catDone = cat.items.filter(i => checked[i.id]).length;
+    const itemsH = cat.items.map(item => {
+      const isDone = !!checked[item.id];
+      let dlHtml = '';
+      if (item.dl) {
+        const diff = daysUntil(item.dl);
+        if (!isDone) {
+          if (diff < 0) dlHtml = `<span class="todo-deadline urgent">En retard</span>`;
+          else if (diff <= 30) dlHtml = `<span class="todo-deadline soon">${diff}j</span>`;
+          else dlHtml = `<span class="todo-deadline">${fmtDateShort(item.dl)}</span>`;
+        }
+      }
+      return `<div class="todo-item">
+        <div class="todo-check ${isDone?'checked':''}" onclick="toggleTodo('${item.id}')"></div>
+        <span class="todo-label ${isDone?'checked':''}">${item.l}</span>
+        ${dlHtml}
+      </div>`;
+    }).join('');
+
+    return `<div class="todo-cat card">
+      <div class="todo-cat-header">
+        <span style="font-size:1.3rem;">${cat.icon}</span>
+        <span class="todo-cat-title">${cat.title}</span>
+        <span class="todo-progress">${catDone}/${cat.items.length}</span>
+      </div>
+      ${itemsH}
+    </div>`;
+  }).join('');
+
+  el('todo-content').innerHTML = h;
+}
+
+async function toggleTodo(itemId) {
+  const c = G;
+  if (!c.todoChecked) c.todoChecked = {};
+  c.todoChecked[itemId] = !c.todoChecked[itemId];
+  // Sauvegarder localement
+  try {
+    const loc = JSON.parse(localStorage.getItem('jb_local_' + c.clientId) || '{}');
+    loc.todoChecked = c.todoChecked;
+    localStorage.setItem('jb_local_' + c.clientId, JSON.stringify(loc));
+  } catch(e) {}
+  // Sync Supabase en arrière-plan
+  supaUpsert(c);
+  renderTodo();
+  renderAccueil();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER — FRISE
+// ═══════════════════════════════════════════════════════════
+function renderFrise() {
+  const c = G;
+  const steps = c.typeCommande === 'bianco' ? STEPS_BIANCO : STEPS_CREATION;
+  let h = '<div style="font-size:0.72rem;color:var(--taupe);margin-bottom:20px;font-style:italic;">Les étapes de la création de votre robe, mises à jour par l\'atelier.</div>';
+  h += steps.map((s, i) => {
+    const st = c.steps[s.id] || {status:'pending', date:'', comment:''};
+    const cls = st.status === 'done' ? 'done' : st.status === 'active' ? 'active' : 'pending';
+    let badge = '';
+    if (st.status === 'done') badge = '<span class="badge badge-green">✓ Terminé</span>';
+    else if (st.status === 'active') badge = '<span class="badge badge-gold">En cours</span>';
+    else badge = '<span class="badge badge-grey">À venir</span>';
+    return `<div class="frise-step">
+      <div class="frise-dot ${cls}"></div>
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:${st.comment?'6':'0'}px;">
+          <span style="font-size:0.85rem;">${s.e} ${String(i+1).padStart(2,'0')}. ${s.l}</span>
+          ${badge}
+          ${st.date ? '<span style="font-size:0.68rem;color:var(--taupe);">' + fmtDateShort(st.date) + '</span>' : ''}
+        </div>
+        ${st.comment ? '<div style="font-size:0.8rem;color:var(--taupe);font-style:italic;">' + st.comment + '</div>' : ''}
+      </div>
+    </div>`;
+  }).join('');
+  el('frise-content').innerHTML = h;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER — PAIEMENTS
+// ═══════════════════════════════════════════════════════════
+function renderPaiements() {
+  const c = G;
+  const pays = c.paiements || [];
+  const total = c.prixTotal || 0;
+  const paye = pays.filter(p => p.statut === 'paid').reduce((s,p) => s + (p.montant||0), 0);
+  const pct = total ? Math.round(paye / total * 100) : 0;
+
+  if (!pays.length) {
+    el('paiements-content').innerHTML = `<div class="card" style="text-align:center;padding:40px;">
+      <div style="font-family:var(--serif);font-size:1.2rem;font-style:italic;color:var(--taupe);margin-bottom:12px;">Les paiements apparaîtront après validation de votre devis.</div>
+      <button class="btn btn-gold" onclick="showPanel('validations',document.querySelector('[data-panel=validations]'))">Valider mon devis →</button>
+    </div>`;
     return;
   }
-  var lignes = carnet.devisLignes || [];
-  var total = carnet.prixTotal || 0;
-  var acompte = carnet.acompte || Math.round(total * (carnet.pct||30)) / 100;
-  var pct = carnet.pct || 30;
-  var recapHTML = lignes.filter(function(l) { return l.nom; }).map(function(l) {
-    return '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--sand);">'
-      + '<span>' + (l.section ? '<span style="color:var(--gold);font-size:0.7rem;">' + l.section + ' — </span>' : '') + l.nom + '</span>'
-      + '<span style="font-weight:500;">' + (l.prix != null ? l.prix.toLocaleString('fr-FR',{minimumFractionDigits:2}) + ' €' : '—') + '</span>'
-      + '</div>';
+
+  let h = `<div class="card" style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.78rem;">
+      <span>Réglé</span><span style="font-weight:500;">${fmtEur(paye)} / ${fmtEur(total)}</span>
+    </div>
+    <div class="progress-bar" style="height:6px;margin-bottom:12px;"><div class="progress-fill green" style="width:${pct}%"></div></div>
+    <div class="grid3">
+      <div style="text-align:center;"><div style="font-family:var(--serif);font-size:1.3rem;">${fmtEur(total)}</div><div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);">Total</div></div>
+      <div style="text-align:center;"><div style="font-family:var(--serif);font-size:1.3rem;">${fmtEur(paye)}</div><div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);">Réglé</div></div>
+      <div style="text-align:center;"><div style="font-family:var(--serif);font-size:1.3rem;">${fmtEur(total-paye)}</div><div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);">Restant</div></div>
+    </div>
+  </div>`;
+
+  h += pays.map(p => {
+    const isPaid = p.statut === 'paid';
+    const isConf = p.statut === 'confirming';
+    const isDue = p.statut === 'due';
+    const isPending = p.statut === 'pending';
+
+    let badge = '';
+    let cardCls = 'payment-card';
+    if (isPaid) { badge = '<span class="badge badge-green">✓ Réglé</span>'; cardCls += ' done-card'; }
+    else if (isConf) { badge = '<span class="badge badge-gold">⏳ En attente confirmation</span>'; cardCls += ' active-card'; }
+    else if (isDue) { badge = '<span class="badge badge-orange">À régler</span>'; cardCls += ' active-card'; }
+    else { badge = '<span class="badge badge-grey">À venir</span>'; }
+
+    let echeanceHtml = '';
+    if (p.echeance && !isPaid) {
+      const diff = daysUntil(p.echeance);
+      let col = 'var(--taupe)';
+      let txt = 'Avant le ' + fmtDate(p.echeance);
+      if (diff < 0) { col = 'var(--red)'; txt = 'En retard de ' + Math.abs(diff) + ' jour' + (Math.abs(diff)>1?'s':''); }
+      else if (diff === 0) { col = 'var(--red)'; txt = 'Échéance aujourd\'hui'; }
+      else if (diff <= 3) { col = 'var(--red)'; txt = 'Dans ' + diff + ' jour' + (diff>1?'s':''); }
+      else if (diff <= 7) { col = 'var(--orange)'; txt = 'Dans ' + diff + ' jours'; }
+      echeanceHtml = `<div style="font-size:0.72rem;color:${col};margin-top:4px;">${txt}</div>`;
+    }
+
+    let payOpts = '';
+    if (isDue || isConf) {
+      payOpts = `<div style="background:var(--cream);border:1px solid var(--sand);padding:16px;margin-top:14px;">
+        <div class="grid2" style="gap:16px;margin-bottom:14px;">
+          <div>
+            <div style="font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;">Virement bancaire</div>
+            <div style="font-size:0.78rem;line-height:1.8;">${p.titulaire||'EI JOSEPHINE BONO'}<br>${p.iban||''}<br><span style="color:var(--taupe);">Réf. ${p.factureNum||''}</span></div>
+          </div>
+          <div>
+            <div style="font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;">Carte bancaire</div>
+            <a href="${STRIPE_LINK}?prefilled_email=${encodeURIComponent(c.email||'')}" target="_blank" class="btn btn-stripe">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Payer ${fmtEur(p.montant)}
+            </a>
+            <div style="font-size:0.58rem;color:var(--taupe);margin-top:6px;text-align:center;">Paiement sécurisé · Visa, Mastercard, CB</div>
+          </div>
+        </div>
+        ${!isConf ? `<button onclick="confirmerPaiement('${p.id}')" class="btn btn-gold" style="width:100%;justify-content:center;">J'ai effectué ce paiement →</button>` : '<div style="text-align:center;font-size:0.72rem;color:var(--taupe);">Déclaration reçue — confirmation en cours par l\'atelier</div>'}
+      </div>`;
+    }
+
+    const dlBtn = (!isPending) ? `<button onclick="telechargerFacture('${p.id}')" class="btn btn-outline btn-sm" style="margin-top:10px;">↓ Télécharger la facture ${p.factureNum||''}</button>` : '';
+
+    return `<div class="${cardCls}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="font-size:0.85rem;font-weight:500;">${p.label||''}</div>
+          <div style="font-size:0.7rem;color:var(--taupe);">Réf. ${p.factureNum||''}</div>
+          ${echeanceHtml}
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--serif);font-size:1.2rem;">${fmtEur(p.montant)}</div>
+          ${badge}
+        </div>
+      </div>
+      ${payOpts}
+      ${dlBtn}
+    </div>`;
   }).join('');
-  el.innerHTML = '<div class="card" style="border-color:var(--dark);">'
-    + '<div class="card-title">Validation de votre devis ' + (carnet.devisRef || '') + '</div>'
-    + '<div style="font-size:0.75rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">En signant ci-dessous, vous confirmez avoir lu et accepté les conditions générales de vente et validez la commande.</div>'
-    + '<div style="background:var(--cream);border:1px solid var(--sand);padding:1rem;margin-bottom:1rem;font-size:0.82rem;">'
-    + '<div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:8px;">Récapitulatif</div>'
-    + recapHTML
-    + '<div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:2px solid var(--dark);font-weight:600;"><span>Total HT</span><span>' + fmtEur(total) + '</span></div>'
-    + '<div style="display:flex;justify-content:space-between;margin-top:4px;color:var(--gold2);font-size:0.82rem;"><span>Acompte (' + pct + '%) à déclencher</span><span>' + fmtEur(acompte) + '</span></div>'
-    + '</div>'
-    + '<div style="font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;">Votre signature</div>'
-    + '<div class="sig-wrap" style="width:100%;height:90px;">'
-    + '<canvas id="sig-devis" width="600" height="90" style="width:100%;height:90px;"></canvas>'
-    + '<button class="sig-clear" onclick="clearSigDevis()">Effacer</button>'
-    + '</div>'
-    + '<div style="font-size:0.65rem;color:var(--muted);margin:6px 0 10px;font-style:italic;">Lu et approuvé — En signant, vous acceptez les CGV et déclenchez la demande d\'acompte.</div>'
-    + '<button class="btn-valider" id="btn-valider-devis" onclick="validerDevis()">✓ Je valide mon devis</button>'
-    + '</div>';
-  initSigDevis();
+
+  el('paiements-content').innerHTML = h;
 }
 
-function initSigDevis() {
-  var c = document.getElementById('sig-devis');
-  if(!c) return;
-  var ctx = c.getContext('2d');
-  ctx.strokeStyle = '#2A2018'; ctx.lineWidth = 1.5; ctx.lineCap = 'round';
-  function pos(e) {
-    var r = c.getBoundingClientRect(), src = e.touches ? e.touches[0] : e;
-    return { x: (src.clientX - r.left) * (c.width / r.width), y: (src.clientY - r.top) * (c.height / r.height) };
+async function confirmerPaiement(payId) {
+  const c = G;
+  const p = c.paiements.find(x => x.id === payId);
+  if (!p) return;
+  p.statut = 'confirming';
+  p.confirmedAt = new Date().toISOString();
+  saveLocal();
+  await supaUpsert(c);
+  renderPaiements();
+  renderAccueil();
+}
+
+function telechargerFacture(payId) {
+  const c = G;
+  const p = c.paiements.find(x => x.id === payId);
+  if (!p) return;
+  const win = window.open('', '_blank');
+  win.document.write(buildFactureHTML(c, p));
+  win.document.close();
+  setTimeout(() => { try { win.print(); } catch(e) {} }, 800);
+}
+
+function buildFactureHTML(c, p) {
+  return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
+  <style>body{font-family:'Jost',Arial,sans-serif;font-size:13px;color:#1c1c1c;max-width:680px;margin:40px auto;padding:0 20px;}
+  .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;border-bottom:2px solid #1c1c1c;padding-bottom:20px;}
+  .atelier{font-size:0.7em;color:#888;line-height:1.8;}
+  .doc-title{font-size:1.6em;font-style:italic;margin-bottom:4px;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;}
+  td,th{padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:0.9em;}
+  th{font-size:0.6em;letter-spacing:0.16em;text-transform:uppercase;color:#888;font-weight:400;}
+  .total-row td{font-weight:500;border-top:2px solid #1c1c1c;padding-top:12px;}
+  .sig{margin-top:30px;padding:12px 16px;background:#f5f9f5;border-left:3px solid #7A9B7A;font-size:0.78em;}
+  @media print{body{margin:0;}}</style></head>
+  <body>
+  <div class="header">
+    <div>
+      <div class="doc-title">${p.label||'Facture'}</div>
+      <div style="font-size:0.7em;color:#888;">${p.factureNum||''} · ${new Date().toLocaleDateString('fr-FR')}</div>
+    </div>
+    <div class="atelier">
+      <strong>Joséphine Bono</strong><br>
+      26 avenue de la Gare<br>33470 Gujan-Mestras<br>
+      SIRET 522 106 384<br>hello@josephinebono.com
+    </div>
+  </div>
+  <div style="margin-bottom:20px;font-size:0.85em;"><strong>${c.nom}</strong>${c.email?'<br>'+c.email:''}${c.mariage?'<br>Mariage le '+fmtDate(c.mariage):''}</div>
+  <table>
+    <tr><th>Désignation</th><th style="text-align:right;">Montant</th></tr>
+    <tr><td>${p.label||''}</td><td style="text-align:right;">${fmtEur(p.montant)}</td></tr>
+    <tr class="total-row"><td><strong>Total</strong></td><td style="text-align:right;"><strong>${fmtEur(p.montant)}</strong></td></tr>
+  </table>
+  <div style="font-size:0.78em;color:#888;margin-top:20px;">
+    Paiement par virement : ${p.iban||''} · ${p.titulaire||''}<br>
+    TVA non applicable — Art. 293B du CGI
+  </div>
+  ${c.devisSigneAt && c.signatureImage ? '<div class="sig">✓ Devis signé électroniquement le ' + fmtDate(c.devisSigneAt.split('T')[0]) + '<br><img src="'+c.signatureImage+'" style="height:32px;margin-top:6px;opacity:0.6;"></div>' : ''}
+  </body></html>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER — DOCUMENTS
+// ═══════════════════════════════════════════════════════════
+function renderDocuments() {
+  const c = G;
+  let h = '';
+  // Devis
+  if (c.devisRef) {
+    h += `<div class="section-title">Devis</div>
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div style="font-family:var(--serif);font-size:1rem;font-style:italic;">Devis ${c.devisRef}</div>
+        ${c.devisSigneAt ? '<div style="font-size:0.7rem;color:var(--green);">✓ Signé le ' + fmtDate(c.devisSigneAt.split('T')[0]) + '</div>' : '<div style="font-size:0.7rem;color:var(--taupe);">En attente de signature</div>'}
+      </div>
+      <button onclick="voirDevis()" class="btn btn-outline btn-sm">Consulter</button>
+    </div>`;
   }
-  c.onmousedown = function(e) { sigDevisDrawing = true; var p = pos(e); sigDevisLx = p.x; sigDevisLy = p.y; };
-  c.onmousemove = function(e) {
-    if(!sigDevisDrawing) return;
-    var p = pos(e); ctx.beginPath(); ctx.moveTo(sigDevisLx, sigDevisLy); ctx.lineTo(p.x, p.y); ctx.stroke();
-    sigDevisLx = p.x; sigDevisLy = p.y;
-  };
-  c.onmouseup = c.onmouseleave = function() { sigDevisDrawing = false; };
-  c.addEventListener('touchstart', function(e) { e.preventDefault(); sigDevisDrawing = true; var p = pos(e); sigDevisLx = p.x; sigDevisLy = p.y; }, {passive:false});
-  c.addEventListener('touchmove', function(e) {
-    e.preventDefault(); if(!sigDevisDrawing) return;
-    var p = pos(e); ctx.beginPath(); ctx.moveTo(sigDevisLx, sigDevisLy); ctx.lineTo(p.x, p.y); ctx.stroke();
-    sigDevisLx = p.x; sigDevisLy = p.y;
-  }, {passive:false});
-  c.addEventListener('touchend', function() { sigDevisDrawing = false; });
+  // Factures
+  const facturesPaid = (c.paiements||[]).filter(p => p.statut !== 'pending');
+  if (facturesPaid.length) {
+    h += '<div class="section-title">Factures</div>';
+    h += facturesPaid.map(p => {
+      const isPaid = p.statut === 'paid';
+      return `<div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+        <div>
+          <div style="font-family:var(--serif);font-size:0.95rem;font-style:italic;">${p.label||p.factureNum}</div>
+          <div style="font-size:0.7rem;color:var(--taupe);">Réf. ${p.factureNum||''} · ${fmtEur(p.montant)}</div>
+          <div style="margin-top:4px;">${isPaid?'<span class="badge badge-green">✓ Réglée</span>':'<span class="badge badge-orange">En attente</span>'}</div>
+        </div>
+        <button onclick="telechargerFacture('${p.id}')" class="btn btn-outline btn-sm">↓ Télécharger</button>
+      </div>`;
+    }).join('');
+  }
+  if (!h) h = '<div class="card" style="text-align:center;padding:32px;color:var(--taupe);font-style:italic;">Aucun document disponible pour le moment.</div>';
+  el('documents-content').innerHTML = h;
 }
 
-function clearSigDevis() {
-  var c = document.getElementById('sig-devis');
-  if(c) c.getContext('2d').clearRect(0, 0, c.width, c.height);
+function voirDevis() {
+  const c = G;
+  const lignes = c.devisLignes || [];
+  const total = c.prixTotal || 0;
+  const pct = c.pct || 30;
+  const acompte = Math.round(total * pct) / 100;
+
+  const box = document.createElement('div');
+  box.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;overflow-y:auto;padding:20px;display:flex;align-items:flex-start;justify-content:center;';
+  box.onclick = function(e) { if(e.target===box) box.remove(); };
+
+  const inner = document.createElement('div');
+  inner.style.cssText = 'background:white;max-width:560px;width:100%;margin:auto;';
+
+  // Header
+  const hdr = document.createElement('div');
+  hdr.style.cssText = 'background:#1c1c1c;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;';
+  const htitle = document.createElement('span');
+  htitle.style.cssText = 'font-family:var(--serif);font-style:italic;color:#c09a6b;font-size:1.05rem;';
+  htitle.textContent = 'Devis ' + (c.devisRef||'');
+  const hclose = document.createElement('button');
+  hclose.innerHTML = '&times;';
+  hclose.style.cssText = 'background:none;border:none;color:rgba(255,255,255,0.7);font-size:1.5rem;cursor:pointer;padding:0;line-height:1;';
+  hclose.onclick = () => box.remove();
+  hdr.appendChild(htitle); hdr.appendChild(hclose);
+  inner.appendChild(hdr);
+
+  // Body
+  const body = document.createElement('div');
+  body.style.cssText = 'padding:24px;';
+  let h = `<div style="font-size:0.72rem;color:#aaa;margin-bottom:12px;">Joséphine Bono · Atelier · Gujan-Mestras</div>
+    <div style="font-size:1rem;font-weight:500;">${c.nom}</div>`;
+  if (c.robe) h += `<div style="font-size:0.8rem;color:#888;margin-top:2px;">${c.robe}</div>`;
+  if (c.mariage) h += `<div style="font-size:0.75rem;color:#aaa;margin-bottom:16px;">Mariage · ${fmtDate(c.mariage)}</div>`;
+  h += '<div style="border-top:1px solid #f0f0f0;margin:14px 0;"></div>';
+  if (lignes.length) {
+    h += lignes.map(l => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f8f8f8;">
+      <div><div style="font-size:0.85rem;font-weight:500;">${l.nom||''}</div>${l.desc?'<div style="font-size:0.72rem;color:#aaa;">'+l.desc+'</div>':''}</div>
+      <span style="font-weight:500;">${fmtEur(l.prix||0)}</span>
+    </div>`).join('');
+  } else {
+    h += `<div style="font-size:0.85rem;color:#888;font-style:italic;padding:12px 0;">Création · ${c.robe||'sur mesure'}</div>`;
+  }
+  if (total) {
+    h += `<div style="border-top:2px solid #1c1c1c;margin-top:14px;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-weight:500;">Total</span><span style="font-family:var(--serif);font-size:1.2rem;">${fmtEur(total)}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:#aaa;padding-top:4px;">
+      <span>Acompte ${pct}%</span><span>${fmtEur(acompte)}</span>
+    </div>`;
+  }
+  if (c.devisSigneAt) {
+    h += `<div style="margin-top:18px;padding:12px 16px;background:#f5f9f5;border-left:3px solid #7A9B7A;">
+      <div style="font-size:0.72rem;color:#5a8a5a;font-weight:500;">✓ Devis signé électroniquement</div>
+      <div style="font-size:0.68rem;color:#888;margin-top:3px;">Le ${fmtDate(c.devisSigneAt.split('T')[0])} à ${new Date(c.devisSigneAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</div>
+      ${c.signatureImage?'<img src="'+c.signatureImage+'" style="height:36px;margin-top:8px;opacity:0.65;">':''}
+    </div>`;
+  }
+  body.innerHTML = h;
+  inner.appendChild(body);
+  box.appendChild(inner);
+  document.body.appendChild(box);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER — JOURNAL
+// ═══════════════════════════════════════════════════════════
+function renderJournal() {
+  const c = G;
+  const posts = [...(c.journal||[])].sort((a,b) => new Date(b.date) - new Date(a.date));
+  let h = '';
+  if (posts.length) {
+    h += posts.map(p => {
+      const step = (c.typeCommande==='bianco'?STEPS_BIANCO:STEPS_CREATION).find(s=>s.id===p.step);
+      return `<div class="journal-post">
+        <div class="journal-date">${fmtDate(p.date)}${step?' · '+step.e+' '+step.l:''}</div>
+        <div class="journal-text">${p.text}</div>
+        ${p.photo?'<img src="'+p.photo+'" class="journal-photo">':''}
+      </div>`;
+    }).join('');
+  } else {
+    h = '<div style="text-align:center;padding:40px;color:var(--taupe);font-style:italic;font-family:var(--serif);">Les coulisses de la création de votre robe apparaîtront ici, au fil des étapes.</div>';
+  }
+  el('journal-content').innerHTML = h;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER — VALIDATIONS
+// ═══════════════════════════════════════════════════════════
+function renderValidations() {
+  const c = G;
+  let h = '';
+  if (c.devisSigneAt) {
+    h = `<div class="card-gold" style="text-align:center;padding:32px;margin-bottom:24px;">
+      <div style="font-size:2rem;margin-bottom:12px;">✓</div>
+      <div style="font-family:var(--serif);font-size:1.3rem;font-style:italic;color:var(--gold-dark);">Devis signé et validé</div>
+      <div style="font-size:0.75rem;color:var(--taupe);margin-top:8px;">Le ${fmtDate(c.devisSigneAt.split('T')[0])}</div>
+      ${c.signatureImage?'<img src="'+c.signatureImage+'" style="height:40px;margin-top:12px;opacity:0.6;">':''}
+    </div>`;
+    // Éléments validés
+    const val = c.validations || {};
+    const valItems = Object.values(val).filter(Boolean);
+    if (valItems.length) {
+      h += '<div class="section-title">Éléments validés ensemble</div>';
+      h += valItems.map(v => `<div class="card" style="display:flex;align-items:center;gap:12px;padding:12px 16px;margin-bottom:6px;">
+        <span style="color:var(--green);">✓</span><span style="font-size:0.85rem;">${v}</span>
+      </div>`).join('');
+    }
+  } else {
+    h = buildDevisForm(c);
+  }
+  el('validations-content').innerHTML = h;
+  if (!c.devisSigneAt) initSigPad();
+}
+
+function buildDevisForm(c) {
+  const lignes = c.devisLignes || [];
+  const total = c.prixTotal || 0;
+  const pct = c.pct || 30;
+  const acompte = Math.round(total * pct) / 100;
+  const solde = total - acompte;
+  const nbM = c.nbMensualites || 1;
+
+  let recapH = '';
+  if (total) {
+    recapH = `<div class="card" style="margin-bottom:16px;">
+      <div style="font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:12px;">Récapitulatif de commande</div>`;
+    if (lignes.length) {
+      recapH += lignes.map(l=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cream);font-size:0.85rem;">
+        <span>${l.nom||''}</span><span>${fmtEur(l.prix||0)}</span>
+      </div>`).join('');
+    } else {
+      recapH += `<div style="font-size:0.85rem;font-style:italic;color:var(--taupe);padding:8px 0;">Création sur mesure · ${c.robe||''}</div>`;
+    }
+    recapH += `<div style="border-top:2px solid var(--black);margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;font-weight:500;">
+      <span>Total</span><span style="font-family:var(--serif);font-size:1.1rem;">${fmtEur(total)}</span>
+    </div>
+    <div style="font-size:0.78rem;color:var(--taupe);margin-top:6px;">Acompte ${pct}% · ${fmtEur(acompte)} — Solde en ${nbM} versement${nbM>1?'s':''} de ${fmtEur(solde/nbM)}</div>
+    </div>`;
+  }
+
+  return `<div style="max-width:560px;">
+    <div style="font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--taupe);margin-bottom:20px;line-height:1.8;">
+      Prenez le temps de relire votre devis avant de signer. Votre signature électronique constitue votre acceptation du devis et des conditions générales de vente.
+    </div>
+    ${recapH}
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:12px;">Conditions générales</div>
+      <div style="font-size:0.78rem;color:var(--taupe);line-height:1.8;">
+        Les créations Joséphine Bono sont réalisées sur mesure. L'acompte de ${pct}% est dû à la commande et n'est pas remboursable. Le solde est réglé avant la livraison. Toute modification après validation du croquis peut entraîner des frais supplémentaires.
+        <br><br>TVA non applicable — Art. 293B du CGI · Médiation : www.mediateur-conso.fr
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:12px;">Signature électronique</div>
+      <div style="font-size:0.72rem;color:var(--taupe);margin-bottom:10px;">Signez ci-dessous avec votre doigt ou votre souris</div>
+      <canvas id="sig-canvas" width="520" height="140"></canvas>
+      <div style="display:flex;gap:8px;margin-top:10px;">
+        <button onclick="clearSig()" class="btn btn-outline btn-sm">Effacer</button>
+      </div>
+    </div>
+    <button onclick="validerDevis()" class="btn btn-black" style="width:100%;justify-content:center;padding:14px;">
+      ✓ Je valide mon devis et accepte les CGV
+    </button>
+    <div style="font-size:0.65rem;color:var(--taupe);text-align:center;margin-top:8px;">En cliquant, vous signez électroniquement le devis ${c.devisRef||''}</div>
+  </div>`;
+}
+
+// Pad signature
+let sigPad = null;
+function initSigPad() {
+  const canvas = document.getElementById('sig-canvas');
+  if (!canvas) return;
+  canvas.width = canvas.offsetWidth || 520;
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  let lx = 0, ly = 0;
+  function getPos(e) {
+    const r = canvas.getBoundingClientRect();
+    const src = e.touches ? e.touches[0] : e;
+    return {x: src.clientX - r.left, y: src.clientY - r.top};
+  }
+  function start(e) { e.preventDefault(); drawing=true; const p=getPos(e); lx=p.x; ly=p.y; }
+  function move(e) {
+    if (!drawing) return; e.preventDefault();
+    const p = getPos(e);
+    ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(p.x,p.y);
+    ctx.strokeStyle='#1c1c1c'; ctx.lineWidth=1.8; ctx.lineCap='round'; ctx.stroke();
+    lx=p.x; ly=p.y;
+  }
+  function stop() { drawing=false; }
+  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',move);
+  canvas.addEventListener('mouseup',stop); canvas.addEventListener('mouseleave',stop);
+  canvas.addEventListener('touchstart',start,{passive:false});
+  canvas.addEventListener('touchmove',move,{passive:false});
+  canvas.addEventListener('touchend',stop);
+  sigPad = {canvas, ctx};
+}
+
+function clearSig() {
+  if (!sigPad) return;
+  sigPad.ctx.clearRect(0,0,sigPad.canvas.width,sigPad.canvas.height);
 }
 
 async function validerDevis() {
-  var c = document.getElementById('sig-devis');
-  if(!c) return;
-  var data = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
-  var isEmpty = !Array.from(data).some(function(v, i) { return i % 4 === 3 && v > 0; });
-  if(isEmpty) { alert('Merci de signer avant de valider.'); return; }
-  var btn = document.getElementById('btn-valider-devis');
-  if(btn) { btn.textContent = 'Validation en cours…'; btn.disabled = true; }
-  currentCarnet.devisSigneAt = new Date().toISOString();
-  // Sauvegarder la signature comme image
-  var sigCanvas = document.getElementById('sig-devis');
-  if(sigCanvas) currentCarnet.signatureImage = sigCanvas.toDataURL('image/png');
-  genererPaiementsDepuisDevis(currentCarnet);
+  const c = G;
+  const canvas = document.getElementById('sig-canvas');
+  if (!canvas) return;
+  const data = canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
+  if (!Array.from(data).some((v,i) => i%4===3 && v>0)) {
+    alert('Merci de signer avant de valider.');
+    return;
+  }
+  const btn = document.querySelector('#panel-validations button.btn-black');
+  if (btn) { btn.textContent = 'Validation en cours…'; btn.disabled = true; }
 
-  // Sauvegarder en localStorage pour persistance locale
-  try {
-    var stored = JSON.parse(localStorage.getItem('jb_carnet_local_' + currentCarnet.clientId) || '{}');
-    stored.devisSigneAt = currentCarnet.devisSigneAt;
-    stored.signatureImage = currentCarnet.signatureImage;
-    stored.paiements = currentCarnet.paiements;
-    localStorage.setItem('jb_carnet_local_' + currentCarnet.clientId, JSON.stringify(stored));
-  } catch(e) {}
+  c.devisSigneAt = new Date().toISOString();
+  c.signatureImage = canvas.toDataURL('image/png');
+  genererPaiements(c);
 
-  // Envoyer vers Supabase
-  await supaUpsertCarnet(currentCarnet);
-
-  // Rafraîchir tout le tableau de bord
-  renderDashboard(currentCarnet);
-  renderDevisValidation(currentCarnet);
-  renderPaiements(currentCarnet);
-
-  // Aller sur l'onglet paiements
-  var btnPay = document.querySelector('[data-panel="paiements"]');
-  if(btnPay) switchPanel(btnPay, 'paiements');
-
-  if(btn) { btn.textContent = '✓ Devis validé'; }
-  alert('Votre devis a été signé et validé. Vos paiements sont maintenant disponibles.');
-}
-
-function getNextFactureNum(devisRef) {
-  var KEY = 'jb_facture_counter';
-  var last = parseInt(sessionStorage.getItem(KEY) || localStorage.getItem(KEY) || '0');
-  var next = last + 1;
-  sessionStorage.setItem(KEY, String(next));
-  localStorage.setItem(KEY, String(next));
-  return (devisRef || 'JB') + '-F' + String(next).padStart(2,'0');
-}
-
-function genererPaiementsDepuisDevis(carnet) {
-  var total = carnet.prixTotal || 0;
-  var pct = carnet.pct || 30;
-  // nbMensualites depuis Supabase ou déduire depuis les lignes du devis
-  var nbM = carnet.nbMensualites || carnet.nb_mensualites || 1;
-  var acompte = Math.round(total * pct * 100) / 10000;
-  var solde = Math.round((total - acompte) * 100) / 100;
-  var mensualite = nbM > 1 ? Math.round((solde / nbM) * 100) / 100 : solde;
-  var reste = Math.round((solde - mensualite * (nbM-1)) * 100) / 100;
-  var ref = carnet.devisRef || 'JB';
-  var iban = carnet.iban || 'FR76 4061 8804 7200 0403 8233 463';
-  var tit = carnet.titulaire || 'EI JOSEPHINE BONO';
-
-  var pays = [{
-    id: 'p-acompte',
-    factureNum: getNextFactureNum(ref),
-    label: 'Acompte ' + pct + '% — Facture d\'acompte',
-    montant: acompte,
-    echeance: new Date().toISOString().split('T')[0],
-    statut: 'due',
-    iban: iban, titulaire: tit, ref: ref,
-    lienPaiement: carnet.lienPaiementStripe || ''
-  }];
-
-  for(var i = 1; i <= nbM; i++) {
-    var montant = (i === nbM) ? reste : mensualite;
-    pays.push({
-      id: 'p-versement-' + i,
-      factureNum: getNextFactureNum(ref),
-      label: nbM > 1 ? 'Versement ' + i + '/' + nbM + ' — Facture de solde' : 'Solde — Facture finale',
-      montant: montant, echeance: '', statut: 'pending',
-      iban: iban, titulaire: tit, ref: ref,
-
+  // Créer facture d'acompte dans Supabase
+  if (c.paiements && c.paiements[0]) {
+    const p = c.paiements[0];
+    await supaUpsertFacture({
+      id: c.devisRef + '-ACP',
+      facture_num: p.factureNum,
+      nom: c.nom, email: c.email||'',
+      data: {isFacture:true, factureNum:p.factureNum, factureLabel:p.label, nom:c.nom, email:c.email, devisNum:c.devisRef, total:c.prixTotal, montantFacture:p.montant, pct:c.pct, iban:p.iban, titulaire:p.titulaire, signedAt:c.devisSigneAt, paye:false},
+      saved_at: new Date().toISOString(),
     });
   }
-  carnet.paiements = pays;
+
+  // Sauvegarder
+  saveLocal();
+  await supaUpsert(c);
+
+  // Refresh
+  renderValidations();
+  renderPaiements();
+  renderDocuments();
+  renderAccueil();
+  showPanel('paiements', document.querySelector('[data-panel="paiements"]'));
+  alert('&#127881; Votre devis a été signé ! Vos modalités de paiement sont maintenant disponibles dans l\'onglet Paiements.');
 }
-function renderValidations(carnet) {
-  var vals = carnet.validations || {};
-  var el = document.getElementById('validations-container');
-  if(!el) return;
-  var entries = Object.entries(vals);
-  if(!entries.length) { el.innerHTML = ''; return; }
-  el.innerHTML = '<div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:12px;">Éléments validés ensemble</div>'
-    + entries.map(function(e) {
-      var v = e[1];
-      return '<div class="val-item">'
-        + '<div style="display:flex;align-items:center;gap:12px;">'
-        + '<span style="font-size:1.1rem;">' + (v.emoji||'✅') + '</span>'
-        + '<div><div class="val-name">' + (v.label||e[0]) + '</div>'
-        + (v.date ? '<div style="font-size:0.65rem;color:var(--muted);">' + fmtDate(v.date) + '</div>' : '') + '</div>'
-        + '</div>'
-        + '<span class="badge ' + (v.done ? 'badge-done' : 'badge-pending') + '">' + (v.done ? 'Validé' : 'En attente') + '</span>'
-        + '</div>';
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER — MESURES
+// ═══════════════════════════════════════════════════════════
+function renderMesures() {
+  const c = G;
+  const m = c.mesures || {};
+  const hist = c.mesuresHistorique || [];
+  const hasMes = Object.keys(m).some(k => m[k]);
+
+  let h = '';
+  if (hist.length > 1) {
+    h += `<div class="card" style="margin-bottom:16px;">
+      <div style="font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:10px;">Historique des prises</div>
+      ${hist.map((hr,i) => `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cream);font-size:0.8rem;">
+        <span>${hr.note||'Prise '+(i+1)}</span>
+        <span style="color:var(--taupe);">${fmtDate(hr.date)}</span>
+      </div>`).join('')}
+    </div>`;
+  }
+
+  if (hasMes) {
+    h += MESURES.map(g => {
+      const items = g.items.filter(x => m[x.k]);
+      if (!items.length) return '';
+      return `<div class="mes-groupe">
+        <div class="mes-groupe-title">${g.g}</div>
+        <div class="mes-grid">
+          ${items.map(x => `<div class="mes-item"><span class="mes-label">${x.l}</span><span class="mes-val">${m[x.k]} cm</span></div>`).join('')}
+        </div>
+      </div>`;
     }).join('');
-}
-
-// ── Paiements ──
-// ── Générer le HTML d'une facture PDF simple ──
-function genererFactureHTML(p, carnet) {
-  var date = new Date().toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'});
-  var echeance = p.echeance ? new Date(p.echeance).toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'}) : '';
-  var montant = (p.montant||0);
-  var montantStr = montant.toLocaleString('fr-FR',{minimumFractionDigits:2}) + ' €';
-
-  return '<!DOCTYPE html><html><head><meta charset="UTF-8">'    + '<style>'    + 'body{font-family:Georgia,serif;max-width:640px;margin:40px auto;color:#2A2018;font-size:14px;}'    + 'h1{font-size:1.8rem;font-weight:300;font-style:italic;}'    + '.gold{color:#C09A6B;} .muted{color:#9B8C7E;} .serif{font-family:Georgia,serif;}'    + '.row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #EDE5D8;}'    + '.total-row{display:flex;justify-content:space-between;padding:10px 0;border-top:2.5px solid #2A2018;margin-top:4px;font-size:1.1rem;font-weight:600;}'    + 'hr{border:none;border-top:2px solid #2A2018;margin:20px 0;}'    + '</style></head><body>'
-    // En-tête
-    + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">'    + '<div>'    + '<div style="font-size:1.6rem;font-style:italic;font-family:Georgia,serif;margin-bottom:4px;">Joséphine Bono</div>'    + '<div class="muted" style="font-size:0.8rem;line-height:1.7;">'    + '26 avenue de la Gare<br>33470 Gujan-Mestras<br>'    + 'SIRET 522 106 384<br>hello@josephinebono.com · 06 98 94 20 00'    + '</div></div>'    + '<div style="text-align:right;">'    + '<div class="gold" style="font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:4px;">Facture</div>'    + '<div style="font-size:1.2rem;font-weight:600;">' + (p.factureNum||'') + '</div>'    + '<div class="muted" style="font-size:0.78rem;margin-top:4px;">Émise le ' + date + '</div>'    + (echeance ? '<div class="muted" style="font-size:0.78rem;">Échéance : ' + echeance + '</div>' : '')    + '</div></div>'
-    + '<hr>'
-    // Infos client
-    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;font-size:0.85rem;">'    + '<div><div class="muted" style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:6px;">Facturé à</div>'    + '<strong>' + (carnet.nom||'') + '</strong><br>'    + (carnet.email ? carnet.email + '<br>' : '')    + (carnet.tel || '') + '</div>'    + '<div><div class="muted" style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:6px;">Référence</div>'    + 'Devis : <strong>' + (p.ref||carnet.devisRef||'') + '</strong><br>'    + 'Facture : <strong>' + (p.factureNum||'') + '</strong>'    + (carnet.robe ? '<br>Modèle : ' + carnet.robe : '')    + '</div></div>'
-    // Détail
-    + '<div style="margin-bottom:16px;">'    + '<div class="muted" style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;border-bottom:1px solid #EDE5D8;padding-bottom:6px;">Détail</div>'    + '<div class="row"><span style="flex:1;">' + (p.label||'Paiement') + '</span><span style="font-weight:500;">' + montantStr + '</span></div>'    + '<div class="total-row"><span>Total dû</span><span>' + montantStr + '</span></div>'    + '<div class="muted" style="font-size:0.72rem;margin-top:6px;">TVA non applicable — article 293B du CGI</div>'    + '</div>'
-    // Paiement
-    + '<div style="background:#faf8f4;border:1px solid #EDE5D8;padding:14px 16px;font-size:0.82rem;line-height:1.8;margin-bottom:20px;">'    + '<div class="muted" style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;">Règlement</div>'    + 'Titulaire : <strong>' + (p.titulaire||'EI JOSEPHINE BONO') + '</strong><br>'    + 'IBAN : <strong>' + (p.iban||'FR76 4061 8804 7200 0403 8233 463') + '</strong><br>'    + 'Référence : <strong>' + (p.factureNum||p.ref||'') + '</strong><br>'    + 'PayPal : hello@josephinebono.com'    + '</div>'
-    + '<div class="muted" style="font-size:0.72rem;text-align:center;border-top:1px solid #EDE5D8;padding-top:12px;">'    + 'Joséphine Bono · EI · 26 avenue de la Gare · 33470 Gujan-Mestras · SIRET 522 106 384'    + '</div>'    + '</body></html>';
-}
-
-
-function telechargerFacture(btnOrId, carnetArg) {
-  var pId = typeof btnOrId === 'string' ? btnOrId : btnOrId.getAttribute('data-pid');
-  var carnet = carnetArg || currentCarnet;
-  var p = (carnet.paiements||[]).find(function(x){return x.id===pId;});
-  if(!p) return;
-  var html = genererFactureHTML(p, carnet);
-  var blob = new Blob([html], {type:'text/html'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url; a.download = (p.factureNum||'facture') + '.html';
-  a.click(); URL.revokeObjectURL(url);
-}
-
-function renderPaiements(carnet) {
-  var pays = carnet.paiements || [];
-  var total = carnet.prixTotal || pays.reduce(function(s,p){return s+(p.montant||0);},0);
-  var paye = pays.filter(function(p){return p.statut==='paid';}).reduce(function(s,p){return s+(p.montant||0);},0);
-  var resteTotal = Math.round((total - paye)*100)/100;
-  var pct = total ? Math.round(paye/total*100) : 0;
-  var el = document.getElementById('paiements-container');
-  if(!el) return;
-
-  if(!pays.length) {
-    el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--taupe);">'
-      + '<div style="font-family:var(--serif);font-size:1.1rem;font-style:italic;">Les paiements apparaîtront après validation de votre devis.</div>'
-      + '<div style="margin-top:12px;font-size:0.72rem;">→ Onglet <strong>Validations</strong> pour signer votre devis.</div>'
-      + '</div>';
-    return;
+  } else {
+    h += `<div style="text-align:center;padding:48px;color:var(--taupe);">
+      <div style="font-family:var(--serif);font-size:1.1rem;font-style:italic;margin-bottom:8px;">Vos mensurations seront ajoutées après votre premier rendez-vous à l'atelier.</div>
+      <div style="font-size:0.75rem;">Elles sont prises avec soin lors de chaque séance.</div>
+    </div>`;
   }
-
-  // Prochain paiement dû
-  var prochainDu = pays.find(function(p){return p.statut==='due';});
-  var urgence = '';
-  if(prochainDu && prochainDu.echeance) {
-    var diff = Math.ceil((new Date(prochainDu.echeance) - new Date()) / (1000*60*60*24));
-    urgence = diff < 0 ? 'color:var(--warn);font-weight:600;' : diff <= 7 ? 'color:#e67e22;' : 'color:var(--green);';
-  }
-
-  el.innerHTML =
-    // Barre de progression
-    '<div style="background:var(--white);border:1px solid var(--sand);padding:20px 24px;margin-bottom:16px;">'
-    + '<div style="display:flex;justify-content:space-between;margin-bottom:8px;">'
-    + '<span style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);">Progression du règlement</span>'
-    + '<span style="font-family:var(--serif);font-size:1.2rem;color:var(--dark);">' + pct + '%</span>'
-    + '</div>'
-    + '<div style="height:6px;background:var(--sand);border-radius:3px;overflow:hidden;">'
-    + '<div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,var(--taupe),var(--green));transition:width 1s ease;border-radius:3px;"></div>'
-    + '</div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;text-align:center;">'
-    + '<div><div style="font-family:var(--serif);font-size:1.3rem;">' + fmtEur(total) + '</div><div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);">Total</div></div>'
-    + '<div><div style="font-family:var(--serif);font-size:1.3rem;color:var(--green);">' + fmtEur(paye) + '</div><div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);">Réglé</div></div>'
-    + '<div><div style="font-family:var(--serif);font-size:1.3rem;color:var(--warn);">' + fmtEur(resteTotal) + '</div><div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--taupe);">Restant</div></div>'
-    + '</div>'
-    + '</div>'
-
-    // Rappel prochain paiement
-    + (prochainDu ? '<div style="border:1px solid var(--sand);padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">'
-    + '<div>'
-    + '<div style="font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:2px;">Prochain paiement</div>'
-    + '<div style="font-family:var(--serif);font-size:1.05rem;">' + (prochainDu.label||'') + '</div>'
-    + (prochainDu.echeance ? '<div style="font-size:0.72rem;' + urgence + '">Échéance : ' + fmtDate(prochainDu.echeance)
-      + (urgence.includes('var(--warn)') ? ' ⚠ En retard' : urgence.includes('#e67e22') ? ' — Dans moins de 7 jours' : '') + '</div>' : '')
-    + '</div>'
-    + '<div style="font-family:var(--serif);font-size:1.5rem;color:var(--gold);">' + fmtEur(prochainDu.montant) + '</div>'
-    + '</div>' : '')
-
-    // Liste des paiements
-    + pays.map(function(p) {
-      var isPaid = p.statut === 'paid';
-      var isDue = p.statut === 'due';
-      var isPending = p.statut === 'pending';
-      var isPending2 = p.statut === 'confirming'; // cliente dit avoir payé
-      var isPending3 = p.statut === 'pending'; // pas encore dû = à venir
-
-      var badgeCls = isPaid ? 'badge-done' : isPending2 ? 'badge-active' : isDue ? 'badge-active' : 'badge-pending';
-      var badgeLbl = isPaid ? '✓ Réglé' : isPending2 ? '⏳ En attente confirmation' : isDue ? 'À régler' : 'À venir';
-
-      // Options de paiement si dû
-      var payOptions = '';
-      if(isDue || isPending2) {
-        payOptions = '<div style="margin-top:10px;background:var(--cream);border:1px solid var(--sand);padding:12px 14px;font-size:0.72rem;">'
-          + '<div style="font-size:0.55rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:8px;">Modalités de règlement</div>'
-          + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
-          + '<div><strong style="display:block;margin-bottom:4px;">Virement bancaire</strong>'
-          + (p.titulaire||'EI JOSEPHINE BONO') + '<br>'
-          + 'IBAN : ' + (p.iban||'FR76 4061 8804 7200 0403 8233 463') + '<br>'
-          + 'Réf. : ' + (p.factureNum||p.ref||'') + '</div>'
-          + '<div>'
-          + '<div style="margin-bottom:8px;">'
-          + '<a href="' + STRIPE_LINK + '?prefilled_email=' + encodeURIComponent(currentCarnet&&currentCarnet.email||'') + '" target="_blank" '
-          + 'style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;background:#635BFF;color:white;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;width:100%;box-sizing:border-box;">'
-          + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>'
-          + 'Payer ' + fmtEur(p.montant) + ' par carte bancaire'
-          + '</a>'
-          + '<div style="font-size:0.58rem;color:var(--taupe);text-align:center;margin-top:4px;">Paiement sécurisé Stripe · Visa, Mastercard, CB</div>'
-          + '</div>'
-          + (p.lienPaiement ? '<a href="' + p.lienPaiement + '" target="_blank" style="display:inline-block;padding:6px 14px;background:var(--dark);color:white;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;">Carte bancaire →</a>' : '')
-          + '</div>'
-          + '</div>'
-          + (isDue ? '<div class="btn-confirmer-pay" data-id="'+p.id+'" style="width:100%;margin-top:10px;padding:10px;background:var(--gold);border:none;color:white;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;text-align:center;display:block;">J&#39;ai effectué ce paiement &#8594;</div>' : '')
-          + '</div>';
-      }
-
-      return '<div style="background:var(--white);border:1px solid var(--sand);padding:16px 18px;margin-bottom:10px;">'
-        + '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">'
-        + '<div>'
-        + '<div style="font-family:var(--serif);font-size:1rem;">' + (p.label||'Paiement') + '</div>'
-        + (p.factureNum ? '<div style="font-size:0.62rem;color:var(--taupe);">Réf. ' + p.factureNum + '</div>' : '')
-        + (p.echeance ? '<div style="font-size:0.68rem;color:var(--muted);">Échéance : ' + fmtDate(p.echeance) + '</div>' : '')
-        + '</div>'
-        + '<div style="text-align:right;">'
-        + '<div style="font-family:var(--serif);font-size:1.3rem;">' + fmtEur(p.montant) + '</div>'
-        + '<span class="badge ' + badgeCls + '" style="margin-top:4px;">' + badgeLbl + '</span>'
-        + '</div>'
-        + '</div>'
-        + payOptions
-        + (!isPending3 ? '<button onclick="telechargerFacture(this)" data-pid="' + p.id + '" '
-          + 'style="margin-top:8px;padding:5px 12px;background:none;border:1px solid var(--sand);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;color:var(--text);">'
-          + '↓ Télécharger la facture ' + (p.factureNum||'') + '</button>' : '')
-        + '</div>';
-    }).join('');
+  el('mesures-content').innerHTML = h;
 }
 
-function confirmerPaiement(payId) {
-  // Cliente déclare avoir payé → statut "confirming"
-  var p = (currentCarnet.paiements||[]).find(function(x){return x.id===payId;});
-  if(!p) return;
-  p.statut = 'confirming';
-  p.confirmedAt = new Date().toISOString();
-  supaUpsertCarnet(currentCarnet);
-  renderPaiements(currentCarnet);
-  // Petite confirmation visuelle
-  // Mettre à jour visuellement le bouton cliqué
-  document.querySelectorAll('.btn-confirmer-pay').forEach(function(b){
-    if(b.getAttribute('data-id')===payId) {
-      b.textContent = '✓ Déclaration enregistrée — en attente de confirmation atelier';
-      b.style.background = 'var(--taupe)';
-      b.style.pointerEvents = 'none';
-    }
-  });
+// ═══════════════════════════════════════════════════════════
+//  UTILITAIRES
+// ═══════════════════════════════════════════════════════════
+function saveLocal() {
+  const c = G;
+  try {
+    localStorage.setItem('jb_local_' + c.clientId, JSON.stringify({
+      devisSigneAt: c.devisSigneAt,
+      signatureImage: c.signatureImage,
+      paiements: c.paiements,
+      todoChecked: c.todoChecked,
+    }));
+  } catch(e) {}
 }
 
-// ── Mesures ──
-var MESURES_CLIENT_GROUPES = [
-  { groupe: 'Général', champs: [{key:'stature',label:'Stature'}] },
-  { groupe: 'Buste', champs: [
-    {key:'tour_poitrine',label:'Tour de poitrine'},
-    {key:'tour_dessus_poitrine',label:'Tour dessus poitrine'},
-    {key:'tour_dessous_poitrine',label:'Tour dessous poitrine'},
-    {key:'tour_taille',label:'Tour de taille'},
-    {key:'tour_hanches',label:'Tour de hanches'},
-    {key:'tour_bassin',label:'Tour de bassin'},
-    {key:'tour_cou',label:'Tour de cou'},
-    {key:'carrure_devant',label:'Carrure devant'},
-    {key:'long_epaule',label:"Longueur d'épaule"},
-    {key:'ecart_sein',label:'Écartement pointe de sein'},
-    {key:'carrure_dos',label:'Carrure dos'},
-    {key:'montant_dos',label:'Montant dos'},
-    {key:'haut_taille_sol',label:'Hauteur taille dos - sol'},
-    {key:'haut_cervicale_sol',label:'Hauteur 7ème cervicale - sol'},
-  ]},
-  { groupe: 'Bras', champs: [
-    {key:'tour_bras_aisselle',label:"Tour de bras à l'aisselle"},
-    {key:'tour_biceps',label:'Tour de biceps'},
-    {key:'tour_coude',label:'Tour de coude'},
-    {key:'tour_poignet',label:'Tour de poignet'},
-    {key:'long_bras',label:'Longueur de bras'},
-  ]},
-  { groupe: 'Jambe', champs: [
-    {key:'tour_cuisse',label:'Tour de cuisse'},
-    {key:'tour_genou',label:'Tour de genou'},
-    {key:'tour_mollet',label:'Tour de mollet'},
-    {key:'tour_cheville',label:'Tour de cheville'},
-    {key:'long_jupe_taille',label:'Longueur de jupe à partir de la taille'},
-  ]},
-  { groupe: 'Tête', champs: [
-    {key:'tour_tete',label:'Tour de tête'},
-  ]},
-];
-
-function renderMesures(carnet) {
-  var el = document.getElementById('mesures-container');
-  if(!el) return;
-  var historique = carnet.mesuresHistorique || [];
-  var m = carnet.mesures || {};
-  var hasMesures = Object.keys(m).some(function(k){ return m[k]; });
-
-  if(!hasMesures) {
-    el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--taupe);">'
-      + '<div style="font-family:var(--serif);font-size:1.1rem;font-style:italic;margin-bottom:8px;">Vos mensurations seront ajoutées après votre premier rendez-vous à l\'atelier.</div>'
-      + '<div style="font-size:0.72rem;">Elles sont prises avec soin lors de chaque séance.</div>'
-      + '</div>';
-    return;
-  }
-
-  // Historique si plusieurs prises
-  var historiqueHTML = '';
-  if(historique.length > 1) {
-    historiqueHTML = '<div style="margin-bottom:1.5rem;padding:12px 16px;background:var(--cream);border:1px solid var(--sand);">'
-      + '<div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);margin-bottom:8px;">Historique des prises de mesures</div>'
-      + historique.map(function(h,i) {
-          return '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--sand);font-size:0.78rem;">'
-            + '<span>' + (h.note || 'Prise ' + (i+1)) + '</span>'
-            + '<span style="color:var(--gold);">' + fmtDate(h.date) + '</span>'
-            + '</div>';
-        }).join('')
-      + '</div>';
-  }
-
-  // Dernière date
-  var dernDate = historique.length ? '<div style="font-size:0.68rem;color:var(--taupe);margin-bottom:1.5rem;">Mesures prises le ' + fmtDate(historique[historique.length-1].date) + (historique[historique.length-1].note ? ' — ' + historique[historique.length-1].note : '') + '</div>' : '';
-
-  el.innerHTML = historiqueHTML + dernDate
-    + MESURES_CLIENT_GROUPES.map(function(g) {
-        var champs = g.champs.filter(function(c){ return m[c.key]; });
-        if(!champs.length) return '';
-        return '<div style="margin-bottom:1.5rem;">'
-          + '<div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">' + g.groupe + '</div>'
-          + '<div class="mesure-grid">'
-          + champs.map(function(c) {
-              return '<div class="mesure-item">'
-                + '<div class="mesure-label">' + c.label + '</div>'
-                + '<div class="mesure-value">' + m[c.key] + ' <span style="font-size:0.65rem;color:var(--taupe);">cm</span></div>'
-                + '</div>';
-            }).join('')
-          + '</div></div>';
-      }).join('')
-    + '<div style="font-size:0.65rem;color:var(--taupe);margin-top:1rem;font-style:italic;text-align:center;">Mensurations prises à l\'atelier Joséphine Bono — confidentielles</div>';
+function openModal(title, bodyHtml) {
+  el('modal-title').textContent = title;
+  el('modal-body').innerHTML = bodyHtml;
+  el('modal-global').classList.remove('hidden');
 }
 
-// ── Init ──
+function closeModal() {
+  el('modal-global').classList.add('hidden');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async function() {
-  var params = new URLSearchParams(window.location.search);
-  var urlCode = params.get('code') || params.get('carnet');
-  var sessionCode = sessionStorage.getItem('jb_carnet_code');
-  var code = ((urlCode || sessionCode) || '').toUpperCase();
-
-  if(code) {
-    var carnet = await supaFindCarnetByCode(code);
-    if(!carnet) carnet = findCarnetByCode(code);
-    if(carnet) {
-      currentCarnet = carnet;
-      sessionStorage.setItem('jb_carnet_code', code);
-      showApp(carnet);
-      if(urlCode) switchPanel(document.querySelector('[data-panel="aventure"]'), 'aventure');
-      return;
-    }
+  const code = sessionStorage.getItem('jb_code');
+  if (code) {
+    el('login-input').value = code;
+    await doLogin();
   }
+  el('login-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
 });
+
 </script>
 </body>
 </html>
