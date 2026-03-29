@@ -798,6 +798,39 @@ function startApp(carnet) {
   el('topbar-name').textContent = carnet.nom;
   window.scrollTo(0, 0);
   showPanel('accueil', document.querySelector('[data-panel="accueil"]'));
+  // Polling sync toutes les 30s
+  if(window._carnetPoll) clearInterval(window._carnetPoll);
+  window._carnetPoll = setInterval(syncCarnetSilent, 30000);
+  // Sync au retour sur l'onglet
+  document.addEventListener('visibilitychange', function() {
+    if(!document.hidden) syncCarnetSilent();
+  });
+}
+
+// Sync silencieuse depuis Supabase
+async function syncCarnetSilent() {
+  if(!G || !G.password) return;
+  try {
+    const data = await supaFetch('carnets?password=eq.' + encodeURIComponent(G.password) + '&limit=1');
+    if(!data || !data.length) return;
+    const r = data[0];
+    // Fusionner intelligemment : Supabase wins sur les champs atelier
+    const updated = r.updated_at ? new Date(r.updated_at) : new Date(0);
+    const local = G.updatedAt ? new Date(G.updatedAt) : new Date(0);
+    if(updated <= local) return; // Pas de changement
+    // Mettre à jour les champs qui viennent de l'atelier
+    G.steps = r.steps || G.steps;
+    G.journal = r.journal || G.journal;
+    G.essayages = r.essayages || G.essayages;
+    G.mesures = r.mesures || G.mesures;
+    G.mesuresHistorique = r.mesures_historique || G.mesuresHistorique;
+    G.paiements = r.paiements || G.paiements;
+    G.updatedAt = r.updated_at;
+    // Re-render le panel actif
+    const activePanel = document.querySelector('.panel.active');
+    if(activePanel) renderPanel(activePanel.id.replace('panel-',''));
+    console.log('[CARNET] Sync silencieuse OK — mise à jour depuis atelier');
+  } catch(e) { /* silencieux */ }
 }
 
 // ═══════════════════════════════════════════════════════════
