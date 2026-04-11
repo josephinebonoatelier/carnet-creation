@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mon Carnet — Joséphine Bono</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--cr:#FAF8F5;--iv:#F5F0E8;--go:#C4A66A;--gl:#E8D9B8;--tx:#2C2620;--mu:#8C7B6B;--br:rgba(196,166,106,.2);--bs:rgba(196,166,106,.45)}
+body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* LOGIN */
+#jb-login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--iv)}
+.lc{text-align:center;width:380px;max-width:94vw;padding:52px 44px;background:white;border:.5px solid var(--br)}
+.lc-logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;letter-spacing:.15em;color:var(--tx)}
+.lc-sub{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--go);margin:3px 0 6px}
+.lc-hint{font-size:12px;color:var(--mu);font-style:italic;margin-bottom:28px;line-height:1.5}
+.lc input{width:100%;border:.5px solid var(--bs);background:var(--cr);padding:14px;font-family:'Jost',sans-serif;font-size:16px;color:var(--tx);text-align:center;letter-spacing:.15em;outline:none;margin-bottom:12px;text-transform:uppercase}
+.lc input:focus{border-color:var(--go)}
+.lc-btn{width:100%;background:var(--tx);color:var(--gl);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.28em;text-transform:uppercase;padding:14px;border:none;cursor:pointer}
+.lc-err{color:#c0392b;font-size:12px;margin-top:10px;display:none}
+
+/* APP */
+#jb-app{display:none;min-height:100vh}
+
+/* HERO */
+.hero{background:white;border-bottom:.5px solid var(--br);padding:36px 24px 28px;text-align:center}
+.hero-eyebrow{font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--go);margin-bottom:12px}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:var(--tx);line-height:1.1}
+.hero-dates{display:flex;gap:20px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.hero-date-item{font-size:11px;color:var(--mu);letter-spacing:.08em}
+.hero-date-item strong{color:var(--tx);font-weight:500}
+.hero-sep{width:30px;height:.5px;background:var(--go);margin:14px auto}
+.countdown{display:flex;gap:26px;justify-content:center;margin:10px 0}
+.ci-num{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--tx);line-height:1}
+.ci-unit{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);margin-top:3px}
+.hero-model{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--go)}
+.hero-sig{font-size:12px;font-style:italic;color:var(--mu);margin-top:6px}
+
+/* TABS */
+.tabs-wrap{background:white;border-bottom:2px solid var(--br);overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:50}
+.tabs{display:flex;min-width:max-content}
+.tab-btn{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);padding:15px 18px;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s}
+.tab-btn:hover{color:var(--tx);background:var(--iv)}
+.tab-btn.active{color:var(--tx);border-bottom-color:var(--go);background:white;font-weight:500}
+.tab-btn.admin{color:var(--go)}
+.tab-btn.admin.active{color:var(--tx)}
+
+/* SECTIONS */
+.sec{display:none;max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.sec.active{display:block}
+.sec-admin{max-width:900px}
+
+/* SECTION TITLE */
+.sl{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--tx);margin:24px 0 14px;display:flex;align-items:center;gap:10px}
+.sl::after{content:'';flex:1;height:.5px;background:var(--br)}
+.sl:first-child{margin-top:0}
+.sl-small{font-size:15px;margin:18px 0 10px}
+
+/* CARDS */
+.card{background:white;border:.5px solid var(--br);padding:18px 20px;margin-bottom:12px}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--tx);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title::before{content:'✦';font-size:9px;color:var(--go)}
+
+/* FORM */
+.fg{display:grid;gap:12px 16px}
+.fg-2{grid-template-columns:1fr 1fr}
+.fg-3{grid-template-columns:1fr 1fr 1fr}
+.fg-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mu)}
+.field input,.field select,.field textarea{font-family:'Jost',sans-serif;font-size:13px;color:var(--tx);background:white;border:.5px solid var(--bs);padding:9px 11px;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--go)}
+.field textarea{resize:vertical;min-height:80px}
+.btn-dark{background:var(--tx);color:var(--gl);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:11px 22px;border:none;cursor:pointer}
+.btn-outline{background:transparent;color:var(--mu);border:.5px solid var(--bs);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 18px;cursor:pointer}
+.btn-gold{background:rgba(196,166,106,.12);color:#8C6A2F;border:.5px solid rgba(196,166,106,.4);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 18px;cursor:pointer}
+.btn-sm{padding:7px 12px;font-size:9px}
+.btn-danger{background:transparent;color:#c0392b;border:.5px solid rgba(192,57,43,.2);font-family:'Jost',sans-serif;font-size:9px;padding:5px 9px;cursor:pointer}
+.action-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+
+/* PLANNING */
+.plan-list{display:flex;flex-direction:column}
+.plan-item{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:.5px solid rgba(196,166,106,.1)}
+.plan-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.plan-dot.done{background:var(--go)}.plan-dot.next{background:transparent;border:2px solid var(--go)}.plan-dot.future{background:transparent;border:1.5px solid var(--br)}
+.plan-title{font-size:14px;color:var(--tx);line-height:1.4}.plan-date{font-size:11px;color:var(--mu);margin-top:3px}
+.plan-badge{font-size:10px;padding:3px 10px;margin-left:auto;flex-shrink:0}
+.pb-done{background:rgba(196,166,106,.1);color:#8C6A2F;border:.5px solid rgba(196,166,106,.3)}
+.pb-next{background:var(--tx);color:var(--gl)}.pb-future{color:var(--mu)}
+.plan-edit-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;align-items:center;padding:9px 12px;background:white;border:.5px solid var(--br);margin-bottom:6px}
+.plan-edit-row input,.plan-edit-row select{border:.5px solid var(--bs);padding:7px 9px;font-family:'Jost',sans-serif;font-size:12px;color:var(--tx);background:var(--cr);outline:none;width:100%}
+
+/* MESURES */
+.mes-group{margin-bottom:20px}
+.mes-group-title{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--go);margin-bottom:10px;padding-bottom:6px;border-bottom:.5px solid var(--br)}
+.mes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.mes-card{background:white;border:.5px solid var(--br);padding:10px 12px}
+.mes-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:4px;line-height:1.3}
+.mes-val{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--tx)}
+.mes-notes-box{background:white;border:.5px solid var(--br);padding:14px;font-size:13px;color:var(--tx);line-height:1.7;margin-top:10px}
+
+/* ESSAYAGES */
+.essa-list{display:flex;flex-direction:column;gap:12px}
+.essa-card{background:white;border:.5px solid var(--br)}
+.essa-hd{padding:11px 14px;border-bottom:.5px solid var(--br);display:flex;align-items:center;gap:10px}
+.essa-date-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--go)}
+.essa-num{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--tx)}
+.essa-body{padding:12px 14px;font-size:13px;color:var(--tx);line-height:1.7}
+.essa-photos{display:flex;gap:8px;padding:0 14px 10px;flex-wrap:wrap}
+.essa-photo{width:80px;height:80px;object-fit:cover;border:.5px solid var(--br)}
+
+/* JOURNAL */
+.journal-list{display:flex;flex-direction:column;gap:18px}
+.journal-card{background:white;border:.5px solid var(--br);overflow:hidden}
+.journal-img{width:100%;max-height:320px;object-fit:cover;display:block}
+.journal-body{padding:14px 16px}
+.journal-meta{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--go);margin-bottom:6px}
+.journal-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--tx);margin-bottom:7px}
+.journal-text{font-size:13px;color:var(--tx);line-height:1.8}
+
+/* CHECKLIST */
+.check-cat{margin-bottom:22px}
+.check-cat-title{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:9px;padding-bottom:6px;border-bottom:.5px solid var(--br)}
+.check-list{display:flex;flex-direction:column;gap:6px}
+.check-item{display:flex;align-items:center;gap:11px;padding:11px 13px;background:white;border:.5px solid var(--br);cursor:pointer}
+.check-item.done{opacity:.5}
+.check-box{width:17px;height:17px;border:.5px solid var(--bs);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent}
+.check-item.done .check-box{background:var(--go);border-color:var(--go);color:white}
+.check-name{flex:1;font-size:13px;color:var(--tx)}
+.check-item.done .check-name{text-decoration:line-through;color:var(--mu)}
+.check-delay{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--go);flex-shrink:0}
+
+/* PAIEMENTS & DOCUMENTS */
+.pay-table{border:.5px solid var(--br);overflow:hidden;margin-bottom:16px}
+.pay-row{display:grid;grid-template-columns:1.2fr 1.5fr 1fr 1fr;gap:10px;padding:11px 14px;border-bottom:.5px solid rgba(196,166,106,.08);align-items:center;font-size:13px}
+.pay-row.head{background:var(--iv);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mu);padding:9px 14px}
+.pay-amount{font-family:'Cormorant Garamond',serif;font-size:16px}
+.badge{font-size:10px;padding:4px 10px;display:inline-block}
+.b-paid{background:rgba(60,130,70,.08);color:#2E6E35;border:.5px solid rgba(60,130,70,.2)}
+.b-pend{background:rgba(196,166,106,.12);color:#8C6A2F;border:.5px solid rgba(196,166,106,.35)}
+.b-fut{background:rgba(140,123,107,.07);color:var(--mu);border:.5px solid var(--br)}
+.pay-info{background:var(--iv);border:.5px solid var(--br);padding:13px 14px;font-size:12px;color:var(--mu);line-height:1.8;margin-top:10px}
+.doc-list{display:flex;flex-direction:column;gap:8px}
+.doc-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:white;border:.5px solid var(--br)}
+.doc-icon{width:32px;height:32px;background:var(--iv);border:.5px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.doc-name{flex:1;font-size:13px;color:var(--tx)}
+.doc-date{font-size:11px;color:var(--mu)}
+.doc-dl{background:var(--tx);color:var(--gl);font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:7px 14px;border:none;cursor:pointer;text-decoration:none;display:inline-block}
+
+/* RDV */
+.rdv-wrap{text-align:center;padding:36px 20px}
+.rdv-title{font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:8px}
+.rdv-sub{font-size:13px;color:var(--mu);margin-bottom:24px;line-height:1.6}
+.rdv-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.rdv-btn{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:13px 24px;text-decoration:none;display:inline-block}
+.rdv-dark{background:var(--tx);color:var(--gl);border:none}
+.rdv-wa{background:#25D366;color:white;border:none}
+.rdv-contact{margin-top:24px;font-size:13px;color:var(--mu);line-height:1.9}
+
+/* ADMIN SECTION */
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.admin-card{background:white;border:.5px solid var(--br);padding:18px 20px}
+.admin-card-full{grid-column:1/-1}
+.admin-card-title{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--go);margin-bottom:14px;padding-bottom:8px;border-bottom:.5px solid var(--br)}
+.essa-admin-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.essa-admin-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--iv);border:.5px solid var(--br);font-size:12px}
+.journal-admin-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.journal-admin-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--iv);border:.5px solid var(--br);font-size:12px}
+.docs-admin-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.doc-admin-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--iv);border:.5px solid var(--br);font-size:12px}
+
+/* FOOTER */
+.jb-footer{border-top:.5px solid var(--br);padding:22px;text-align:center;margin-top:40px}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--tx);letter-spacing:.15em}
+.footer-sub{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--go);margin-top:4px;opacity:.7}
+
+/* TOAST */
+#jb-toast{position:fixed;bottom:18px;right:18px;z-index:999;display:flex;flex-direction:column;gap:6px}
+.toast-item{background:var(--tx);color:var(--gl);padding:10px 16px;font-size:12px;border-left:3px solid var(--go);animation:tin .2s ease}
+@keyframes tin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+@media(max-width:640px){
+  .fg-3,.fg-4{grid-template-columns:1fr 1fr}
+  .mes-grid{grid-template-columns:repeat(2,1fr)}
+  .pay-row{grid-template-columns:1fr 1fr;font-size:11px}
+  .admin-grid{grid-template-columns:1fr}
+  .plan-edit-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:400px){.fg-2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="jb-login">
+  <div class="lc">
+    <div class="lc-logo">Joséphine Bono</div>
+    <div class="lc-sub">Carnet de création</div>
+    <p class="lc-hint">Entrez le code d'accès inscrit<br>sur votre devis</p>
+    <input type="text" id="jb-code" placeholder="Ex : CAMILLE2009" maxlength="12" autocomplete="off" onkeydown="if(event.key==='Enter')jbLogin()">
+    <button class="lc-btn" onclick="jbLogin()">Accéder à mon carnet →</button>
+    <div class="lc-err" id="jb-err">Code introuvable — vérifiez votre devis</div>
+  </div>
+</div>
+
+<div id="jb-app">
+  <div class="hero">
+    <div class="hero-eyebrow">Votre carnet de création</div>
+    <div class="hero-name" id="h-name">—</div>
+    <div class="hero-dates" id="h-dates"></div>
+    <div class="hero-sep"></div>
+    <div class="countdown" id="h-count"></div>
+    <div class="hero-model" id="h-model"></div>
+    <div class="hero-sig" id="h-sig"></div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tabs" id="main-tabs">
+      <button class="tab-btn active" onclick="jbSection('planning',this)">Planning</button>
+      <button class="tab-btn" onclick="jbSection('essayages',this)">Essayages &amp; Mesures</button>
+      <button class="tab-btn" onclick="jbSection('journal',this)">Journal atelier</button>
+      <button class="tab-btn" onclick="jbSection('preparatifs',this)">Préparatifs</button>
+      <button class="tab-btn" onclick="jbSection('paiements',this)">Paiements &amp; Documents</button>
+      <button class="tab-btn" onclick="jbSection('rdv',this)">Rendez-vous</button>
+      <button class="tab-btn admin" id="tab-admin" style="display:none" onclick="jbSection('admin',this)">✦ Administration</button>
+    </div>
+  </div>
+
+  <div id="jb-toast"></div>
+
+  <!-- PLANNING -->
+  <div class="sec active" id="sec-planning">
+    <div class="sl">Votre parcours de création</div>
+    <div class="plan-list" id="plan-list">
+      <p style="font-size:14px;color:var(--mu);padding:16px 0;font-style:italic">Le planning sera mis à jour par l'atelier.</p>
+    </div>
+  </div>
+
+  <!-- ESSAYAGES & MESURES -->
+  <div class="sec" id="sec-essayages">
+    <div id="mes-display"></div>
+    <div class="sl" style="margin-top:28px">Comptes-rendus des essayages</div>
+    <div class="essa-list" id="essa-list"></div>
+    <p id="essa-empty" style="display:none;font-size:14px;color:var(--mu);font-style:italic;padding:12px 0">Les comptes-rendus seront ajoutés par l'atelier après chaque essayage.</p>
+  </div>
+
+  <!-- JOURNAL -->
+  <div class="sec" id="sec-journal">
+    <div class="sl">Le fil de votre création</div>
+    <p style="font-size:13px;color:var(--mu);margin-bottom:22px;font-style:italic">Joséphine partage ici les étapes de fabrication de votre robe, semaine après semaine.</p>
+    <div class="journal-list" id="journal-list"></div>
+    <p id="journal-empty" style="display:none;text-align:center;padding:36px 0;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mu)">Le journal sera alimenté au fil de la création</p>
+  </div>
+
+  <!-- PRÉPARATIFS -->
+  <div class="sec" id="sec-preparatifs">
+    <div class="sl">Votre checklist mariage</div>
+    <p style="font-size:13px;color:var(--mu);margin-bottom:20px;font-style:italic">Cochez au fur et à mesure — votre progression est sauvegardée.</p>
+    <div id="check-cats"></div>
+  </div>
+
+  <!-- PAIEMENTS & DOCUMENTS -->
+  <div class="sec" id="sec-paiements">
+    <div class="sl">Suivi des paiements</div>
+    <div class="pay-table">
+      <div class="pay-row head"><span>Type</span><span>Description</span><span>Montant HT</span><span>Statut</span></div>
+      <div id="pay-rows"></div>
+    </div>
+    <div id="pay-actions" style="display:none;margin-top:14px">
+      <button class="btn-dark" onclick="window.open('https://buy.stripe.com/cNi14gfeRabUdwb8BxaEE00','_blank')">Payer en ligne — Stripe</button>
+    </div>
+    <div class="pay-info">Modes de paiement : virement bancaire, espèces, carte bancaire, PayPal.<br>Chaque mensualité doit être réglée au plus tard la veille du rendez-vous d'essayage correspondant.<br>Le solde intégral doit être réglé avant la livraison.</div>
+
+    <div class="sl" style="margin-top:28px">Vos documents</div>
+    <p style="font-size:13px;color:var(--mu);margin-bottom:16px;font-style:italic">Retrouvez ici vos devis et factures mis à disposition par l'atelier.</p>
+    <div class="doc-list" id="doc-list"></div>
+    <p id="doc-empty" style="font-size:14px;color:var(--mu);font-style:italic;padding:10px 0;display:none">Aucun document disponible pour le moment.</p>
+  </div>
+
+  <!-- RDV -->
+  <div class="sec" id="sec-rdv">
+    <div class="rdv-wrap">
+      <div class="rdv-title">Prendre rendez-vous</div>
+      <p class="rdv-sub">Réservez votre prochain essayage en ligne<br>ou contactez-moi directement.</p>
+      <div class="rdv-btns">
+        <a class="rdv-btn rdv-dark" href="https://calendly.com/josephine-bono-rendez-vous" target="_blank">Calendly — Réserver en ligne</a>
+        <a class="rdv-btn rdv-wa" href="https://wa.me/33698942000" target="_blank">WhatsApp</a>
+      </div>
+      <div class="rdv-contact"><strong>Joséphine Bono</strong><br>26 avenue de la Gare — 33470 Gujan-Mestras<br>contact@josephinebono.com · +33 6 98 94 20 00</div>
+    </div>
+  </div>
+
+  <!-- ══ ADMINISTRATION (onglet atelier) ══ -->
+  <div class="sec sec-admin" id="sec-admin">
+    <div class="sl">Administration du carnet</div>
+
+    <div class="admin-grid">
+
+      <!-- INFOS GÉNÉRALES -->
+      <div class="admin-card admin-card-full">
+        <div class="admin-card-title">Informations générales</div>
+        <div class="fg fg-3">
+          <div class="field"><label>Prénom de la mariée</label><input type="text" id="a-nom" placeholder="Camille"></div>
+          <div class="field"><label>Modèle / titre création</label><input type="text" id="a-modele" placeholder="Ex : Soleil d'Arcachon"></div>
+          <div class="field"><label>Phrase signature</label><input type="text" id="a-sig" placeholder="Votre phrase personnalisée..."></div>
+          <div class="field"><label>Date du mariage</label><input type="date" id="a-mariage"></div>
+          <div class="field"><label>Date de livraison</label><input type="date" id="a-livraison"></div>
+        </div>
+        <div class="action-row"><button class="btn-dark" onclick="jbSaveInfos()">Enregistrer les infos</button></div>
+      </div>
+
+      <!-- PLANNING -->
+      <div class="admin-card admin-card-full">
+        <div class="admin-card-title">Planning des rendez-vous</div>
+        <div id="a-plan-rows"></div>
+        <button class="btn-outline btn-sm" onclick="jbAddPlanRow()" style="margin-top:8px">+ Ajouter une étape</button>
+        <div class="action-row"><button class="btn-dark" onclick="jbSavePlanning()">Enregistrer le planning</button></div>
+      </div>
+
+      <!-- MESURES -->
+      <div class="admin-card admin-card-full">
+        <div class="admin-card-title">Mesures au corps</div>
+        <div id="a-mes-fields"></div>
+        <div class="action-row"><button class="btn-dark" onclick="jbSaveMesures()">Enregistrer les mesures</button></div>
+      </div>
+
+      <!-- ESSAYAGES -->
+      <div class="admin-card">
+        <div class="admin-card-title">Comptes-rendus d'essayages</div>
+        <div class="essa-admin-list" id="a-essa-list"></div>
+        <div style="border-top:.5px solid var(--br);padding-top:14px;margin-top:4px">
+          <div class="fg fg-2" style="margin-bottom:10px">
+            <div class="field"><label>Date</label><input type="date" id="a-ess-date"></div>
+            <div class="field"><label>Libellé</label><input type="text" id="a-ess-num" placeholder="Ex : 1er essayage — toile"></div>
+          </div>
+          <div class="field" style="margin-bottom:10px"><label>Notes & observations</label><textarea id="a-ess-notes" rows="3" placeholder="Ajustements, remarques..."></textarea></div>
+          <div class="field" style="margin-bottom:10px"><label>URL photo (Supabase Storage)</label><input type="url" id="a-ess-photo" placeholder="https://..."></div>
+          <div class="action-row"><button class="btn-dark" onclick="jbSaveEssayage()">Ajouter cet essayage</button></div>
+        </div>
+      </div>
+
+      <!-- JOURNAL -->
+      <div class="admin-card">
+        <div class="admin-card-title">Journal de création</div>
+        <div class="journal-admin-list" id="a-journal-list"></div>
+        <div style="border-top:.5px solid var(--br);padding-top:14px;margin-top:4px">
+          <div class="fg fg-2" style="margin-bottom:10px">
+            <div class="field"><label>Date</label><input type="date" id="a-jrn-date"></div>
+            <div class="field"><label>Titre de l'étape</label><input type="text" id="a-jrn-titre" placeholder="Ex : Découpe du satin duchesse"></div>
+          </div>
+          <div class="field" style="margin-bottom:10px"><label>Description</label><textarea id="a-jrn-texte" rows="3" placeholder="Décrivez cette étape..."></textarea></div>
+          <div class="field" style="margin-bottom:10px"><label>URL photo</label><input type="url" id="a-jrn-photo" placeholder="https://..."></div>
+          <div class="action-row"><button class="btn-dark" onclick="jbSaveJournal()">Publier cette entrée</button></div>
+        </div>
+      </div>
+
+      <!-- DOCUMENTS -->
+      <div class="admin-card admin-card-full">
+        <div class="admin-card-title">Documents — Devis &amp; Factures</div>
+        <p style="font-size:12px;color:var(--mu);margin-bottom:14px">Ajoutez les liens des PDF générés depuis l'outil atelier pour que la cliente puisse les télécharger.</p>
+        <div class="docs-admin-list" id="a-docs-list"></div>
+        <div style="border-top:.5px solid var(--br);padding-top:14px;margin-top:4px">
+          <div class="fg fg-3" style="margin-bottom:10px">
+            <div class="field"><label>Nom du document</label><input type="text" id="a-doc-nom" placeholder="Ex : Devis DV-2026-001 — Facture acompte"></div>
+            <div class="field"><label>Type</label>
+              <select id="a-doc-type">
+                <option value="devis">Devis</option>
+                <option value="facture">Facture</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            <div class="field"><label>URL du PDF (Google Drive, Dropbox...)</label><input type="url" id="a-doc-url" placeholder="https://drive.google.com/..."></div>
+          </div>
+          <div class="action-row"><button class="btn-dark" onclick="jbSaveDoc()">Ajouter ce document</button></div>
+        </div>
+      </div>
+
+      <!-- PAIEMENTS STATUTS -->
+      <div class="admin-card admin-card-full">
+        <div class="admin-card-title">Statuts des paiements</div>
+        <div id="a-pay-rows"></div>
+        <div class="action-row"><button class="btn-dark" onclick="jbSavePaiements()">Enregistrer les statuts</button></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="jb-footer">
+    <div class="footer-brand">Joséphine Bono</div>
+    <div class="footer-sub">Atelier couture bridal · Bassin d'Arcachon</div>
+  </div>
+</div>
+
+<script>
+var SU='https://yjnzydmytimqbusnitqr.supabase.co';
+var SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlqbnp5ZG15dGltcWJ1c25pdHFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzODI4MDMsImV4cCI6MjA4OTk1ODgwM30.uuHWWlBtdML7NrnC1RPa2mS07GMtLfmlSTs13dfCgBQ';
+var CARNET=null,DEVIS=null,IS_BO=false;
+
+async function sf(t,m,b,q){
+  var r=await fetch(SU+'/rest/v1/'+t+(q?'?'+q:''),(m=m||'GET',{method:m,headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=representation'},body:b?JSON.stringify(b):undefined}));
+  if(!r.ok)throw new Error(await r.text());
+  var ct=r.headers.get('content-type')||'';
+  if(ct.includes('json')&&r.status!==204)return await r.json();
+  return null;
+}
+var sg=function(t,q){return sf(t,'GET',null,q)};
+var sp=function(t,q,b){return sf(t,'PATCH',b,q)};
+
+async function jbLogin(){
+  var code=document.getElementById('jb-code').value.toUpperCase().trim();
+  if(!code)return;
+  document.getElementById('jb-err').style.display='none';
+  try{
+    var cfg=await sg('jb_config','id=eq.singleton');
+    if(cfg&&cfg[0]){
+      var ap=(cfg[0].password||'jb2025').toUpperCase();
+      if(code===ap){IS_BO=true;}
+    }
+    var params=new URLSearchParams(window.location.search);
+    var cp=IS_BO?params.get('code'):code;
+    if(IS_BO&&!cp){
+      document.getElementById('jb-login').style.display='none';
+      document.getElementById('jb-app').style.display='block';
+      jbShowAdminTab();
+      jbToast('Mode administration actif — ajoutez ?code=XXXXX dans l\'URL');
+      return;
+    }
+    var sc=IS_BO?cp:code;
+    var data=await sg('jb_carnets','code_acces=eq.'+sc);
+    if(!data||!data.length){document.getElementById('jb-err').style.display='block';return;}
+    CARNET=data[0];
+    if(CARNET.devis_id){var dd=await sg('jb_devis','id=eq.'+CARNET.devis_id);if(dd&&dd[0])DEVIS=dd[0];}
+    document.getElementById('jb-login').style.display='none';
+    document.getElementById('jb-app').style.display='block';
+    if(IS_BO) jbShowAdminTab();
+    jbRenderAll();
+  }catch(e){
+    document.getElementById('jb-err').style.display='block';
+    document.getElementById('jb-err').textContent='Erreur : '+e.message;
+  }
+}
+
+function jbShowAdminTab(){
+  var t=document.getElementById('tab-admin');
+  if(t)t.style.display='block';
+  if(IS_BO) jbSection('admin');
+}
+
+function jbRenderAll(){
+  var k=CARNET;
+  document.getElementById('h-name').textContent=k.bride_nom||'';
+
+  /* Dates hero */
+  var datesEl=document.getElementById('h-dates');
+  var datesHtml='';
+  if(k.date_mariage){
+    datesHtml+='<div class="hero-date-item"><strong>Mariage</strong> — '+fd(k.date_mariage)+'</div>';
+  }
+  if(k.date_livraison){
+    datesHtml+='<div class="hero-date-item"><strong>Livraison de la robe</strong> — '+fd(k.date_livraison)+'</div>';
+  }
+  datesEl.innerHTML=datesHtml;
+
+  /* Compte à rebours */
+  if(k.date_mariage){
+    var d=new Date(k.date_mariage);
+    var diff=Math.floor((d-new Date())/86400000);
+    if(diff>0){
+      document.getElementById('h-count').innerHTML=
+        '<div class="ci"><div class="ci-num">'+diff+'</div><div class="ci-unit">jours</div></div>'+
+        '<div style="font-family:Cormorant Garamond,serif;font-size:28px;color:var(--go);padding-top:6px;opacity:.3">·</div>'+
+        '<div class="ci"><div class="ci-num">'+Math.floor(diff/7)+'</div><div class="ci-unit">semaines</div></div>';
+    }
+  }
+  if(k.modele_nom) document.getElementById('h-model').textContent='Modèle « '+k.modele_nom+' »';
+  if(k.phrase_signature) document.getElementById('h-sig').textContent=k.phrase_signature;
+
+  jbRenderPlanning();
+  jbRenderMesures();
+  jbRenderEssayages();
+  jbRenderJournal();
+  jbRenderChecklist();
+  jbRenderPaiements();
+  jbRenderDocuments();
+
+  if(IS_BO){
+    jbRenderAdminPlanning();
+    jbRenderAdminMesures();
+    jbRenderAdminEssayages();
+    jbRenderAdminJournal();
+    jbRenderAdminPay();
+    jbRenderAdminDocs();
+    jbFillAdminInfos();
+  }
+}
+
+/* ─── PLANNING ─── */
+function jbRenderPlanning(){
+  var c=document.getElementById('plan-list');if(!c)return;
+  var plan=(CARNET&&CARNET.planning)||[];
+  if(!plan.length){c.innerHTML='<p style="font-size:14px;color:var(--mu);padding:16px 0;font-style:italic">Le planning sera mis à jour par l\'atelier.</p>';return;}
+  var fn=false;c.innerHTML='';
+  plan.forEach(function(s){
+    var done=s.statut==='realise',isN=!done&&!fn;if(isN)fn=true;
+    var dot=done?'done':isN?'next':'future';
+    var badge=done?'<span class="plan-badge pb-done">Réalisé</span>':isN?'<span class="plan-badge pb-next">Prochain RDV</span>':'<span class="plan-badge pb-future">À venir</span>';
+    c.innerHTML+='<div class="plan-item"><div class="plan-dot '+dot+'"></div><div style="flex:1"><div class="plan-title">'+esc(s.titre||'')+'</div>'+(s.date?'<div class="plan-date">'+fd(s.date)+'</div>':'')+'</div>'+badge+'</div>';
+  });
+}
+
+function jbRenderAdminPlanning(){
+  var c=document.getElementById('a-plan-rows');if(!c)return;
+  var plan=(CARNET&&CARNET.planning)||[];c.innerHTML='';
+  plan.forEach(function(s,i){
+    var so=['a_venir','confirme','realise'].map(function(v){
+      var l={a_venir:'À venir',confirme:'Confirmé',realise:'Réalisé'};
+      return'<option value="'+v+'"'+(s.statut===v?' selected':'')+'>'+l[v]+'</option>';
+    }).join('');
+    c.innerHTML+='<div class="plan-edit-row"><input type="text" value="'+esc(s.titre||'')+'" id="pt-'+i+'" placeholder="Étape"><input type="date" value="'+(s.date||'')+'" id="pd-'+i+'"><select id="ps-'+i+'">'+so+'</select><button class="btn-danger" onclick="jbRemovePlan('+i+')">×</button></div>';
+  });
+}
+
+function jbAddPlanRow(){var p=CARNET.planning||[];p.push({titre:'',date:'',statut:'a_venir'});CARNET.planning=p;jbRenderAdminPlanning();}
+function jbRemovePlan(i){(CARNET.planning||[]).splice(i,1);jbRenderAdminPlanning();}
+
+async function jbSavePlanning(){
+  var plan=(CARNET.planning||[]).map(function(s,i){
+    return{titre:val('pt-'+i)||s.titre,date:val('pd-'+i)||s.date,statut:val('ps-'+i)||s.statut};
+  });
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{planning:plan});CARNET.planning=plan;jbRenderPlanning();jbToast('Planning enregistré ✓');}
+  catch(e){jbToast('Erreur : '+e.message);}
+}
+
+/* ─── INFOS GÉNÉRALES ─── */
+function jbFillAdminInfos(){
+  setv('a-nom',CARNET.bride_nom||'');
+  setv('a-modele',CARNET.modele_nom||'');
+  setv('a-sig',CARNET.phrase_signature||'');
+  setv('a-mariage',CARNET.date_mariage||'');
+  setv('a-livraison',CARNET.date_livraison||'');
+}
+
+async function jbSaveInfos(){
+  var updates={
+    bride_nom:val('a-nom'),
+    modele_nom:val('a-modele'),
+    phrase_signature:val('a-sig'),
+    date_mariage:val('a-mariage')||null,
+    date_livraison:val('a-livraison')||null
+  };
+  try{
+    await sp('jb_carnets','id=eq.'+CARNET.id,updates);
+    Object.assign(CARNET,updates);
+    jbRenderAll();
+    jbToast('Infos enregistrées ✓');
+  }catch(e){jbToast('Erreur : '+e.message);}
+}
+
+/* ─── MESURES ─── */
+var MG=[
+  {label:'Stature',fields:[['stature','Stature']]},
+  {label:'Buste',fields:[
+    ['b_poitrine','Tour de poitrine'],['b_dessus_poitrine','Tour dessus poitrine'],['b_dessous_poitrine','Tour dessous poitrine'],
+    ['b_taille','Tour de taille'],['b_hanches','Tour de hanches'],['b_pos_hanches','Long. position hanches'],
+    ['b_bassin','Tour de bassin'],['b_pos_bassin','Long. position bassin'],['b_cou','Tour de cou'],
+    ['b_carrure_devant','Carrure devant'],['b_enc_milieu','Lg base encolure milieu devant'],
+    ['b_epaule','Longueur épaule'],['b_pointe_enc_sein','Lg pointe enc. — pointe sein'],
+    ['b_sein_taille','Pointe sein — hauteur taille'],['b_ecart_sein','Écartement pointe sein'],
+    ['b_aisselle_taille','Lg aisselle — taille'],['b_carrure_dos','Carrure dos'],['b_montant_dos','Montant dos'],
+    ['b_7c_taille_dos','Lg 7ème cerv. — taille dos'],['b_taille_dos_sol','Hauteur taille dos — sol'],
+    ['b_taille_cote_sol','Lg taille côté — sol'],['b_7c_sol','Hauteur 7ème cerv. — sol'],
+    ['b_perineal','Montant périnéal']
+  ]},
+  {label:'Bras droit',fields:[
+    ['brd_aisselle','Tour bras à l\'aisselle'],['brd_biceps','Tour de biceps'],
+    ['brd_coude','Tour de coude'],['brd_poignet','Tour de poignet'],
+    ['brd_ep_coude','Long. épaule — coude'],['brd_bras','Longueur de bras']
+  ]},
+  {label:'Bras gauche',fields:[
+    ['brg_aisselle','Tour bras à l\'aisselle'],['brg_biceps','Tour de biceps'],
+    ['brg_coude','Tour de coude'],['brg_poignet','Tour de poignet'],
+    ['brg_ep_coude','Long. épaule — coude'],['brg_bras','Longueur de bras']
+  ]},
+  {label:'Jambe',fields:[
+    ['j_cuisse','Tour de cuisse'],['j_genoux','Tour de genoux'],['j_mollet','Tour de mollet'],['j_cheville','Tour de cheville'],
+    ['j_entrejambe','Hauteur entrejambe'],['j_taille_genoux','Hauteur taille — genoux'],
+    ['j_genoux_sol','Hauteur genoux — sol'],['j_enfour_devant','Enfourchure devant'],
+    ['j_enfour_dos','Enfourchure dos'],['j_jupe_taille','Lg jupe à partir de la taille']
+  ]},
+  {label:'Tête',fields:[
+    ['te_tete','Tour de tête'],['te_haut_7c','Hauteur tête — 7ème cervicale']
+  ]}
+];
+
+function jbRenderMesures(){
+  var c=document.getElementById('mes-display');if(!c)return;
+  var m=(CARNET&&CARNET.mesures)||{};
+  var html='<div class="sl">Mesures au corps</div>';
+  var hasAny=false;
+  MG.forEach(function(grp){
+    var filled=grp.fields.filter(function(f){return m[f[0]]&&m[f[0]]!=='';});
+    if(!filled.length)return;
+    hasAny=true;
+    html+='<div class="mes-group"><div class="mes-group-title">'+grp.label+'</div><div class="mes-grid">';
+    filled.forEach(function(f){html+='<div class="mes-card"><div class="mes-lbl">'+f[1]+'</div><div class="mes-val">'+esc(m[f[0]])+' cm</div></div>';});
+    html+='</div></div>';
+  });
+  if(!hasAny) html+='<p style="font-size:14px;color:var(--mu);font-style:italic;padding:8px 0">Les mesures seront renseignées lors du premier essayage.</p>';
+  if(m.notes) html+='<div class="mes-notes-box"><div class="mes-group-title" style="margin-bottom:6px">Notes</div>'+esc(m.notes)+'</div>';
+  c.innerHTML=html;
+}
+
+function jbRenderAdminMesures(){
+  var c=document.getElementById('a-mes-fields');if(!c)return;
+  var m=(CARNET&&CARNET.mesures)||{};var html='';
+  MG.forEach(function(grp){
+    html+='<div class="mes-group"><div class="mes-group-title">'+grp.label+'</div><div class="fg fg-4" style="gap:8px">';
+    grp.fields.forEach(function(f){html+='<div class="field"><label>'+f[1]+'</label><input type="text" id="m-'+f[0]+'" value="'+esc(m[f[0]]||'')+'" placeholder="cm"></div>';});
+    html+='</div></div>';
+  });
+  html+='<div class="field"><label>Notes mesures</label><textarea id="m-notes" rows="3">'+esc(m.notes||'')+'</textarea></div>';
+  c.innerHTML=html;
+}
+
+async function jbSaveMesures(){
+  var m={};
+  MG.forEach(function(grp){grp.fields.forEach(function(f){var el=document.getElementById('m-'+f[0]);if(el)m[f[0]]=el.value;});});
+  var n=document.getElementById('m-notes');m.notes=n?n.value:'';
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{mesures:m});CARNET.mesures=m;jbRenderMesures();jbToast('Mesures enregistrées ✓');}
+  catch(e){jbToast('Erreur : '+e.message);}
+}
+
+/* ─── ESSAYAGES ─── */
+function jbRenderEssayages(){
+  var essa=(CARNET&&CARNET.essayages)||[];
+  var el=document.getElementById('essa-list'),ee=document.getElementById('essa-empty');
+  if(!el)return;
+  if(!essa.length){el.style.display='none';if(ee)ee.style.display='block';return;}
+  if(ee)ee.style.display='none';el.style.display='flex';el.innerHTML='';
+  essa.forEach(function(e,i){
+    var d=document.createElement('div');d.className='essa-card';
+    d.innerHTML='<div class="essa-hd"><span class="essa-date-lbl">'+(e.date?fd(e.date):'')+'</span><span class="essa-num">'+esc(e.num||('Essayage '+(i+1)))+'</span></div>'+
+      '<div class="essa-body">'+esc(e.notes||'')+'</div>'+
+      (e.photo_url?'<div class="essa-photos"><img src="'+esc(e.photo_url)+'" class="essa-photo" alt="essayage"></div>':'');
+    el.appendChild(d);
+  });
+}
+
+function jbRenderAdminEssayages(){
+  var c=document.getElementById('a-essa-list');if(!c)return;
+  var essa=(CARNET&&CARNET.essayages)||[];
+  if(!essa.length){c.innerHTML='<p style="font-size:12px;color:var(--mu);font-style:italic;margin-bottom:8px">Aucun essayage enregistré.</p>';return;}
+  c.innerHTML='';
+  essa.forEach(function(e,i){
+    var d=document.createElement('div');d.className='essa-admin-item';
+    d.innerHTML='<span>'+(e.date?fd(e.date):'')+' — '+esc(e.num||'Essayage '+(i+1))+'</span>'+
+      '<button class="btn-danger" onclick="jbDeleteEssayage('+i+')">Supprimer</button>';
+    c.appendChild(d);
+  });
+}
+
+async function jbSaveEssayage(){
+  if(!CARNET)return;
+  var e={date:val('a-ess-date'),num:val('a-ess-num'),notes:val('a-ess-notes'),photo_url:val('a-ess-photo')};
+  if(!e.notes&&!e.date){jbToast('Renseignez au moins la date ou une note');return;}
+  var essa=(CARNET.essayages||[]);essa.push(e);
+  try{
+    await sp('jb_carnets','id=eq.'+CARNET.id,{essayages:essa});
+    CARNET.essayages=essa;
+    jbRenderEssayages();jbRenderAdminEssayages();
+    setv('a-ess-date',new Date().toISOString().split('T')[0]);
+    setv('a-ess-num','');setv('a-ess-notes','');setv('a-ess-photo','');
+    jbToast('Essayage enregistré ✓');
+  }catch(e){jbToast('Erreur : '+e.message);}
+}
+
+async function jbDeleteEssayage(i){
+  var essa=(CARNET.essayages||[]);essa.splice(i,1);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{essayages:essa});CARNET.essayages=essa;jbRenderEssayages();jbRenderAdminEssayages();jbToast('Supprimé');}
+  catch(e){jbToast('Erreur : '+e.message);}
+}
+
+/* ─── JOURNAL ─── */
+function jbRenderJournal(){
+  var j=(CARNET&&CARNET.journal)||[];
+  var g=document.getElementById('journal-list'),je=document.getElementById('journal-empty');
+  if(!g)return;
+  if(!j.length){g.style.display='none';if(je)je.style.display='block';return;}
+  if(je)je.style.display='none';g.style.display='flex';g.innerHTML='';
+  j.forEach(function(e){
+    var d=document.createElement('div');d.className='journal-card';
+    d.innerHTML=(e.photo_url?'<img src="'+esc(e.photo_url)+'" class="journal-img" alt="atelier">':'')+
+      '<div class="journal-body"><div class="journal-meta">'+(e.date?fd(e.date):'')+'</div><div class="journal-title">'+esc(e.titre||'')+'</div><div class="journal-text">'+esc(e.texte||'')+'</div></div>';
+    g.appendChild(d);
+  });
+}
+
+function jbRenderAdminJournal(){
+  var c=document.getElementById('a-journal-list');if(!c)return;
+  var j=(CARNET&&CARNET.journal)||[];
+  if(!j.length){c.innerHTML='<p style="font-size:12px;color:var(--mu);font-style:italic;margin-bottom:8px">Aucune entrée publiée.</p>';return;}
+  c.innerHTML='';
+  j.forEach(function(e,i){
+    var d=document.createElement('div');d.className='journal-admin-item';
+    d.innerHTML='<span>'+(e.date?fd(e.date):'')+' — '+esc(e.titre||'')+'</span>'+
+      '<button class="btn-danger" onclick="jbDeleteJournal('+i+')">Supprimer</button>';
+    c.appendChild(d);
+  });
+}
+
+async function jbSaveJournal(){
+  if(!CARNET)return;
+  var e={date:val('a-jrn-date'),titre:val('a-jrn-titre'),texte:val('a-jrn-texte'),photo_url:val('a-jrn-photo')};
+  if(!e.titre){jbToast('Renseignez un titre');return;}
+  var j=(CARNET.journal||[]);j.unshift(e);
+  try{
+    await sp('jb_carnets','id=eq.'+CARNET.id,{journal:j});CARNET.journal=j;
+    jbRenderJournal();jbRenderAdminJournal();
+    setv('a-jrn-date',new Date().toISOString().split('T')[0]);
+    setv('a-jrn-titre','');setv('a-jrn-texte','');setv('a-jrn-photo','');
+    jbToast('Entrée publiée ✓');
+  }catch(e){jbToast('Erreur : '+e.message);}
+}
+
+async function jbDeleteJournal(i){
+  var j=(CARNET.journal||[]);j.splice(i,1);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{journal:j});CARNET.journal=j;jbRenderJournal();jbRenderAdminJournal();jbToast('Supprimé');}
+  catch(e){jbToast('Erreur : '+e.message);}
+}
+
+/* ─── DOCUMENTS ─── */
+function jbRenderDocuments(){
+  var docs=(CARNET&&CARNET.documents)||[];
+  var c=document.getElementById('doc-list'),e=document.getElementById('doc-empty');
+  if(!c)return;
+  if(!docs.length){c.innerHTML='';if(e)e.style.display='block';return;}
+  if(e)e.style.display='none';c.innerHTML='';
+  var icons={devis:'📄',facture:'🧾',autre:'📎'};
+  docs.forEach(function(d){
+    var div=document.createElement('div');div.className='doc-item';
+    div.innerHTML='<div class="doc-icon">'+(icons[d.type]||'📎')+'</div>'+
+      '<div style="flex:1"><div class="doc-name">'+esc(d.nom||'Document')+'</div>'+
+      '<div class="doc-date">'+(d.type==='devis'?'Devis':'Facture')+(d.date?' — '+fd(d.date):'')+'</div></div>'+
+      (d.url?'<a href="'+esc(d.url)+'" target="_blank" class="doc-dl">Télécharger</a>':'');
+    c.appendChild(div);
+  });
+}
+
+function jbRenderAdminDocs(){
+  var c=document.getElementById('a-docs-list');if(!c)return;
+  var docs=(CARNET&&CARNET.documents)||[];
+  if(!docs.length){c.innerHTML='<p style="font-size:12px;color:var(--mu);font-style:italic;margin-bottom:8px">Aucun document ajouté.</p>';return;}
+  c.innerHTML='';
+  docs.forEach(function(d,i){
+    var div=document.createElement('div');div.className='doc-admin-item';
+    div.innerHTML='<span>'+esc(d.nom||'Document')+'</span>'+
+      '<button class="btn-danger" onclick="jbDeleteDoc('+i+')">Supprimer</button>';
+    c.appendChild(div);
+  });
+}
+
+async function jbSaveDoc(){
+  if(!CARNET)return;
+  var d={nom:val('a-doc-nom'),type:val('a-doc-type'),url:val('a-doc-url'),date:new Date().toISOString().split('T')[0]};
+  if(!d.nom||!d.url){jbToast('Nom et URL obligatoires');return;}
+  var docs=(CARNET.documents||[]);docs.push(d);
+  try{
+    await sp('jb_carnets','id=eq.'+CARNET.id,{documents:docs});CARNET.documents=docs;
+    jbRenderDocuments();jbRenderAdminDocs();
+    setv('a-doc-nom','');setv('a-doc-url','');
+    jbToast('Document ajouté ✓');
+  }catch(e){jbToast('Erreur : '+e.message);}
+}
+
+async function jbDeleteDoc(i){
+  var docs=(CARNET.documents||[]);docs.splice(i,1);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{documents:docs});CARNET.documents=docs;jbRenderDocuments();jbRenderAdminDocs();jbToast('Supprimé');}
+  catch(e){jbToast('Erreur : '+e.message);}
+}
+
+/* ─── CHECKLIST ─── */
+var DC=[
+  {cat:"18 mois avant — Les grandes décisions",items:[
+    {texte:"Annoncer vos fiançailles à la famille et aux amis proches",delai:"548"},
+    {texte:"Définir le budget global et la répartition entre familles",delai:"540"},
+    {texte:"Lister vos priorités : lieu, ambiance, nombre d'invités, style",delai:"540"},
+    {texte:"Choisir la date — vérifier les disponibilités de la famille",delai:"530"},
+    {texte:"Déposer le dossier de mariage civil à la mairie",delai:"520"},
+    {texte:"Ouvrir une liste de mariage ou une cagnotte voyage de noces",delai:"510"},
+    {texte:"Commander sa robe chez Joséphine Bono ✓",delai:"500",fait:true},
+    {texte:"Choisir le lieu de réception — visiter domaines, châteaux, mas",delai:"480"},
+    {texte:"Réserver le lieu de cérémonie (mairie, église, lieu laïque)",delai:"470"},
+    {texte:"Commencer le carnet d'inspiration (Pinterest, Instagram, magazines)",delai:"460"}
+  ]},
+  {cat:"12 à 18 mois avant — L'équipe de prestataires",items:[
+    {texte:"Réserver le photographe (les meilleurs partent 18 mois à l'avance)",delai:"450"},
+    {texte:"Réserver le vidéaste si souhaité",delai:"440"},
+    {texte:"Choisir le traiteur — demander plusieurs devis et dégustations",delai:"430"},
+    {texte:"Réserver le DJ ou le groupe de musique live",delai:"420"},
+    {texte:"Choisir les témoins et leur annoncer officiellement",delai:"410"},
+    {texte:"Définir le nombre définitif d'invités — dresser la liste complète",delai:"400"},
+    {texte:"Envoyer les save-the-date (cartes ou par email)",delai:"390"},
+    {texte:"Réserver un bloc de chambres pour les invités venant de loin",delai:"380"},
+    {texte:"Réfléchir au style de décoration — constituer un moodboard",delai:"370"},
+    {texte:"Choisir le fleuriste — demander une proposition florale",delai:"360"}
+  ]},
+  {cat:"9 à 12 mois avant — Organisation et style",items:[
+    {texte:"Planifier le voyage de noces — réserver vols et hébergements",delai:"330"},
+    {texte:"Choisir les alliances — prendre rendez-vous chez le joaillier",delai:"320"},
+    {texte:"Rédiger et envoyer les faire-part",delai:"300"},
+    {texte:"Créer un site internet du mariage (Zola, Withjoy, Joy...)",delai:"300"},
+    {texte:"Choisir les tenues des témoins et du cortège",delai:"290"},
+    {texte:"Informer les parents du dress code souhaité",delai:"285"},
+    {texte:"Rencontrer l'officiant (prêtre, pasteur, officiant laïque)",delai:"280"},
+    {texte:"Planifier la cérémonie laïque — choisir lectures et musiques",delai:"275"},
+    {texte:"Souscrire une assurance mariage",delai:"270"},
+    {texte:"Réserver la baby-sitter ou l'animation enfants pour le jour J",delai:"260"},
+    {texte:"Prévoir les transports entre cérémonie et réception",delai:"255"},
+    {texte:"Premier essayage chez Joséphine Bono",delai:"240"}
+  ]},
+  {cat:"6 à 9 mois avant — Les détails qui font la différence",items:[
+    {texte:"Choisir et réserver la coiffeuse pour le jour J",delai:"220"},
+    {texte:"Choisir et réserver la maquilleuse",delai:"215"},
+    {texte:"Commencer à chercher les chaussures de mariée",delai:"210"},
+    {texte:"Choisir les accessoires : voile, coiffe, bijoux, gants",delai:"200"},
+    {texte:"Planifier l'enterrement de vie de jeune fille (EVJF)",delai:"195"},
+    {texte:"Choisir la papeterie : menus, marque-places, programmes",delai:"190"},
+    {texte:"Décider de la pièce montée ou du wedding cake — dégustation",delai:"185"},
+    {texte:"Choisir les cadeaux pour les témoins",delai:"180"},
+    {texte:"Commencer à rédiger les voeux si cérémonie laïque",delai:"175"},
+    {texte:"Organiser le dîner de répétition la veille si souhaité",delai:"170"},
+    {texte:"Constituer la liste des chansons — playlist cocktail et soirée",delai:"165"},
+    {texte:"Penser au photobooth ou à une animation photo originale",delai:"160"},
+    {texte:"Prévoir un livre d'or ou une alternative créative",delai:"155"}
+  ]},
+  {cat:"3 à 6 mois avant — On affine tout",items:[
+    {texte:"Test coiffure et maquillage — avec la robe si possible",delai:"150"},
+    {texte:"Essayer les chaussures avec le sous-vêtement de mariée",delai:"145"},
+    {texte:"Finaliser la décoration — commander ou louer les éléments",delai:"140"},
+    {texte:"Rédiger et valider les menus avec le traiteur",delai:"135"},
+    {texte:"Confirmer le nombre définitif d'invités au traiteur",delai:"130"},
+    {texte:"Préparer le plan de table",delai:"120"},
+    {texte:"Commander les dragées, cadeaux et attentions invités",delai:"115"},
+    {texte:"Deuxième essayage chez Joséphine Bono",delai:"105"},
+    {texte:"Acheter les sous-vêtements adaptés à la robe",delai:"100"},
+    {texte:"Planifier les soins beauté : épilation, soin du visage, bronzage",delai:"90"},
+    {texte:"Préparer un kit d'urgence : épingles, aiguille-fil, pansements, Biafine",delai:"85"},
+    {texte:"Valider le bouquet de mariée avec le fleuriste",delai:"80"},
+    {texte:"Préparer les animations et surprises de la soirée",delai:"75"}
+  ]},
+  {cat:"1 à 3 mois avant — La dernière ligne droite",items:[
+    {texte:"Confirmer tous les prestataires par email ou téléphone",delai:"70"},
+    {texte:"Envoyer le planning précis du jour J à chaque prestataire",delai:"65"},
+    {texte:"Essayage final chez Joséphine Bono",delai:"60"},
+    {texte:"Confirmer les fleurs avec le fleuriste — quantités définitives",delai:"55"},
+    {texte:"Faire modifier les alliances si nécessaire",delai:"50"},
+    {texte:"Préparer les enveloppes de paiement pour chaque prestataire",delai:"45"},
+    {texte:"Finaliser et imprimer marque-places et plan de table",delai:"40"},
+    {texte:"Déléguer des missions clés aux témoins",delai:"35"},
+    {texte:"Prendre soin de sa peau : hydratation, sommeil, alimentation",delai:"30"},
+    {texte:"Faire un essai de mise en plis final",delai:"21"},
+    {texte:"Apprendre à marcher avec vos chaussures — portez-les à la maison",delai:"20"},
+    {texte:"Préparer le mot de remerciement pour les invités",delai:"15"},
+    {texte:"Confirmer les horaires exacts avec tous les prestataires",delai:"10"}
+  ]},
+  {cat:"La semaine du mariage",items:[
+    {texte:"Récupérer la robe chez Joséphine Bono",delai:"7"},
+    {texte:"Récupérer les alliances chez le joaillier",delai:"7"},
+    {texte:"Préparer la valise du voyage de noces",delai:"6"},
+    {texte:"Distribuer les enveloppes de paiement aux prestataires",delai:"5"},
+    {texte:"Masque visage et soin du corps",delai:"4"},
+    {texte:"Décorer le lieu si accès possible la veille",delai:"3"},
+    {texte:"Dîner de répétition ou soirée avec les proches",delai:"2"},
+    {texte:"Se coucher tôt — poser la robe et tous les accessoires à portée",delai:"1"},
+    {texte:"Profiter de chaque instant — vous avez tout prévu ✨",delai:"0"}
+  ]}
+];
+
+function jbRenderChecklist(){
+  var c=document.getElementById('check-cats');if(!c)return;
+  var cl=(CARNET&&CARNET.checklist)||null;
+  if(!cl||!cl.length){
+    var flat=[];
+    DC.forEach(function(cat){cat.items.forEach(function(item){flat.push({cat:cat.cat,texte:item.texte,delai:item.delai||'',fait:item.fait||false});});});
+    CARNET.checklist=flat;
+    sp('jb_carnets','id=eq.'+CARNET.id,{checklist:flat}).catch(function(){});
+    cl=flat;
+  }
+  var cats={};
+  cl.forEach(function(item,idx){var cat=item.cat||'Divers';if(!cats[cat])cats[cat]=[];cats[cat].push({item:item,idx:idx});});
+  c.innerHTML='';
+  Object.keys(cats).forEach(function(catName){
+    var wrap=document.createElement('div');wrap.className='check-cat';
+    wrap.innerHTML='<div class="check-cat-title">'+esc(catName)+'</div><div class="check-list"></div>';
+    c.appendChild(wrap);
+    var lst=wrap.querySelector('.check-list');
+    cats[catName].forEach(function(o){
+      var item=o.item,idx=o.idx;
+      var d=document.createElement('div');d.className='check-item'+(item.fait?' done':'');
+      d.onclick=function(){jbToggleCheck(idx,d);};
+      var linkHtml=item.lien?'<a href="'+esc(item.lien)+'" target="_blank" onclick="event.stopPropagation()" style="font-size:10px;color:var(--go);text-decoration:none;margin-left:6px;flex-shrink:0">→ article</a>':'';
+      d.innerHTML='<div class="check-box">'+(item.fait?'✓':'')+'</div><span class="check-name">'+esc(item.texte)+'</span>'+linkHtml+(item.delai&&item.delai!=='0'?'<span class="check-delay">J&#8209;'+item.delai+'</span>':'');
+      lst.appendChild(d);
+    });
+  });
+}
+
+async function jbToggleCheck(idx,div){
+  if(!CARNET)return;
+  var list=CARNET.checklist||[];if(!list[idx])return;
+  list[idx].fait=!list[idx].fait;
+  div.classList.toggle('done',list[idx].fait);
+  div.querySelector('.check-box').textContent=list[idx].fait?'✓':'';
+  div.querySelector('.check-name').style.textDecoration=list[idx].fait?'line-through':'';
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{checklist:list});}catch(e){}
+}
+
+/* ─── PAIEMENTS ─── */
+function jbRenderPaiements(){
+  var cal=(DEVIS&&DEVIS.calendrier_paiements)||[];
+  var r=document.getElementById('pay-rows'),pa=document.getElementById('pay-actions');
+  if(!r)return;r.innerHTML='';var hu=false;
+  cal.forEach(function(p){
+    var st=p.statut||'a_venir';
+    var bc=st==='regle'?'b-paid':st==='en_attente'?'b-pend':'b-fut';
+    var bl=st==='regle'?'Réglé':st==='en_attente'?'En attente':'À venir';
+    if(st!=='regle')hu=true;
+    r.innerHTML+='<div class="pay-row"><span style="font-size:12px;color:var(--mu)">'+esc(p.type||'')+'</span><span style="font-size:12px">'+esc(p.echeance||p.label||'')+'</span><span class="pay-amount">'+fmt(p.montant||0)+' HT</span><span class="badge '+bc+'">'+bl+'</span></div>';
+  });
+  if(!cal.length)r.innerHTML='<div style="padding:18px;font-size:14px;color:var(--mu);text-align:center">Informations non disponibles.</div>';
+  if(pa)pa.style.display=hu?'block':'none';
+}
+
+function jbRenderAdminPay(){
+  var c=document.getElementById('a-pay-rows');if(!c||!DEVIS)return;
+  var cal=(DEVIS&&DEVIS.calendrier_paiements)||[];
+  if(!cal.length){c.innerHTML='<p style="font-size:12px;color:var(--mu);font-style:italic">Aucun calendrier de paiement.</p>';return;}
+  c.innerHTML='';
+  cal.forEach(function(p,i){
+    var opts=['a_venir','en_attente','regle'].map(function(s){
+      var l={a_venir:'À venir',en_attente:'En attente',regle:'Réglé'};
+      return'<option value="'+s+'"'+(p.statut===s?' selected':'')+'>'+l[s]+'</option>';
+    }).join('');
+    c.innerHTML+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:7px;align-items:center;padding:9px;background:var(--iv);border:.5px solid var(--br)"><span style="font-size:13px">'+esc(p.type||'')+'</span><span style="font-family:Cormorant Garamond,serif;font-size:15px">'+fmt(p.montant||0)+' HT</span><select data-pay-idx="'+i+'" style="border:.5px solid var(--bs);padding:7px;font-family:Jost,sans-serif;font-size:12px">'+opts+'</select></div>';
+  });
+}
+
+async function jbSavePaiements(){
+  if(!DEVIS)return;
+  var cal=DEVIS.calendrier_paiements||[];
+  document.querySelectorAll('[data-pay-idx]').forEach(function(s){var i=parseInt(s.getAttribute('data-pay-idx'));if(cal[i])cal[i].statut=s.value;});
+  try{
+    await sp('jb_devis','id=eq.'+DEVIS.id,{calendrier_paiements:cal});
+    DEVIS.calendrier_paiements=cal;
+    jbRenderPaiements();jbRenderAdminPay();
+    jbToast('Paiements mis à jour ✓');
+  }catch(e){jbToast('Erreur : '+e.message);}
+}
+
+/* ─── NAV ─── */
+function jbSection(name,btn){
+  document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  var sec=document.getElementById('sec-'+name);if(sec)sec.classList.add('active');
+  if(btn)btn.classList.add('active');
+  else document.querySelectorAll('.tab-btn').forEach(function(b){
+    if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+name+"'"))b.classList.add('active');
+  });
+  window.scrollTo(0,0);
+}
+
+/* ─── UTILS ─── */
+function jbToast(msg){
+  var c=document.getElementById('jb-toast');
+  var d=document.createElement('div');d.className='toast-item';d.textContent=msg;
+  c.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},3000);
+}
+function fmt(n){return(parseFloat(n)||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0\u20ac';}
+function fd(s){if(!s)return'';try{return new Date(s).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}catch(e){return s;}}
+function val(id){var el=document.getElementById(id);return el?el.value:'';}
+function setv(id,v){var el=document.getElementById(id);if(el)el.value=v;}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+window.addEventListener('DOMContentLoaded',function(){
+  var params=new URLSearchParams(window.location.search);
+  var code=params.get('code');
+  if(code){document.getElementById('jb-code').value=code.toUpperCase();jbLogin();}
+  var today=new Date().toISOString().split('T')[0];
+  ['a-jrn-date','a-ess-date'].forEach(function(id){var el=document.getElementById(id);if(el)el.value=today;});
+});
+</script>
+</body>
+</html>
