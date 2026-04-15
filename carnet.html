@@ -317,6 +317,7 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
 
 <!-- TOAST -->
 <div id="toast"></div>
+<div id="debug-panel" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;color:#ff6b6b;font-family:monospace;font-size:12px;padding:12px;z-index:99999;max-height:200px;overflow-y:auto;white-space:pre-wrap"></div>
 
 <script>
 var SU = 'https://yjnzydmytimqbusnitqr.supabase.co';
@@ -434,27 +435,34 @@ async function loginAdmin(pwd) {
   if (btn) { btn.textContent = 'Chargement...'; btn.disabled = true; }
   try {
     var cfg = null;
-    try { var r = await sg('jb_config', 'limit=1&select=password'); cfg = r; } catch(e) {}
+    try { var r = await sg('jb_config', 'limit=1&select=password'); cfg = r; } catch(e) { dbg('cfg error: ' + e.message); }
     var ap = (cfg && cfg[0] && cfg[0].password) ? cfg[0].password : 'jb2025';
+    dbg('pwd check: "' + pwd + '" vs "' + ap + '"');
     if (pwd.toUpperCase() !== ap.toUpperCase() && pwd !== 'jb2025') {
-      errEl.textContent = 'Mot de passe incorrect.'; errEl.style.display = 'block'; return;
+      errEl.textContent = 'Mot de passe incorrect.'; errEl.style.display = 'block';
+      showAdminView(); return;
     }
     var params = new URLSearchParams(window.location.search);
     var code = params.get('code');
+    dbg('code from URL: ' + code);
     if (!code) {
       document.getElementById('pg-login').classList.add('hidden');
       document.getElementById('pg-admin').classList.add('visible');
       toast('Back-office ouvert');
       return;
     }
-    var data = await sg('jb_carnets', 'code_acces=eq.' + code.toUpperCase());
+    var data = null;
+    try { data = await sg('jb_carnets', 'code_acces=eq.' + code.toUpperCase()); } catch(e) { dbg('carnets error: ' + e.message); showAdminView(); errEl.textContent = 'Erreur : ' + e.message; errEl.style.display = 'block'; return; }
+    dbg('carnet found: ' + (data && data.length ? data[0].bride_nom : 'NONE'));
     if (!data || !data.length) {
-      errEl.textContent = 'Carnet introuvable.'; errEl.style.display = 'block'; return;
+      errEl.textContent = 'Carnet introuvable : ' + code; errEl.style.display = 'block';
+      showAdminView(); return;
     }
     CARNET = data[0];
     if (CARNET.devis_id) {
-      try { var dd2 = await sg('jb_devis', 'id=eq.' + CARNET.devis_id); if (dd2 && dd2[0]) DEVIS = dd2[0]; } catch(e) {}
+      try { var dd2 = await sg('jb_devis', 'id=eq.' + CARNET.devis_id); if (dd2 && dd2[0]) DEVIS = dd2[0]; } catch(e) { dbg('devis error: ' + e.message); }
     }
+    dbg('calling openAdmin...');
     openAdmin();
   } catch(e) {
     errEl.textContent = 'Erreur : ' + e.message; errEl.style.display = 'block';
@@ -468,15 +476,18 @@ function openClient() {
   document.getElementById('pg-client').classList.add('visible');
   renderClient();
 }
+function dbg(msg) { console.log("[carnet]", msg); var p = document.getElementById("debug-panel"); if (p) { p.style.display = "block"; p.innerHTML += "<div>" + msg + "</div>"; } }
+
 function openAdmin() {
+  dbg('openAdmin called, CARNET=' + (CARNET ? CARNET.bride_nom : 'null'));
   document.getElementById('pg-login').classList.add('hidden');
-  document.getElementById('pg-admin').classList.add('visible');
-  try {
-    renderAdmin();
-  } catch(e) {
-    toast('Erreur affichage : ' + e.message);
-    console.error('renderAdmin error:', e);
+  var pgAdmin = document.getElementById('pg-admin');
+  if (pgAdmin) {
+    pgAdmin.classList.add('visible');
+    dbg('pg-admin classes: ' + pgAdmin.className);
   }
+  try { renderAdmin(); dbg('renderAdmin OK'); }
+  catch(e) { dbg('renderAdmin ERROR: ' + e.message); console.error(e); }
 }
 function clSwitch() {
   document.getElementById('pg-admin').classList.remove('visible');
