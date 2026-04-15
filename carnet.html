@@ -461,7 +461,6 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
 
 <!-- TOAST -->
 <div id="toast"></div>
-<div id="debug-panel" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;color:#ff6b6b;font-family:monospace;font-size:12px;padding:12px;z-index:99999;max-height:200px;overflow-y:auto;white-space:pre-wrap"></div>
 
 <script>
 var SU = 'https://yjnzydmytimqbusnitqr.supabase.co';
@@ -644,7 +643,7 @@ function openClient() {
   showPage('pg-client');
   renderClient();
 }
-function dbg(msg) { console.log("[carnet]", msg); var p = document.getElementById("debug-panel"); if (p) { p.style.display = "block"; p.innerHTML += "<div>" + msg + "</div>"; } }
+function dbg(msg) { console.log("[carnet]", msg); }
 
 function openAdmin() {
   showPage('pg-admin');
