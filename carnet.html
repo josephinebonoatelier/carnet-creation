@@ -535,9 +535,23 @@ function closeLb() {
 
 /* ---- LOGIN ---- */
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  // Force display via inline styles - bypasses all CSS specificity
+  var pages = ['pg-login', 'pg-client', 'pg-admin'];
+  pages.forEach(function(pid) {
+    var p = document.getElementById(pid);
+    if (p) {
+      p.style.display = 'none';
+      p.classList.remove('active');
+    }
+  });
   var el = document.getElementById(id);
-  if (el) el.classList.add('active');
+  if (el) {
+    el.classList.add('active');
+    el.style.display = (id === 'pg-login') ? 'flex' : 'block';
+    dbg('showPage: ' + id + ' display=' + el.style.display);
+  } else {
+    dbg('showPage ERROR: element not found: ' + id);
+  }
   window.scrollTo(0, 0);
 }
 
