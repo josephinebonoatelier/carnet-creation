@@ -300,7 +300,20 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
   <div class="cl-sec" id="cl-sec-paiements">
     <div class="sl">Suivi des paiements</div>
     <div id="cl-pay-rows"></div>
-    <div class="pay-info" id="cl-pay-info" style="display:none"></div>
+
+    <!-- INFOS PAIEMENT + STRIPE -->
+    <div id="cl-pay-methods" style="display:none;margin-top:20px;background:var(--iv);border:.5px solid var(--br);padding:16px 20px">
+      <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:10px">Moyens de paiement</div>
+      <div id="cl-pay-methods-text" style="font-size:13px;color:var(--mu);line-height:1.8"></div>
+      <div id="cl-pay-stripe-wrap" style="display:none;margin-top:14px;padding-top:14px;border-top:.5px solid var(--br)">
+        <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:10px">Payer en ligne</div>
+        <a id="cl-pay-stripe-btn" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:var(--tx);color:var(--gl);font-family:Jost,sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:13px 24px;text-decoration:none">
+          Payer par carte bancaire &#8599;
+        </a>
+        <div id="cl-pay-stripe-url" style="font-size:10px;color:var(--mu);margin-top:8px;word-break:break-all"></div>
+      </div>
+    </div>
+
     <div id="cl-docs-wrap" style="margin-top:28px">
       <div class="sl">Vos documents</div>
       <div id="cl-docs" class="docs-list"></div>
@@ -580,6 +593,8 @@ async function loginClient() {
     if (CARNET.devis_id) {
       try { var dd = await sg('jb_devis', 'id=eq.' + CARNET.devis_id); if (dd && dd[0]) DEVIS = dd[0]; } catch(e) {}
     }
+    // Charger la config atelier pour afficher les infos de paiement
+    try { var cfg = await sg('jb_config', 'limit=1'); if (cfg && cfg[0]) CARNET._cfg = cfg[0]; } catch(e) {}
     openClient();
   } catch(e) {
     errEl.textContent = 'Erreur de connexion. Reessayez.'; errEl.style.display = 'block';
@@ -915,13 +930,39 @@ function renderPaiements() {
 
   if (!hasContent) c.innerHTML = '<p class="mu italic" style="padding:16px 0">Informations non disponibles.</p>';
 
-  var infoEl = document.getElementById('cl-pay-info');
-  if (infoEl) {
-    var a = (CARNET && CARNET.atelier) || {};
-    var payText = a.moyens_paiement || 'Virement bancaire, Especes, Carte bancaire';
-    var condText = a.conditions_paiement || 'Le solde doit etre regle avant la livraison.';
-    infoEl.innerHTML = esc(payText) + '<br>' + esc(condText);
-    infoEl.style.display = hasContent ? 'block' : 'none';
+  // Bloc infos paiement + Stripe
+  var methodsEl = document.getElementById('cl-pay-methods');
+  if (methodsEl && hasContent) {
+    methodsEl.style.display = 'block';
+    var cfg = CARNET._cfg || {};
+    var a = cfg.atelier || {};
+
+    // Moyens de paiement texte
+    var textEl = document.getElementById('cl-pay-methods-text');
+    if (textEl) {
+      var lines = [];
+      if (a.iban) lines.push('Virement IBAN : ' + esc(a.iban));
+      if (a.cheque) lines.push('Cheque a l\'ordre de : ' + esc(a.cheque));
+      if (a.paypal) lines.push('PayPal : ' + esc(a.paypal));
+      if (!lines.length) lines.push('Virement bancaire · Especes · Carte bancaire');
+      if (a.conditions_paiement) lines.push(esc(a.conditions_paiement));
+      textEl.innerHTML = lines.join('<br>');
+    }
+
+    // Stripe
+    var stripeWrap = document.getElementById('cl-pay-stripe-wrap');
+    var stripeBtn = document.getElementById('cl-pay-stripe-btn');
+    var stripeUrl = document.getElementById('cl-pay-stripe-url');
+    var stripeLink = a.stripe_link || '';
+    if (stripeWrap && stripeLink) {
+      stripeWrap.style.display = 'block';
+      if (stripeBtn) stripeBtn.href = stripeLink;
+      if (stripeUrl) stripeUrl.textContent = stripeLink;
+    } else if (stripeWrap) {
+      stripeWrap.style.display = 'none';
+    }
+  } else if (methodsEl) {
+    methodsEl.style.display = 'none';
   }
 }
 
