@@ -425,9 +425,11 @@ async function loginClient() {
 
 async function loginAdmin(pwd) {
   var errEl = document.getElementById('err-admin');
-  errEl.style.display = 'none';
+  var fromUrl = !!pwd; // true si mot de passe vient de l'URL
   if (!pwd) pwd = val('inp-pwd');
   if (!pwd) return;
+  if (!fromUrl) showAdminView(); // Afficher la vue admin seulement si login manuel
+  errEl.style.display = 'none';
   var btn = document.getElementById('btn-admin-login');
   if (btn) { btn.textContent = 'Chargement...'; btn.disabled = true; }
   try {
@@ -469,7 +471,12 @@ function openClient() {
 function openAdmin() {
   document.getElementById('pg-login').classList.add('hidden');
   document.getElementById('pg-admin').classList.add('visible');
-  renderAdmin();
+  try {
+    renderAdmin();
+  } catch(e) {
+    toast('Erreur affichage : ' + e.message);
+    console.error('renderAdmin error:', e);
+  }
 }
 function clSwitch() {
   document.getElementById('pg-admin').classList.remove('visible');
@@ -774,13 +781,13 @@ function renderAdmin() {
   var codeEl = document.getElementById('bo-code-label');
   if (barEl) barEl.textContent = 'Carnet de ' + (CARNET.bride_nom || '');
   if (codeEl) codeEl.textContent = 'Code : ' + (CARNET.code_acces || '');
-  fillInfos();
-  renderBoPlanning();
-  renderBoMesures();
-  renderBoEssayages();
-  renderBoJournal();
-  renderBoPaiements();
-  renderBoDocs();
+  try { fillInfos(); } catch(e) { console.error("fillInfos:", e); }
+  try { renderBoPlanning(); } catch(e) { console.error("renderBoPlanning:", e); }
+  try { renderBoMesures(); } catch(e) { console.error("renderBoMesures:", e); }
+  try { renderBoEssayages(); } catch(e) { console.error("renderBoEssayages:", e); }
+  try { renderBoJournal(); } catch(e) { console.error("renderBoJournal:", e); }
+  try { renderBoPaiements(); } catch(e) { console.error("renderBoPaiements:", e); }
+  try { renderBoDocs(); } catch(e) { console.error("renderBoDocs:", e); }
 }
 
 function fillInfos() {
@@ -1397,7 +1404,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var bo = params.get('bo');
 
   if (bo && code) {
-    showAdminView();
+    // Auto-login back-office depuis le logiciel
     loginAdmin(bo);
   } else if (code) {
     document.getElementById('inp-code').value = code.toUpperCase();
