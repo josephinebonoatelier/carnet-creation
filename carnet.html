@@ -1244,19 +1244,35 @@ function renderBoPayFactures() {
   var c = document.getElementById('bo-pay-factures');
   if (!c) return;
   var factures = (CARNET && CARNET.factures_client) || [];
-  if (!factures.length) { c.innerHTML = '<p class="mu italic" style="font-size:12px">Aucune facture liee.</p>'; return; }
+  if (!factures.length) { c.innerHTML = '<p class="mu italic" style="font-size:12px">Aucune facture liee. Ajoutez des lignes manuellement ci-dessous ou via le logiciel atelier.</p>'; return; }
   c.innerHTML = '';
   factures.forEach(function(f, i) {
     var row = document.createElement('div');
-    row.className = 'pay-bo-row';
-    row.innerHTML = '<span style="font-size:13px">' + esc(f.numero||'Facture') + '<br><span style="font-size:11px;color:var(--mu)">' + esc(f.echeance||'') + '</span></span>'
-      + '<span style="font-family:Cormorant Garamond,serif;font-size:16px">' + fmt(f.montant||0) + '</span>'
+    row.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr auto auto;gap:8px;margin-bottom:8px;align-items:center;padding:10px 14px;background:var(--iv);border:.5px solid var(--br)';
+    row.innerHTML = '<div>'
+      + '<input type="text" value="' + esc(f.numero||'') + '" data-fac-edit-num="' + i + '" style="border:.5px solid var(--bs);padding:6px 8px;font-size:12px;font-family:Jost,sans-serif;width:100%;background:white">'
+      + '<input type="text" value="' + esc(f.echeance||'') + '" data-fac-edit-desc="' + i + '" style="border:.5px solid var(--bs);padding:6px 8px;font-size:11px;font-family:Jost,sans-serif;width:100%;background:white;margin-top:4px;color:var(--mu)" placeholder="Description">'
+      + '</div>'
+      + '<input type="number" value="' + (f.montant||0) + '" data-fac-edit-amt="' + i + '" style="border:.5px solid var(--bs);padding:8px;font-size:13px;font-family:Cormorant Garamond,serif;width:100%;text-align:right;background:white" step="0.01" min="0">'
       + '<select data-fac-idx="' + i + '" style="border:.5px solid var(--bs);padding:9px;font-family:Jost,sans-serif;font-size:12px">'
       + '<option value="a_regler"' + (f.statut!=='regle'?' selected':'') + '>A regler</option>'
       + '<option value="regle"' + (f.statut==='regle'?' selected':'') + '>Reglee</option>'
-      + '</select>';
+      + '</select>'
+      + '<button data-del-fac="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;padding:0 4px">x</button>';
     c.appendChild(row);
   });
+}
+
+async function delFacLine(i) {
+  var factures = (CARNET && CARNET.factures_client) || [];
+  factures.splice(i, 1);
+  try {
+    await sp('jb_carnets', 'id=eq.' + CARNET.id, {factures_client: factures});
+    CARNET.factures_client = factures;
+    renderBoPayFactures();
+    renderPaiements();
+    toast('Ligne supprimee');
+  } catch(e) { toast('Erreur : ' + e.message); }
 }
 
 function renderBoPayRows() {
@@ -1301,8 +1317,19 @@ async function savePaiements() {
     var i = parseInt(s.getAttribute('data-pay-idx')); if (cal[i]) cal[i].statut = s.value;
   });
   var factures = CARNET.factures_client || [];
+  // Save statut changes
   document.querySelectorAll('[data-fac-idx]').forEach(function(s) {
     var i = parseInt(s.getAttribute('data-fac-idx')); if (factures[i]) factures[i].statut = s.value;
+  });
+  // Save edited fields (numero, description, montant)
+  document.querySelectorAll('[data-fac-edit-num]').forEach(function(s) {
+    var i = parseInt(s.getAttribute('data-fac-edit-num')); if (factures[i]) factures[i].numero = s.value;
+  });
+  document.querySelectorAll('[data-fac-edit-desc]').forEach(function(s) {
+    var i = parseInt(s.getAttribute('data-fac-edit-desc')); if (factures[i]) factures[i].echeance = s.value;
+  });
+  document.querySelectorAll('[data-fac-edit-amt]').forEach(function(s) {
+    var i = parseInt(s.getAttribute('data-fac-edit-amt')); if (factures[i]) factures[i].montant = parseFloat(s.value) || 0;
   });
   try {
     await sp('jb_carnets', 'id=eq.' + CARNET.id, {calendrier_paiements:cal, factures_client:factures});
@@ -1561,6 +1588,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Delete pay line
     var delPayEl = e.target.closest('[data-del-pay]');
     if (delPayEl) { delPayLine(parseInt(delPayEl.getAttribute('data-del-pay'))); return; }
+
+    // Delete facture line
+    var delFacEl = e.target.closest('[data-del-fac]');
+    if (delFacEl) { delFacLine(parseInt(delFacEl.getAttribute('data-del-fac'))); return; }
 
     // Delete doc
     var delDocEl = e.target.closest('[data-del-doc]');
