@@ -250,12 +250,11 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
       <div class="app-header-sub">Votre carnet de creation</div>
     </div>
     <nav class="app-nav" id="cl-nav">
-      <button class="nav-btn active" data-sec="planning">Planning</button>
+      <button class="nav-btn active" data-sec="planning">RDV</button>
       <button class="nav-btn" data-sec="essayages">Essayages</button>
       <button class="nav-btn" data-sec="journal">Journal</button>
       <button class="nav-btn" data-sec="checklist">Preparations</button>
       <button class="nav-btn" data-sec="paiements">Paiements</button>
-      <button class="nav-btn" data-sec="rdv">Rendez-vous</button>
     </nav>
   </div>
 
@@ -270,7 +269,7 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
 
   <!-- SECTIONS CLIENTE -->
   <div class="cl-sec active" id="cl-sec-planning">
-    <div class="sl">Votre planning</div>
+    <div class="sl">Rendez-vous &amp; planning</div>
     <div id="cl-planning"><p class="mu italic" style="padding:16px 0">Le planning sera mis a jour par l'atelier.</p></div>
     <div class="rdv-wrap" style="padding-top:24px">
       <p class="mu" style="font-size:13px">Besoin de contacter l'atelier ?</p>
@@ -308,181 +307,6 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
     </div>
   </div>
 
-  <div class="cl-sec" id="cl-sec-rdv">
-    <div class="rdv-wrap">
-      <div class="rdv-title">Prendre rendez-vous</div>
-      <p class="rdv-sub">Reservez votre prochain essayage<br>ou un rendez-vous de consultation.</p>
-      <div class="rdv-btns">
-        <a id="cl-calendly-btn" href="https://calendly.com/josephine-bono-rendez-vous" target="_blank" class="rdv-btn rdv-dark">Reserver un creneau</a>
-        <a id="cl-wa-btn2" href="#" class="rdv-btn rdv-outline">Contacter par WhatsApp</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PAGE ADMIN -->
-<div id="pg-admin">
-  <div class="bo-header">
-    <div>
-      <div class="bo-header-title" id="bo-bride-label">Carnet</div>
-      <div class="bo-header-sub" id="bo-code-label"></div>
-    </div>
-    <div style="display:flex;gap:8px">
-      <button class="btn-gold" onclick="clSwitch()" style="font-size:9px;padding:8px 14px;letter-spacing:.14em">Vue cliente</button>
-      <button class="btn-outline" onclick="boLogout()" style="font-size:9px;padding:8px 14px;letter-spacing:.14em;color:var(--gl);border-color:rgba(255,255,255,.2)">Deconnexion</button>
-    </div>
-  </div>
-  <div class="bo-tabs">
-    <button class="bo-tab active" data-bosec="infos">Infos</button>
-    <button class="bo-tab" data-bosec="planning">Planning</button>
-    <button class="bo-tab" data-bosec="mesures">Mesures</button>
-    <button class="bo-tab" data-bosec="essayages">Essayages</button>
-    <button class="bo-tab" data-bosec="journal">Journal</button>
-    <button class="bo-tab" data-bosec="paiements">Paiements</button>
-    <button class="bo-tab" data-bosec="documents">Documents</button>
-  </div>
-
-  <!-- BO INFOS -->
-  <div class="bo-sec active" id="bo-sec-infos">
-    <div class="sl">Informations generales</div>
-    <div class="card">
-      <div class="fg fg-2">
-        <div class="field"><label>Nom de la mariee</label><input type="text" id="bo-nom"></div>
-        <div class="field"><label>Modele / Prestation</label><input type="text" id="bo-modele"></div>
-        <div class="field"><label>Date du mariage</label><input type="date" id="bo-mariage"></div>
-        <div class="field"><label>Date de livraison</label><input type="date" id="bo-livraison"></div>
-      </div>
-      <div class="field" style="margin-top:10px"><label>Phrase signature</label><input type="text" id="bo-phrase" placeholder="Chaque robe est une promesse cousue a la main."></div>
-      <div class="action-row">
-        <button class="btn-dark" id="btn-save-infos">Enregistrer</button>
-        <span class="saved-msg" id="saved-infos">Enregistre</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- BO PLANNING -->
-  <div class="bo-sec" id="bo-sec-planning">
-    <div class="sl">Planning des etapes</div>
-    <div class="card">
-      <div class="card-title">Ajouter une etape</div>
-      <div class="fg fg-3" style="margin-bottom:10px">
-        <div class="field"><label>Titre</label><input type="text" id="bo-p-titre" placeholder="Ex : 1er essayage"></div>
-        <div class="field"><label>Date</label><input type="date" id="bo-p-date"></div>
-        <div class="field"><label>Statut</label>
-          <select id="bo-p-statut">
-            <option value="a_venir">A venir</option>
-            <option value="realise">Realise</option>
-          </select>
-        </div>
-      </div>
-      <button class="btn-dark" id="btn-add-plan">Ajouter</button>
-    </div>
-    <div id="bo-planning-list"></div>
-  </div>
-
-  <!-- BO MESURES -->
-  <div class="bo-sec" id="bo-sec-mesures">
-    <div class="sl">Prise de mesures</div>
-    <div class="card" id="bo-mes-form"></div>
-    <div class="action-row">
-      <button class="btn-dark" id="btn-save-mes">Enregistrer les mesures</button>
-      <span class="saved-msg" id="saved-mes">Enregistre</span>
-    </div>
-  </div>
-
-  <!-- BO ESSAYAGES -->
-  <div class="bo-sec" id="bo-sec-essayages">
-    <div class="sl">Essayages</div>
-    <div class="card">
-      <div class="card-title">Ajouter un essayage</div>
-      <div class="fg fg-2" style="margin-bottom:10px">
-        <div class="field"><label>Date</label><input type="date" id="bo-e-date"></div>
-        <div class="field"><label>Libelle</label><input type="text" id="bo-e-num" placeholder="Ex : 1er essayage - toile"></div>
-      </div>
-      <div class="field" style="margin-bottom:10px"><label>Compte-rendu</label><textarea id="bo-e-notes" rows="4" placeholder="Observations, ajustements..."></textarea></div>
-      <div class="field" style="margin-bottom:10px">
-        <label>Photos</label>
-        <div class="upload-preview" id="bo-e-preview"></div>
-        <label class="upload-btn-label">+ Ajouter photos<input type="file" id="bo-e-photos" accept="image/*" multiple style="display:none"></label>
-      </div>
-      <button class="btn-dark" id="btn-save-essa">Enregistrer cet essayage</button>
-    </div>
-    <div id="bo-essa-list"></div>
-  </div>
-
-  <!-- BO JOURNAL -->
-  <div class="bo-sec" id="bo-sec-journal">
-    <div class="sl">Journal de creation</div>
-    <div class="card">
-      <div class="card-title">Publier une entree</div>
-      <div class="fg fg-2" style="margin-bottom:10px">
-        <div class="field"><label>Date</label><input type="date" id="bo-j-date"></div>
-        <div class="field"><label>Titre</label><input type="text" id="bo-j-titre" placeholder="Ex : Decoupe du satin duchesse"></div>
-      </div>
-      <div class="field" style="margin-bottom:10px"><label>Recit</label><textarea id="bo-j-texte" rows="5" placeholder="Decrivez cette etape..."></textarea></div>
-      <div class="field" style="margin-bottom:10px">
-        <label>Photos</label>
-        <div class="upload-preview" id="bo-j-preview"></div>
-        <label class="upload-btn-label">+ Ajouter photos<input type="file" id="bo-j-photos" accept="image/*" multiple style="display:none"></label>
-      </div>
-      <button class="btn-dark" id="btn-save-jrn">Publier</button>
-    </div>
-    <div id="bo-journal-list"></div>
-  </div>
-
-  <!-- BO PAIEMENTS -->
-  <div class="bo-sec" id="bo-sec-paiements">
-    <div class="sl">Suivi des paiements</div>
-    <div class="card" id="bo-pay-factures-card">
-      <div class="card-title">Factures emises</div>
-      <div id="bo-pay-factures"><p class="mu italic" style="font-size:12px">Aucune facture liee.</p></div>
-    </div>
-    <div class="card" style="margin-top:12px">
-      <div class="card-title">Echeancier</div>
-      <div id="bo-pay-rows"><p class="mu italic" style="font-size:12px">Aucun echeancier. Ajoutez des lignes ci-dessous.</p></div>
-      <div style="margin-top:14px;border-top:.5px solid var(--br);padding-top:14px">
-        <div class="card-title" style="margin-bottom:10px">Ajouter une ligne</div>
-        <div class="fg fg-3" style="margin-bottom:8px">
-          <div class="field"><label>Designation</label><input type="text" id="bo-pay-lbl" placeholder="Ex : Acompte"></div>
-          <div class="field"><label>Montant HT</label><input type="number" id="bo-pay-amt" min="0" step="0.01" placeholder="0"></div>
-          <div class="field"><label>Statut</label>
-            <select id="bo-pay-sta">
-              <option value="a_venir">A venir</option>
-              <option value="en_attente">En attente</option>
-              <option value="regle">Regle</option>
-            </select>
-          </div>
-        </div>
-        <button class="btn-outline" id="btn-add-pay">+ Ajouter</button>
-      </div>
-      <div class="action-row" style="margin-top:16px">
-        <button class="btn-dark" id="btn-save-pay">Enregistrer les statuts</button>
-        <span class="saved-msg" id="saved-pay">Enregistre</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- BO DOCUMENTS -->
-  <div class="bo-sec" id="bo-sec-documents">
-    <div class="sl">Documents</div>
-    <div class="card">
-      <div class="card-title">Ajouter un document</div>
-      <div class="fg fg-3" style="margin-bottom:10px">
-        <div class="field"><label>Nom</label><input type="text" id="bo-doc-nom" placeholder="Ex : Devis DV-2026-001"></div>
-        <div class="field"><label>Type</label>
-          <select id="bo-doc-type">
-            <option value="devis">Devis</option>
-            <option value="facture">Facture</option>
-            <option value="autre">Autre</option>
-          </select>
-        </div>
-        <div class="field"><label>Date</label><input type="date" id="bo-doc-date"></div>
-      </div>
-      <div class="field" style="margin-bottom:10px"><label>URL (Google Drive, Dropbox...)</label><input type="url" id="bo-doc-url" placeholder="https://..."></div>
-      <button class="btn-dark" id="btn-add-doc">Ajouter</button>
-    </div>
-    <div id="bo-docs-list" class="docs-list" style="margin-top:14px"></div>
-  </div>
 </div>
 
 <!-- LIGHTBOX -->
