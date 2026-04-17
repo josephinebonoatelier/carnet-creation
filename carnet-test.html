@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>[TEST] Josephine Bono - Carnet de creation</title>
+<title>Josephine Bono - Carnet de creation</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -12,8 +12,6 @@
   --tx:#2C2620;--mu:#8C7B6B;--br:rgba(196,166,106,.2);--bs:rgba(196,166,106,.45)
 }
 body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
-#test-banner{position:fixed;top:0;left:0;right:0;background:#C17A5A;color:white;text-align:center;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;padding:7px;z-index:99998}
-body{padding-top:32px}
 
 /* LOGIN */
 #pg-login{position:fixed;inset:0;align-items:center;justify-content:center;background:var(--iv);z-index:9000}
@@ -216,14 +214,12 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
 </head>
 <body>
 
-<div id="test-banner">&#9888; Environnement de test — Les modifications ne sont pas visibles par les clientes</div>
-
 <!-- LOGIN -->
 <div id="pg-login" class="page active">
   <div class="lc">
     <div id="lc-v-client">
       <div class="lc-logo">Josephine Bono</div>
-      <div class="lc-sub" style="color:#C17A5A">Version de test</div>
+      <div class="lc-sub">Carnet de creation</div>
       <p class="lc-hint">Entrez votre code d'acces<br>inscrit sur votre devis</p>
       <input type="text" id="inp-code" placeholder="Ex : CAMILLE2009" maxlength="14" autocomplete="off">
       <button class="lc-btn" id="btn-client-login">Acceder a mon carnet</button>
@@ -934,12 +930,14 @@ function renderPaiements() {
 
   if (!hasContent) c.innerHTML = '<p class="mu italic" style="padding:16px 0">Informations non disponibles.</p>';
 
-  // Bloc infos paiement + Stripe
+  // Bloc infos paiement + Stripe — toujours visible
   var methodsEl = document.getElementById('cl-pay-methods');
-  if (methodsEl && hasContent) {
+  if (methodsEl) {
     methodsEl.style.display = 'block';
     var cfg = CARNET._cfg || {};
+    // Atelier peut etre un objet ou une chaine JSON
     var a = cfg.atelier || {};
+    if (typeof a === 'string') { try { a = JSON.parse(a); } catch(e) { a = {}; } }
 
     // Moyens de paiement texte
     var textEl = document.getElementById('cl-pay-methods-text');
@@ -957,16 +955,12 @@ function renderPaiements() {
     var stripeWrap = document.getElementById('cl-pay-stripe-wrap');
     var stripeBtn = document.getElementById('cl-pay-stripe-btn');
     var stripeUrl = document.getElementById('cl-pay-stripe-url');
-    var stripeLink = a.stripe_link || '';
-    if (stripeWrap && stripeLink) {
+    var stripeLink = a.stripe_link || 'https://buy.stripe.com/cNi14gfeRabUdwb8BxaEE00';
+    if (stripeWrap) {
       stripeWrap.style.display = 'block';
       if (stripeBtn) stripeBtn.href = stripeLink;
       if (stripeUrl) stripeUrl.textContent = stripeLink;
-    } else if (stripeWrap) {
-      stripeWrap.style.display = 'none';
     }
-  } else if (methodsEl) {
-    methodsEl.style.display = 'none';
   }
 }
 
