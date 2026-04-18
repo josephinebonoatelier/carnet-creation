@@ -1132,15 +1132,51 @@ function renderBoEssayages() {
     var div = document.createElement('div');
     div.className = 'essa-item';
     div.style.marginBottom = '12px';
+    div.id = 'essa-item-' + i;
     div.innerHTML = '<div class="essa-hd">'
       + '<span class="essa-date-lbl">' + fd(e.date) + '</span>'
       + '<span class="essa-num">' + esc(e.num || ('Essayage ' + (i+1))) + '</span>'
-      + '<button data-del-essa="' + i + '" style="margin-left:auto;background:none;border:none;color:var(--mu);cursor:pointer;font-size:16px">x</button>'
-      + '</div>'
+      + '<div style="margin-left:auto;display:flex;gap:6px">'
+      + '<button onclick="editEssayage(' + i + ')" style="background:none;border:.5px solid var(--br);color:var(--mu);cursor:pointer;font-size:10px;padding:3px 8px;letter-spacing:.1em">Modifier</button>'
+      + '<button data-del-essa="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:16px">x</button>'
+      + '</div></div>'
+      + '<div id="essa-view-' + i + '">'
       + '<div class="essa-body">' + esc(e.notes || '') + '</div>'
-      + gallHtml;
+      + gallHtml
+      + '</div>'
+      + '<div id="essa-edit-' + i + '" style="display:none;padding:12px 16px;background:var(--iv);border-top:.5px solid var(--br)">'
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
+      + '<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Date</label><input type="date" id="essa-ed-date-' + i + '" value="' + esc(e.date||'') + '" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      + '<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Libellé</label><input type="text" id="essa-ed-num-' + i + '" value="' + esc(e.num||'') + '" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      + '</div>'
+      + '<div style="margin-bottom:10px"><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Compte-rendu</label><textarea id="essa-ed-notes-' + i + '" rows="4" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px;resize:vertical">' + esc(e.notes||'') + '</textarea></div>'
+      + '<div style="display:flex;gap:8px">'
+      + '<button onclick="saveEditEssayage(' + i + ')" style="background:var(--tx);color:var(--gl);border:none;padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Enregistrer</button>'
+      + '<button onclick="cancelEditEssayage(' + i + ')" style="background:none;border:.5px solid var(--br);color:var(--mu);padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Annuler</button>'
+      + '</div></div>';
     c.appendChild(div);
   });
+}
+
+function editEssayage(i) {
+  document.getElementById('essa-view-' + i).style.display = 'none';
+  document.getElementById('essa-edit-' + i).style.display = 'block';
+}
+function cancelEditEssayage(i) {
+  document.getElementById('essa-view-' + i).style.display = 'block';
+  document.getElementById('essa-edit-' + i).style.display = 'none';
+}
+async function saveEditEssayage(i) {
+  var essa = CARNET.essayages || [];
+  essa[i].date = document.getElementById('essa-ed-date-' + i).value;
+  essa[i].num = document.getElementById('essa-ed-num-' + i).value;
+  essa[i].notes = document.getElementById('essa-ed-notes-' + i).value;
+  try {
+    await sp('jb_carnets', 'id=eq.' + CARNET.id, {essayages: essa});
+    CARNET.essayages = essa;
+    renderBoEssayages(); renderEssayages();
+    toast('Essayage modifie');
+  } catch(e) { toast('Erreur : ' + e.message); }
 }
 
 function previewPhotos(inputId, previewId) {
@@ -1237,14 +1273,51 @@ function renderBoJournal() {
     }
     var div = document.createElement('div');
     div.className = 'journal-item';
+    div.id = 'jrn-item-' + i;
     div.style.cssText = 'padding:16px;background:white;border:.5px solid var(--br);margin-bottom:10px;flex-direction:column;gap:8px';
     div.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between">'
       + '<div><span class="journal-meta">' + fd(e.date) + '</span><div class="journal-title">' + esc(e.titre||'') + '</div></div>'
-      + '<button data-del-jrn="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px">x</button></div>'
+      + '<div style="display:flex;gap:6px;align-items:center">'
+      + '<button onclick="editJournal(' + i + ')" style="background:none;border:.5px solid var(--br);color:var(--mu);cursor:pointer;font-size:10px;padding:3px 8px;letter-spacing:.1em">Modifier</button>'
+      + '<button data-del-jrn="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px">x</button>'
+      + '</div></div>'
+      + '<div id="jrn-view-' + i + '">'
       + '<div class="journal-text">' + esc(e.texte||'') + '</div>'
-      + gallHtml;
+      + gallHtml
+      + '</div>'
+      + '<div id="jrn-edit-' + i + '" style="display:none;border-top:.5px solid var(--br);padding-top:12px;margin-top:8px">'
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
+      + '<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Date</label><input type="date" id="jrn-ed-date-' + i + '" value="' + esc(e.date||'') + '" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      + '<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Titre</label><input type="text" id="jrn-ed-titre-' + i + '" value="' + esc(e.titre||'') + '" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      + '</div>'
+      + '<div style="margin-bottom:10px"><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Récit</label><textarea id="jrn-ed-texte-' + i + '" rows="5" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px;resize:vertical">' + esc(e.texte||'') + '</textarea></div>'
+      + '<div style="display:flex;gap:8px">'
+      + '<button onclick="saveEditJournal(' + i + ')" style="background:var(--tx);color:var(--gl);border:none;padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Enregistrer</button>'
+      + '<button onclick="cancelEditJournal(' + i + ')" style="background:none;border:.5px solid var(--br);color:var(--mu);padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Annuler</button>'
+      + '</div></div>';
     c.appendChild(div);
   });
+}
+
+function editJournal(i) {
+  document.getElementById('jrn-view-' + i).style.display = 'none';
+  document.getElementById('jrn-edit-' + i).style.display = 'block';
+}
+function cancelEditJournal(i) {
+  document.getElementById('jrn-view-' + i).style.display = 'block';
+  document.getElementById('jrn-edit-' + i).style.display = 'none';
+}
+async function saveEditJournal(i) {
+  var j = CARNET.journal || [];
+  j[i].date = document.getElementById('jrn-ed-date-' + i).value;
+  j[i].titre = document.getElementById('jrn-ed-titre-' + i).value;
+  j[i].texte = document.getElementById('jrn-ed-texte-' + i).value;
+  try {
+    await sp('jb_carnets', 'id=eq.' + CARNET.id, {journal: j});
+    CARNET.journal = j;
+    renderBoJournal(); renderJournal();
+    toast('Entree modifiee');
+  } catch(e) { toast('Erreur : ' + e.message); }
 }
 
 async function saveJournal() {
