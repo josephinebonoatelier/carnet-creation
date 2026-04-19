@@ -799,7 +799,9 @@ function renderEssayages() {
     div.className = 'essa-item';
     div.innerHTML = '<div class="essa-hd">'
       + '<span class="essa-date-lbl">' + fd(e.date) + '</span>'
-      + '<span class="essa-num">' + esc(e.num || ('Essayage ' + (i+1))) + '</span></div>'
+      + '<span class="essa-num" style="flex:1">' + esc(e.num || ('Essayage ' + (i+1))) + '</span>'
+      + '<button onclick="editEssayage(' + i + ')" style="background:#C4A66A;color:white;border:none;cursor:pointer;font-size:10px;padding:5px 12px;letter-spacing:.1em;font-family:Jost,sans-serif">Modifier</button>'
+      + '</div>'
       + '<div class="essa-body">' + esc(e.notes || '') + '</div>'
       + gallHtml;
     c.appendChild(div);
