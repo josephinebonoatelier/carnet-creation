@@ -213,6 +213,7 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
 </style>
 </head>
 <body>
+<div id="version-banner" style="background:#C4A66A;color:white;text-align:center;font-size:11px;letter-spacing:.2em;padding:6px;font-family:Jost,sans-serif">VERSION 19 AVRIL 2026 — BOUTONS MODIFIER ACTIFS</div>
 
 <!-- LOGIN -->
 <div id="pg-login" class="page active">
