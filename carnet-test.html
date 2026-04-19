@@ -1133,13 +1133,12 @@ function renderBoEssayages() {
     div.className = 'essa-item';
     div.style.marginBottom = '12px';
     div.id = 'essa-item-' + i;
-    div.innerHTML = '<div class="essa-hd">'
+    div.innerHTML = '<div style="padding:12px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;gap:10px">'
       + '<span class="essa-date-lbl">' + fd(e.date) + '</span>'
-      + '<span class="essa-num">' + esc(e.num || ('Essayage ' + (i+1))) + '</span>'
-      + '<div style="margin-left:auto;display:flex;gap:6px">'
-      + '<button onclick="editEssayage(' + i + ')" style="background:none;border:.5px solid var(--br);color:var(--mu);cursor:pointer;font-size:10px;padding:3px 8px;letter-spacing:.1em">Modifier</button>'
-      + '<button data-del-essa="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:16px">x</button>'
-      + '</div></div>'
+      + '<span class="essa-num" style="flex:1">' + esc(e.num || ('Essayage ' + (i+1))) + '</span>'
+      + '<button onclick="editEssayage(' + i + ')" style="background:var(--go);color:white;border:none;cursor:pointer;font-size:10px;padding:5px 12px;letter-spacing:.1em;font-family:Jost,sans-serif">Modifier</button>'
+      + '<button data-del-essa="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;line-height:1">x</button>'
+      + '</div>'
       + '<div id="essa-view-' + i + '">'
       + '<div class="essa-body">' + esc(e.notes || '') + '</div>'
       + gallHtml
@@ -1275,12 +1274,11 @@ function renderBoJournal() {
     div.className = 'journal-item';
     div.id = 'jrn-item-' + i;
     div.style.cssText = 'padding:16px;background:white;border:.5px solid var(--br);margin-bottom:10px;flex-direction:column;gap:8px';
-    div.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between">'
-      + '<div><span class="journal-meta">' + fd(e.date) + '</span><div class="journal-title">' + esc(e.titre||'') + '</div></div>'
-      + '<div style="display:flex;gap:6px;align-items:center">'
-      + '<button onclick="editJournal(' + i + ')" style="background:none;border:.5px solid var(--br);color:var(--mu);cursor:pointer;font-size:10px;padding:3px 8px;letter-spacing:.1em">Modifier</button>'
-      + '<button data-del-jrn="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px">x</button>'
-      + '</div></div>'
+    div.innerHTML = '<div style="display:flex;align-items:flex-start;gap:10px;padding-bottom:8px;border-bottom:.5px solid var(--br);margin-bottom:8px">'
+      + '<div style="flex:1"><span class="journal-meta">' + fd(e.date) + '</span><div class="journal-title">' + esc(e.titre||'') + '</div></div>'
+      + '<button onclick="editJournal(' + i + ')" style="background:var(--go);color:white;border:none;cursor:pointer;font-size:10px;padding:5px 12px;letter-spacing:.1em;font-family:Jost,sans-serif;white-space:nowrap">Modifier</button>'
+      + '<button data-del-jrn="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;line-height:1">x</button>'
+      + '</div>'
       + '<div id="jrn-view-' + i + '">'
       + '<div class="journal-text">' + esc(e.texte||'') + '</div>'
       + gallHtml
