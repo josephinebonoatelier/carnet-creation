@@ -799,9 +799,7 @@ function renderEssayages() {
     div.className = 'essa-item';
     div.innerHTML = '<div class="essa-hd">'
       + '<span class="essa-date-lbl">' + fd(e.date) + '</span>'
-      + '<span class="essa-num" style="flex:1">' + esc(e.num || ('Essayage ' + (i+1))) + '</span>'
-      + '<button onclick="editEssayage(' + i + ')" style="background:#C4A66A;color:white;border:none;cursor:pointer;font-size:10px;padding:5px 12px;letter-spacing:.1em;font-family:Jost,sans-serif">Modifier</button>'
-      + '</div>'
+      + '<span class="essa-num">' + esc(e.num || ('Essayage ' + (i+1))) + '</span></div>'
       + '<div class="essa-body">' + esc(e.notes || '') + '</div>'
       + gallHtml;
     c.appendChild(div);
@@ -897,40 +895,27 @@ function renderPaiements() {
   if (!c) return;
   c.innerHTML = '';
   var hasContent = false;
-  var hasUnpaid = false;
-
-  var factures = (CARNET && CARNET.factures_client) || [];
-  if (factures.length) {
-    c.innerHTML += '<div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--go);padding:8px 0 6px;border-bottom:.5px solid var(--br);margin-bottom:6px">Factures</div>';
-    factures.forEach(function(f) {
-      var regle = f.statut === 'regle';
-      if (!regle) hasUnpaid = true;
-      c.innerHTML += '<div class="pay-row">'
-        + '<span style="font-size:12px;color:var(--mu)">' + esc(f.numero || 'Facture') + '</span>'
-        + '<span style="font-size:12px">' + esc(f.echeance || f.type || '') + '</span>'
-        + '<span class="pay-amount">' + fmt(f.montant || 0) + '</span>'
-        + '<span class="badge ' + (regle ? 'b-paid' : 'b-pend') + '">' + (regle ? 'Reglee' : 'A regler') + '</span></div>';
-      hasContent = true;
-    });
-  }
-
   var cal = (CARNET && CARNET.calendrier_paiements) || (DEVIS && DEVIS.calendrier_paiements) || [];
   if (cal.length) {
-    if (factures.length) c.innerHTML += '<div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--go);padding:8px 0 6px;border-bottom:.5px solid var(--br);margin:10px 0 6px">Echeancier</div>';
-    cal.forEach(function(p) {
+    c.innerHTML += '<div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--go);padding:8px 0 6px;border-bottom:.5px solid var(--br);margin-bottom:8px">Echeancier de paiement</div>';
+    cal.forEach(function(p, idx) {
       var st = p.statut || 'a_venir';
-      var bc = st === 'regle' ? 'b-paid' : st === 'en_attente' ? 'b-pend' : 'b-fut';
-      var bl = st === 'regle' ? 'Regle' : st === 'en_attente' ? 'En attente' : 'A venir';
-      if (st !== 'regle') hasUnpaid = true;
-      c.innerHTML += '<div class="pay-row">'
-        + '<span style="font-size:12px;color:var(--mu)">' + esc(p.type || p.label || '') + '</span>'
-        + '<span style="font-size:12px">' + esc(p.echeance || '') + '</span>'
-        + '<span class="pay-amount">' + fmt(p.montant || 0) + '</span>'
-        + '<span class="badge ' + bc + '">' + bl + '</span></div>';
+      var regle = st === 'regle';
+      var row = document.createElement('div');
+      row.className = 'pay-row';
+      row.style.gridTemplateColumns = '1.5fr 1fr 1fr 1fr';
+      var l1 = document.createElement('span'); l1.style.cssText = 'font-size:12px;color:var(--mu)'; l1.textContent = p.type||p.label||'';
+      var l2 = document.createElement('span'); l2.style.cssText = 'font-size:12px'; l2.textContent = p.echeance||'';
+      var l3 = document.createElement('span'); l3.className = 'pay-amount'; l3.textContent = fmt(p.montant||0);
+      var btn = document.createElement('button');
+      btn.style.cssText = 'border:none;cursor:pointer;font-size:10px;padding:5px 12px;font-family:Jost,sans-serif;'+(regle?'background:rgba(60,130,70,.1);color:var(--go)':'background:rgba(196,166,106,.12);color:#8C6A2F');
+      btn.textContent = regle ? 'Regle' : 'A regler';
+      btn.addEventListener('click', (function(i){ return function(){ togglePaiement(i); }; })(idx));
+      row.appendChild(l1); row.appendChild(l2); row.appendChild(l3); row.appendChild(btn);
+      c.appendChild(row);
       hasContent = true;
     });
   }
-
   if (!hasContent) c.innerHTML = '<p class="mu italic" style="padding:16px 0">Informations non disponibles.</p>';
 
   // Bloc infos paiement + Stripe — toujours visible
@@ -1337,6 +1322,19 @@ async function saveJournal() {
     toast('Entree publiee');
   } catch(e) { toast('Erreur : ' + e.message); }
   finally { if (btn) { btn.textContent = 'Publier'; btn.disabled = false; } }
+}
+
+async function togglePaiement(idx) {
+  var cal = (CARNET && CARNET.calendrier_paiements) || [];
+  if (!cal[idx]) return;
+  var prev = cal[idx].statut || 'a_venir';
+  cal[idx].statut = (prev === 'regle') ? 'a_venir' : 'regle';
+  try {
+    await sp('jb_carnets', 'id=eq.' + CARNET.id, {calendrier_paiements: cal});
+    CARNET.calendrier_paiements = cal;
+    renderPaiements();
+    toast(cal[idx].statut === 'regle' ? 'Paiement marque regle' : 'Paiement marque a venir');
+  } catch(e) { toast('Erreur : ' + e.message); }
 }
 
 async function delJournal(i) {
