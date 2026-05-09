@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Josephine Bono - Carnet de creation v2.1</title>
+<title>Josephine Bono - Carnet de creation</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -12,8 +12,6 @@
   --tx:#2C2620;--mu:#8C7B6B;--br:rgba(196,166,106,.2);--bs:rgba(196,166,106,.45)
 }
 body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
-
-/* LOGIN */
 #pg-login{position:fixed;inset:0;align-items:center;justify-content:center;background:var(--iv);z-index:9000}
 #pg-login.active{display:flex !important}
 .lc{text-align:center;width:380px;max-width:94vw;padding:52px 44px;background:white;border:.5px solid var(--br)}
@@ -27,12 +25,8 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
 .lc-btn:active{opacity:.8}
 .lc-err{color:#c0392b;font-size:12px;margin-top:10px;display:none}
 .lc-link{background:none;border:none;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--go);cursor:pointer;margin-top:20px}
-
-/* PAGES */
 .page{display:none;min-height:100vh}
 .page.active{display:block}
-
-/* CLIENT HEADER */
 .app-header{background:white;border-bottom:.5px solid var(--br);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:100}
 .app-header-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:.1em;color:var(--tx)}
 .app-header-sub{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--go)}
@@ -40,12 +34,8 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
 .nav-btn{background:none;border:none;border-bottom:1.5px solid transparent;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);padding:18px 14px;cursor:pointer;white-space:nowrap}
 .nav-btn.active{border-bottom-color:var(--go);color:var(--tx)}
 .nav-btn:hover{color:var(--tx)}
-
-/* CLIENT SECTIONS */
 .cl-sec{display:none;max-width:820px;margin:0 auto;padding:28px 20px 60px}
 .cl-sec.active{display:block}
-
-/* HERO */
 .hero-top{text-align:center;padding:48px 20px 32px;background:white;border-bottom:.5px solid var(--br)}
 .hero-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;letter-spacing:.1em;color:var(--tx)}
 .hero-sub{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--go);margin:6px 0 20px}
@@ -55,13 +45,8 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
 .ci-l{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--mu);margin-top:4px}
 .hero-phrase{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--mu);margin-top:20px}
 .hero-date-pill{display:inline-block;background:var(--iv);border:.5px solid var(--br);padding:5px 14px;font-size:11px;color:var(--mu);margin:4px}
-.hero-model{font-size:12px;color:var(--go);letter-spacing:.1em;margin-top:10px}
-
-/* SECTION LABELS */
 .sl{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--tx);margin:24px 0 14px;display:flex;align-items:center;gap:10px}
 .sl::after{content:'';flex:1;height:.5px;background:var(--br)}
-
-/* PLANNING */
 .plan-list{display:flex;flex-direction:column}
 .plan-item{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:.5px solid rgba(196,166,106,.1)}
 .plan-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
@@ -74,31 +59,27 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
 .pb-done{color:var(--go);background:rgba(196,166,106,.1)}
 .pb-next{background:var(--tx);color:var(--gl)}
 .pb-future{color:var(--mu)}
-
-/* MESURES */
 .mes-group{margin-bottom:20px}
 .mes-group-title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:10px}
 .mes-grid-view{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
 .mes-card{background:var(--iv);padding:10px 12px}
 .mes-lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
 .mes-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--tx);line-height:1;margin-top:4px}
-
-/* ESSAYAGES */
 .essa-item{background:white;border:.5px solid var(--br);margin-bottom:12px}
 .essa-hd{padding:12px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between}
 .essa-date-lbl{font-size:11px;color:var(--mu)}
 .essa-num{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--tx);margin-left:12px}
 .essa-body{padding:14px 16px;font-size:13px;color:var(--tx);line-height:1.7;white-space:pre-wrap}
-
-/* JOURNAL */
 .journal-item{display:flex;gap:16px;padding:20px 0;border-bottom:.5px solid var(--br)}
 .journal-img{width:120px;height:120px;object-fit:cover;flex-shrink:0}
 .journal-body{flex:1}
 .journal-meta{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);margin-bottom:6px}
 .journal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--tx);margin-bottom:8px}
 .journal-text{font-size:13px;color:var(--mu);line-height:1.7}
-
-/* CHECKLIST */
+/* VIDEO */
+.video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:12px 0;background:#000}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-link-btn{display:inline-flex;align-items:center;gap:8px;background:var(--tx);color:var(--gl);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 18px;text-decoration:none;margin:10px 0}
 .check-cat{margin-bottom:20px}
 .check-cat-title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--go);padding:8px 0;border-bottom:.5px solid var(--br);margin-bottom:8px}
 .check-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:.5px solid rgba(196,166,106,.05)}
@@ -106,26 +87,18 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
 .check-item label{font-size:13px;color:var(--tx);cursor:pointer;flex:1;line-height:1.5}
 .check-item.done label{text-decoration:line-through;color:var(--mu)}
 .check-item .check-delay{font-size:10px;color:var(--mu);margin-top:3px}
-
-/* PAIEMENTS */
 .pay-row{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:10px;padding:12px 0;border-bottom:.5px solid rgba(196,166,106,.1);align-items:center}
-.pay-row.head{background:var(--iv);padding:9px 14px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mu)}
 .pay-amount{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--tx)}
 .badge{font-size:9px;padding:3px 8px;letter-spacing:.1em;text-transform:uppercase;text-align:center}
 .b-paid{background:rgba(60,130,70,.1);color:rgba(40,110,50,.9)}
 .b-pend{background:rgba(196,166,106,.15);color:#8C6A2F}
 .b-fut{background:var(--iv);color:var(--mu)}
-.pay-info{background:var(--iv);border:.5px solid var(--br);padding:13px 14px;font-size:12px;color:var(--mu);line-height:1.8;margin-top:10px}
-
-/* DOCUMENTS */
 .docs-list{display:flex;flex-direction:column;gap:8px}
 .doc-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:white;border:.5px solid var(--br)}
 .doc-icon{width:36px;height:36px;background:var(--iv);border:.5px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .doc-name{font-size:13px;color:var(--tx);font-weight:500}
 .doc-type{font-size:11px;color:var(--mu);margin-top:2px}
 .doc-dl{background:var(--tx);color:var(--gl);font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:8px 14px;border:none;cursor:pointer;text-decoration:none;display:inline-block;margin-left:auto}
-
-/* RDV */
 .rdv-wrap{text-align:center;padding:40px 20px}
 .rdv-title{font-family:'Cormorant Garamond',serif;font-size:28px;margin-bottom:8px}
 .rdv-sub{font-size:13px;color:var(--mu);margin-bottom:26px;line-height:1.6}
@@ -133,20 +106,22 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
 .rdv-btn{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:13px 24px;text-decoration:none;display:inline-block;cursor:pointer;border:none}
 .rdv-dark{background:var(--tx);color:var(--gl)}
 .rdv-outline{background:none;border:.5px solid var(--bs);color:var(--tx)}
-
-/* GALLERY */
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;padding:6px 0}
 .gallery-item{position:relative;aspect-ratio:1;overflow:hidden;background:var(--iv)}
 .gallery-item img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .2s}
 .gallery-item img:hover{transform:scale(1.05)}
-
-/* LIGHTBOX */
-#lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column}
+/* LIGHTBOX DIAPORAMA */
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column}
 #lb.open{display:flex}
-#lb img{max-width:90vw;max-height:85vh;object-fit:contain}
-#lb-close{position:absolute;top:20px;right:24px;color:white;font-size:32px;cursor:pointer;background:none;border:none;line-height:1}
-
-/* ADMIN HEADER */
+#lb-img{max-width:88vw;max-height:82vh;object-fit:contain;transition:opacity .2s}
+#lb-close{position:absolute;top:20px;right:24px;color:white;font-size:32px;cursor:pointer;background:none;border:none;line-height:1;z-index:10}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:28px;width:48px;height:64px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;user-select:none}
+#lb-prev:hover,#lb-next:hover{background:rgba(255,255,255,.25)}
+#lb-prev{left:16px}
+#lb-next{right:16px}
+#lb-counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.2em}
+#lb-caption{position:absolute;bottom:46px;left:50%;transform:translateX(-50%);color:rgba(232,217,184,.8);font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;white-space:nowrap;max-width:80vw;overflow:hidden;text-overflow:ellipsis}
+/* ADMIN */
 .bo-header{background:var(--tx);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .bo-header-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gl);letter-spacing:.06em}
 .bo-header-sub{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,217,184,.4);margin-top:2px}
@@ -154,12 +129,8 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
 .bo-tab{background:none;border:none;border-bottom:1.5px solid transparent;color:rgba(232,217,184,.45);font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:14px 16px;cursor:pointer;white-space:nowrap}
 .bo-tab.active{border-bottom-color:var(--go);color:var(--gl)}
 .bo-tab:hover{color:var(--gl)}
-
-/* ADMIN SECTIONS */
 .bo-sec{display:none;padding:28px 32px;max-width:960px}
 .bo-sec.active{display:block}
-
-/* ADMIN FORMS */
 .card{background:white;border:.5px solid var(--br);padding:20px 22px;margin-bottom:16px}
 .card-title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:14px}
 .fg{display:grid;gap:12px}
@@ -175,45 +146,32 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
 .btn-outline{background:none;border:.5px solid var(--bs);color:var(--tx);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;cursor:pointer}
 .btn-gold{background:var(--go);color:white;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:11px 22px;border:none;cursor:pointer}
 .saved-msg{font-size:12px;color:var(--go);display:none;margin-left:8px}
-
-/* ADMIN PLANNING */
 .plan-edit-row{display:grid;grid-template-columns:2.5fr 1.2fr 1fr auto;gap:10px;align-items:center;padding:10px 12px;background:var(--iv);border:.5px solid var(--br);margin-bottom:8px}
-
-/* ADMIN MESURES */
 .mes-bo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mes-bo-field{display:flex;flex-direction:column;gap:4px}
 .mes-bo-field label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
 .mes-bo-field input{border:.5px solid var(--bs);padding:8px 10px;font-family:'Jost',sans-serif;font-size:13px;color:var(--tx);background:var(--cr);outline:none;text-align:right}
 .mes-bo-field input:focus{border-color:var(--go)}
-
-/* UPLOAD PHOTO */
 .upload-preview{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
 .preview-thumb{width:72px;height:72px;object-fit:cover;border:.5px solid var(--br)}
 .upload-btn-label{display:inline-flex;align-items:center;gap:8px;cursor:pointer;padding:9px 16px;border:.5px solid rgba(196,166,106,.4);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);background:white;font-family:'Jost',sans-serif}
 .upload-btn-label:hover{border-color:var(--go);color:var(--go)}
-
-/* PAY ROWS BO */
 .pay-bo-row{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:10px;margin-bottom:8px;align-items:center;padding:10px 14px;background:var(--iv);border:.5px solid var(--br)}
-
-/* TOAST */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--tx);color:var(--gl);padding:11px 24px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.1em;z-index:9999;display:none;border:.5px solid var(--go)}
-
-/* UTILS */
 .mu{color:var(--mu)}
 .italic{font-style:italic}
-em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-top:4px}
-
 @media(max-width:600px){
   .fg-3{grid-template-columns:1fr}
   .fg-2{grid-template-columns:1fr}
   .plan-edit-row{grid-template-columns:1fr auto}
   .pay-bo-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
   .journal-img{width:80px;height:80px}
+  #lb-prev{left:4px}
+  #lb-next{right:4px}
 }
 </style>
 </head>
 <body>
-<div id="version-banner" style="background:#C4A66A;color:white;text-align:center;font-size:11px;letter-spacing:.2em;padding:6px;font-family:Jost,sans-serif">VERSION 19 AVRIL 2026 — BOUTONS MODIFIER ACTIFS</div>
 
 <!-- LOGIN -->
 <div id="pg-login" class="page active">
@@ -258,8 +216,6 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
       <button class="nav-btn" data-sec="paiements">Paiements</button>
     </nav>
   </div>
-
-  <!-- HERO -->
   <div class="hero-top">
     <div class="hero-name" id="cl-nom">—</div>
     <div class="hero-sub" id="cl-modele"></div>
@@ -267,8 +223,6 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
     <div id="cl-dates"></div>
     <div class="hero-phrase" id="cl-phrase"></div>
   </div>
-
-  <!-- SECTIONS CLIENTE -->
   <div class="cl-sec active" id="cl-sec-planning">
     <div class="sl">Rendez-vous &amp; planning</div>
     <div id="cl-planning"><p class="mu italic" style="padding:16px 0">Le planning sera mis a jour par l'atelier.</p></div>
@@ -280,47 +234,37 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
       </div>
     </div>
   </div>
-
   <div class="cl-sec" id="cl-sec-essayages">
     <div class="sl">Essayages &amp; Mesures</div>
     <div id="cl-mesures"></div>
     <div class="sl" style="margin-top:28px">Comptes-rendus</div>
     <div id="cl-essayages"><p class="mu italic">Aucun essayage enregistre pour le moment.</p></div>
   </div>
-
   <div class="cl-sec" id="cl-sec-journal">
     <div class="sl">Journal de creation</div>
-    <div id="cl-journal"><p class="mu italic">Le journal sera alimente au fil de la creation de votre robe.</p></div>
+    <div id="cl-journal"><p class="mu italic">Le journal sera alimente au fil de la creation.</p></div>
   </div>
-
   <div class="cl-sec" id="cl-sec-checklist">
     <div class="sl">Preparations mariage</div>
     <div id="cl-checklist"></div>
   </div>
-
   <div class="cl-sec" id="cl-sec-paiements">
     <div class="sl">Suivi des paiements</div>
     <div id="cl-pay-rows"></div>
-
-    <!-- INFOS PAIEMENT + STRIPE -->
     <div id="cl-pay-methods" style="display:none;margin-top:20px;background:var(--iv);border:.5px solid var(--br);padding:16px 20px">
       <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:10px">Moyens de paiement</div>
       <div id="cl-pay-methods-text" style="font-size:13px;color:var(--mu);line-height:1.8"></div>
       <div id="cl-pay-stripe-wrap" style="display:none;margin-top:14px;padding-top:14px;border-top:.5px solid var(--br)">
         <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:10px">Payer en ligne</div>
-        <a id="cl-pay-stripe-btn" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:var(--tx);color:var(--gl);font-family:Jost,sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:13px 24px;text-decoration:none">
-          Payer par carte bancaire &#8599;
-        </a>
+        <a id="cl-pay-stripe-btn" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:var(--tx);color:var(--gl);font-family:Jost,sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:13px 24px;text-decoration:none">Payer par carte bancaire &#8599;</a>
         <div id="cl-pay-stripe-url" style="font-size:10px;color:var(--mu);margin-top:8px;word-break:break-all"></div>
       </div>
     </div>
-
     <div id="cl-docs-wrap" style="margin-top:28px">
       <div class="sl">Vos documents</div>
       <div id="cl-docs" class="docs-list"></div>
     </div>
   </div>
-
 </div>
 
 <!-- PAGE ADMIN -->
@@ -393,6 +337,10 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
       </div>
       <div class="field" style="margin-bottom:10px"><label>Compte-rendu</label><textarea id="bo-e-notes" rows="4"></textarea></div>
       <div class="field" style="margin-bottom:10px">
+        <label>Lien video (YouTube, Vimeo, Drive...)</label>
+        <input type="url" id="bo-e-video" placeholder="https://youtube.com/watch?v=...">
+      </div>
+      <div class="field" style="margin-bottom:10px">
         <label>Photos</label>
         <div class="upload-preview" id="bo-e-preview"></div>
         <label class="upload-btn-label">+ Ajouter photos<input type="file" id="bo-e-photos" accept="image/*" multiple style="display:none"></label>
@@ -411,6 +359,10 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
       </div>
       <div class="field" style="margin-bottom:10px"><label>Recit</label><textarea id="bo-j-texte" rows="5"></textarea></div>
       <div class="field" style="margin-bottom:10px">
+        <label>Lien video (YouTube, Vimeo, Drive...)</label>
+        <input type="url" id="bo-j-video" placeholder="https://youtube.com/watch?v=...">
+      </div>
+      <div class="field" style="margin-bottom:10px">
         <label>Photos</label>
         <div class="upload-preview" id="bo-j-preview"></div>
         <label class="upload-btn-label">+ Ajouter photos<input type="file" id="bo-j-photos" accept="image/*" multiple style="display:none"></label>
@@ -422,10 +374,6 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
   <div class="bo-sec" id="bo-sec-paiements">
     <div class="sl">Suivi des paiements</div>
     <div class="card">
-      <div class="card-title">Factures emises</div>
-      <div id="bo-pay-factures"><p class="mu italic" style="font-size:12px">Aucune facture liee.</p></div>
-    </div>
-    <div class="card" style="margin-top:12px">
       <div class="card-title">Echeancier</div>
       <div id="bo-pay-rows"><p class="mu italic" style="font-size:12px">Aucun echeancier.</p></div>
       <div style="margin-top:14px;border-top:.5px solid var(--br);padding-top:14px">
@@ -467,1260 +415,738 @@ em-note{font-size:12px;color:var(--mu);font-style:italic;display:block;margin-to
   </div>
 </div>
 
-<!-- LIGHTBOX -->
+<!-- LIGHTBOX DIAPORAMA -->
 <div id="lb">
-  <button id="lb-close">x</button>
+  <button id="lb-close">&#215;</button>
+  <button id="lb-prev">&#8249;</button>
   <img id="lb-img" src="" alt="">
+  <button id="lb-next">&#8250;</button>
+  <div id="lb-caption"></div>
+  <div id="lb-counter"></div>
 </div>
 
-<!-- TOAST -->
 <div id="toast"></div>
 
 <script>
-var SU = 'https://yjnzydmytimqbusnitqr.supabase.co';
-var SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlqbnp5ZG15dGltcWJ1c25pdHFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzODI4MDMsImV4cCI6MjA4OTk1ODgwM30.uuHWWlBtdML7NrnC1RPa2mS07GMtLfmlSTs13dfCgBQ';
-
-var CARNET = null, DEVIS = null;
+var SU='https://yjnzydmytimqbusnitqr.supabase.co';
+var SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlqbnp5ZG15dGltcWJ1c25pdHFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzODI4MDMsImV4cCI6MjA4OTk1ODgwM30.uuHWWlBtdML7NrnC1RPa2mS07GMtLfmlSTs13dfCgBQ';
+var CARNET=null,DEVIS=null;
 
 /* ---- HTTP ---- */
-async function supa(table, method, body, qp) {
-  var url = SU + '/rest/v1/' + table + (qp ? '?' + qp : '');
-  var resp = await fetch(url, {
-    method: method || 'GET',
-    headers: {
-      'apikey': SK, 'Authorization': 'Bearer ' + SK,
-      'Content-Type': 'application/json', 'Prefer': 'return=representation'
-    },
-    body: body ? JSON.stringify(body) : undefined
-  });
-  if (!resp.ok) throw new Error(await resp.text());
-  var ct = resp.headers.get('content-type') || '';
-  if (ct.includes('json') && resp.status !== 204) return resp.json();
+async function supa(table,method,body,qp){
+  var url=SU+'/rest/v1/'+table+(qp?'?'+qp:'');
+  var resp=await fetch(url,{method:method||'GET',headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=representation'},body:body?JSON.stringify(body):undefined});
+  if(!resp.ok) throw new Error(await resp.text());
+  var ct=resp.headers.get('content-type')||'';
+  if(ct.includes('json')&&resp.status!==204) return resp.json();
   return null;
 }
-var sg = function(t, q) { return supa(t, 'GET', null, q); };
-var sp = function(t, q, b) { return supa(t, 'PATCH', b, q); };
+var sg=function(t,q){return supa(t,'GET',null,q);};
+var sp=function(t,q,b){return supa(t,'PATCH',b,q);};
 
 /* ---- UTILS ---- */
-function esc(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function fmt(n) {
-  return Number(n || 0).toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' EUR';
-}
-function fd(d) {
-  if (!d) return '';
-  var dt = new Date(d);
-  return dt.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'});
-}
-function val(id) { var e = document.getElementById(id); return e ? e.value : ''; }
-function setv(id, v) { var e = document.getElementById(id); if (e) e.value = v || ''; }
-function show(id) { var e = document.getElementById(id); if (e) e.style.display = 'block'; }
-function hide(id) { var e = document.getElementById(id); if (e) e.style.display = 'none'; }
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fmt(n){return Number(n||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' EUR';}
+function fd(d){if(!d) return '';var dt=new Date(d);return dt.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}
+function val(id){var e=document.getElementById(id);return e?e.value:'';}
+function setv(id,v){var e=document.getElementById(id);if(e)e.value=v||'';}
+function toast(msg){var t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.display='block';setTimeout(function(){t.style.display='none';},2800);}
+function showSaved(id){var el=document.getElementById(id);if(!el)return;el.style.display='inline';setTimeout(function(){el.style.display='none';},2200);}
 
-function toast(msg) {
-  var t = document.getElementById('toast');
-  if (!t) return;
-  t.textContent = msg;
-  t.style.display = 'block';
-  setTimeout(function() { t.style.display = 'none'; }, 2800);
-}
-
-function showSaved(id) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  el.style.display = 'inline';
-  setTimeout(function() { el.style.display = 'none'; }, 2200);
+/* ---- VIDEO HELPERS ---- */
+function getVideoEmbed(url) {
+  if (!url) return null;
+  // YouTube
+  var ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s?]+)/);
+  if (ytMatch) return 'https://www.youtube.com/embed/' + ytMatch[1] + '?rel=0';
+  // Vimeo
+  var vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) return 'https://player.vimeo.com/video/' + vimeoMatch[1];
+  // Google Drive
+  var driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+  if (driveMatch) return 'https://drive.google.com/file/d/' + driveMatch[1] + '/preview';
+  return null; // return null for unknown - use link button instead
 }
 
-/* ---- LIGHTBOX ---- */
-function openLb(url) {
-  var lb = document.getElementById('lb');
+function renderVideoBlock(url) {
+  if (!url) return '';
+  var embedUrl = getVideoEmbed(url);
+  if (embedUrl) {
+    return '<div class="video-wrap"><iframe src="' + esc(embedUrl) + '" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>';
+  }
+  return '<a href="' + esc(url) + '" target="_blank" class="video-link-btn">&#9654; Voir la video</a>';
+}
+
+/* ---- LIGHTBOX DIAPORAMA ---- */
+var LB_PHOTOS = [];
+var LB_IDX = 0;
+
+function openLb(url, allPhotos, caption) {
+  if (allPhotos && allPhotos.length) {
+    LB_PHOTOS = allPhotos;
+    LB_IDX = allPhotos.indexOf(url);
+    if (LB_IDX < 0) LB_IDX = 0;
+  } else {
+    LB_PHOTOS = [url];
+    LB_IDX = 0;
+  }
+  renderLbSlide(caption);
+  document.getElementById('lb').classList.add('open');
+}
+
+function renderLbSlide(caption) {
   var img = document.getElementById('lb-img');
-  if (!lb || !img) return;
-  img.src = url;
-  lb.classList.add('open');
+  var counter = document.getElementById('lb-counter');
+  var capEl = document.getElementById('lb-caption');
+  var prev = document.getElementById('lb-prev');
+  var next = document.getElementById('lb-next');
+  if (img) { img.style.opacity = '0'; img.src = LB_PHOTOS[LB_IDX]; img.onload = function(){ img.style.opacity = '1'; }; }
+  if (counter) counter.textContent = LB_PHOTOS.length > 1 ? (LB_IDX+1) + ' / ' + LB_PHOTOS.length : '';
+  if (capEl) capEl.textContent = caption || '';
+  if (prev) prev.style.display = LB_PHOTOS.length > 1 ? 'flex' : 'none';
+  if (next) next.style.display = LB_PHOTOS.length > 1 ? 'flex' : 'none';
 }
-function closeLb() {
-  var lb = document.getElementById('lb');
-  if (lb) lb.classList.remove('open');
-}
+
+function lbPrev() { LB_IDX = (LB_IDX - 1 + LB_PHOTOS.length) % LB_PHOTOS.length; renderLbSlide(); }
+function lbNext() { LB_IDX = (LB_IDX + 1) % LB_PHOTOS.length; renderLbSlide(); }
+function closeLb() { document.getElementById('lb').classList.remove('open'); }
 
 /* ---- LOGIN ---- */
-function showPage(id) {
-  // Force display via inline styles - bypasses all CSS specificity
-  var pages = ['pg-login', 'pg-client', 'pg-admin'];
-  pages.forEach(function(pid) {
-    var p = document.getElementById(pid);
-    if (p) {
-      p.style.display = 'none';
-      p.classList.remove('active');
-    }
+function showPage(id){
+  ['pg-login','pg-client','pg-admin'].forEach(function(pid){
+    var p=document.getElementById(pid);if(p){p.style.display='none';p.classList.remove('active');}
   });
-  var el = document.getElementById(id);
-  if (el) {
-    el.classList.add('active');
-    el.style.display = (id === 'pg-login') ? 'flex' : 'block';
-    dbg('showPage: ' + id + ' display=' + el.style.display);
-  } else {
-    dbg('showPage ERROR: element not found: ' + id);
-  }
-  window.scrollTo(0, 0);
+  var el=document.getElementById(id);
+  if(el){el.classList.add('active');el.style.display=(id==='pg-login')?'flex':'block';}
+  window.scrollTo(0,0);
 }
+function showAdminView(){document.getElementById('lc-v-client').style.display='none';document.getElementById('lc-v-admin').style.display='block';document.getElementById('inp-pwd').focus();}
+function showClientView(){document.getElementById('lc-v-admin').style.display='none';document.getElementById('lc-v-client').style.display='block';}
+function dbg(msg){console.log('[carnet]',msg);}
 
-function showAdminView() {
-  document.getElementById('lc-v-client').style.display = 'none';
-  document.getElementById('lc-v-admin').style.display = 'block';
-  document.getElementById('inp-pwd').focus();
-}
-function showClientView() {
-  document.getElementById('lc-v-admin').style.display = 'none';
-  document.getElementById('lc-v-client').style.display = 'block';
-}
-
-async function loginClient() {
-  var code = val('inp-code').toUpperCase().trim();
-  var errEl = document.getElementById('err-client');
-  errEl.style.display = 'none';
-  if (!code) return;
-  var btn = document.getElementById('btn-client-login');
-  btn.textContent = 'Chargement...'; btn.disabled = true;
-  try {
-    var data = await sg('jb_carnets', 'code_acces=eq.' + code);
-    if (!data || !data.length) {
-      errEl.textContent = 'Code introuvable.'; errEl.style.display = 'block'; return;
-    }
-    CARNET = data[0];
-    if (CARNET.devis_id) {
-      try { var dd = await sg('jb_devis', 'id=eq.' + CARNET.devis_id); if (dd && dd[0]) DEVIS = dd[0]; } catch(e) {}
-    }
-    // Charger la config atelier pour afficher les infos de paiement
-    try { var cfg = await sg('jb_config', 'limit=1'); if (cfg && cfg[0]) CARNET._cfg = cfg[0]; } catch(e) {}
+async function loginClient(){
+  var code=val('inp-code').toUpperCase().trim();
+  var errEl=document.getElementById('err-client');errEl.style.display='none';
+  if(!code)return;
+  var btn=document.getElementById('btn-client-login');
+  btn.textContent='Chargement...';btn.disabled=true;
+  try{
+    var data=await sg('jb_carnets','code_acces=eq.'+code);
+    if(!data||!data.length){errEl.textContent='Code introuvable.';errEl.style.display='block';return;}
+    CARNET=data[0];
+    if(CARNET.devis_id){try{var dd=await sg('jb_devis','id=eq.'+CARNET.devis_id);if(dd&&dd[0])DEVIS=dd[0];}catch(e){}}
+    try{var cfg=await sg('jb_config','limit=1');if(cfg&&cfg[0])CARNET._cfg=cfg[0];}catch(e){}
     openClient();
-  } catch(e) {
-    errEl.textContent = 'Erreur de connexion. Reessayez.'; errEl.style.display = 'block';
-  } finally {
-    btn.textContent = 'Acceder a mon carnet'; btn.disabled = false;
-  }
+  }catch(e){errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
+  finally{btn.textContent='Acceder a mon carnet';btn.disabled=false;}
 }
 
-async function loginAdmin(pwd) {
-  var errEl = document.getElementById('err-admin');
-  var fromUrl = !!pwd; // true si mot de passe vient de l'URL
-  if (!pwd) pwd = val('inp-pwd');
-  if (!pwd) return;
-  if (!fromUrl) showAdminView(); // Afficher la vue admin seulement si login manuel
-  errEl.style.display = 'none';
-  var btn = document.getElementById('btn-admin-login');
-  if (btn) { btn.textContent = 'Chargement...'; btn.disabled = true; }
-  try {
-    var cfg = null;
-    try { var r = await sg('jb_config', 'limit=1&select=password'); cfg = r; } catch(e) { dbg('cfg error: ' + e.message); }
-    var ap = (cfg && cfg[0] && cfg[0].password) ? cfg[0].password : 'jb2025';
-    dbg('pwd check: "' + pwd + '" vs "' + ap + '"');
-    if (pwd.toUpperCase() !== ap.toUpperCase() && pwd !== 'jb2025') {
-      errEl.textContent = 'Mot de passe incorrect.'; errEl.style.display = 'block';
-      showAdminView(); return;
-    }
-    var params = new URLSearchParams(window.location.search);
-    var code = params.get('code');
-    dbg('code from URL: ' + code);
-    if (!code) {
-      document.getElementById('pg-login').classList.add('hidden');
-      document.getElementById('pg-admin').classList.add('visible');
-      toast('Back-office ouvert');
-      return;
-    }
-    var data = null;
-    try { data = await sg('jb_carnets', 'code_acces=eq.' + code.toUpperCase()); } catch(e) { dbg('carnets error: ' + e.message); showAdminView(); errEl.textContent = 'Erreur : ' + e.message; errEl.style.display = 'block'; return; }
-    dbg('carnet found: ' + (data && data.length ? data[0].bride_nom : 'NONE'));
-    if (!data || !data.length) {
-      showPage('pg-login');
-      showAdminView();
-      errEl.textContent = 'Carnet introuvable : ' + code;
-      errEl.style.display = 'block';
-      if (btn) { btn.textContent = 'Acceder au back-office'; btn.disabled = false; }
-      return;
-    }
-    CARNET = data[0];
-    if (CARNET.devis_id) {
-      try { var dd2 = await sg('jb_devis', 'id=eq.' + CARNET.devis_id); if (dd2 && dd2[0]) DEVIS = dd2[0]; } catch(e) { dbg('devis error: ' + e.message); }
-    }
+async function loginAdmin(pwd){
+  var errEl=document.getElementById('err-admin');
+  if(!pwd)pwd=val('inp-pwd');
+  if(!pwd)return;
+  errEl.style.display='none';
+  var btn=document.getElementById('btn-admin-login');
+  if(btn){btn.textContent='Chargement...';btn.disabled=true;}
+  try{
+    var cfg=null;
+    try{var r=await sg('jb_config','limit=1&select=password');cfg=r;}catch(e){}
+    var ap=(cfg&&cfg[0]&&cfg[0].password)?cfg[0].password:'jb2025';
+    dbg('pwd check: "'+pwd+'" vs "'+ap+'"');
+    if(pwd.toUpperCase()!==ap.toUpperCase()&&pwd!=='jb2025'){errEl.textContent='Mot de passe incorrect.';errEl.style.display='block';showAdminView();return;}
+    var params=new URLSearchParams(window.location.search);
+    var code=params.get('code');
+    dbg('code from URL: '+code);
+    if(!code){toast('Back-office ouvert');return;}
+    var data=null;
+    try{data=await sg('jb_carnets','code_acces=eq.'+code.toUpperCase());}catch(e){showAdminView();errEl.textContent='Erreur : '+e.message;errEl.style.display='block';return;}
+    dbg('carnet found: '+(data&&data.length?data[0].bride_nom:'NONE'));
+    if(!data||!data.length){showPage('pg-login');showAdminView();errEl.textContent='Carnet introuvable : '+code;errEl.style.display='block';return;}
+    CARNET=data[0];
+    if(CARNET.devis_id){try{var dd2=await sg('jb_devis','id=eq.'+CARNET.devis_id);if(dd2&&dd2[0])DEVIS=dd2[0];}catch(e){}}
     dbg('calling openAdmin...');
     openAdmin();
-  } catch(e) {
-    errEl.textContent = 'Erreur : ' + e.message; errEl.style.display = 'block';
-  } finally {
-    if (btn) { btn.textContent = 'Acceder au back-office'; btn.disabled = false; }
-  }
+  }catch(e){errEl.textContent='Erreur : '+e.message;errEl.style.display='block';}
+  finally{if(btn){btn.textContent='Acceder au back-office';btn.disabled=false;}}
 }
 
-function openClient() {
-  showPage('pg-client');
-  renderClient();
-}
-function dbg(msg) { console.log("[carnet]", msg); }
-
-function openAdmin() {
-  showPage('pg-admin');
-  try { renderAdmin(); }
-  catch(e) { dbg('renderAdmin ERROR: ' + e.message); console.error(e); }
-}
-function clSwitch() {
-  showPage('pg-client');
-  renderClient();
-}
-function boLogout() {
-  CARNET = null; DEVIS = null;
-  showPage('pg-login');
-  showClientView();
-}
+function openClient(){showPage('pg-client');renderClient();}
+function openAdmin(){showPage('pg-admin');try{renderAdmin();}catch(e){dbg('renderAdmin ERROR: '+e.message);}}
+function clSwitch(){showPage('pg-client');renderClient();}
+function boLogout(){CARNET=null;DEVIS=null;showPage('pg-login');showClientView();}
 
 /* ---- CLIENT NAV ---- */
-function clNav(sec, btn) {
-  document.querySelectorAll('.cl-sec').forEach(function(s) { s.classList.remove('active'); });
-  document.querySelectorAll('#cl-nav .nav-btn').forEach(function(b) { b.classList.remove('active'); });
-  var el = document.getElementById('cl-sec-' + sec);
-  if (el) el.classList.add('active');
-  if (btn) btn.classList.add('active');
+function clNav(sec,btn){
+  document.querySelectorAll('.cl-sec').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('#cl-nav .nav-btn').forEach(function(b){b.classList.remove('active');});
+  var el=document.getElementById('cl-sec-'+sec);if(el)el.classList.add('active');
+  if(btn)btn.classList.add('active');
 }
-
-/* ---- ADMIN NAV ---- */
-function boNav(sec, btn) {
-  document.querySelectorAll('.bo-sec').forEach(function(s) { s.classList.remove('active'); });
-  document.querySelectorAll('.bo-tab').forEach(function(b) { b.classList.remove('active'); });
-  var el = document.getElementById('bo-sec-' + sec);
-  if (el) el.classList.add('active');
-  if (btn) btn.classList.add('active');
+function boNav(sec,btn){
+  document.querySelectorAll('.bo-sec').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.bo-tab').forEach(function(b){b.classList.remove('active');});
+  var el=document.getElementById('bo-sec-'+sec);if(el)el.classList.add('active');
+  if(btn)btn.classList.add('active');
 }
 
 /* ---- RENDER CLIENT ---- */
-function renderClient() {
-  if (!CARNET) return;
-  var c = CARNET;
-
-  // Hero
-  var nomEl = document.getElementById('cl-nom');
-  if (nomEl) nomEl.textContent = c.bride_nom || '';
-  var modEl = document.getElementById('cl-modele');
-  if (modEl) modEl.textContent = c.modele_nom || '';
-  var phraseEl = document.getElementById('cl-phrase');
-  if (phraseEl) phraseEl.textContent = c.phrase_signature || 'Chaque robe est une promesse cousue a la main.';
-
-  // Countdown
-  var cdEl = document.getElementById('cl-countdown');
-  var datesEl = document.getElementById('cl-dates');
-  if (cdEl && c.date_mariage) {
-    var today = new Date(); today.setHours(0,0,0,0);
-    var mar = new Date(c.date_mariage); mar.setHours(0,0,0,0);
-    var diff = Math.ceil((mar - today) / 86400000);
-    if (diff > 0) {
-      var weeks = Math.floor(diff / 7);
-      cdEl.innerHTML = '<div class="ci"><div class="ci-n">' + diff + '</div><div class="ci-l">JOURS</div></div>'
-        + '<div class="ci"><div class="ci-n">' + weeks + '</div><div class="ci-l">SEMAINES</div></div>';
-    }
+function renderClient(){
+  if(!CARNET)return;
+  var c=CARNET;
+  var nomEl=document.getElementById('cl-nom');if(nomEl)nomEl.textContent=c.bride_nom||'';
+  var modEl=document.getElementById('cl-modele');if(modEl)modEl.textContent=c.modele_nom||'';
+  var phraseEl=document.getElementById('cl-phrase');if(phraseEl)phraseEl.textContent=c.phrase_signature||'Chaque robe est une promesse cousue a la main.';
+  var cdEl=document.getElementById('cl-countdown');
+  var datesEl=document.getElementById('cl-dates');
+  if(cdEl&&c.date_mariage){
+    var today=new Date();today.setHours(0,0,0,0);
+    var mar=new Date(c.date_mariage);mar.setHours(0,0,0,0);
+    var diff=Math.ceil((mar-today)/86400000);
+    if(diff>0){var weeks=Math.floor(diff/7);cdEl.innerHTML='<div class="ci"><div class="ci-n">'+diff+'</div><div class="ci-l">JOURS</div></div><div class="ci"><div class="ci-n">'+weeks+'</div><div class="ci-l">SEMAINES</div></div>';}
   }
-  if (datesEl) {
-    var pills = '';
-    if (c.date_mariage) pills += '<span class="hero-date-pill"><strong>Mariage</strong> &mdash; ' + fd(c.date_mariage) + '</span>';
-    if (c.date_livraison) pills += '<span class="hero-date-pill"><strong>Livraison</strong> &mdash; ' + fd(c.date_livraison) + '</span>';
-    datesEl.innerHTML = pills;
-  }
-
-  // Contact buttons
-  var phone = '33698942000';
-  var waLink = 'https://wa.me/' + phone;
-  var waEls = document.querySelectorAll('#cl-wa-btn, #cl-wa-btn2');
-  waEls.forEach(function(el) { el.href = waLink; });
-
-  renderPlanning();
-  renderMesures();
-  renderEssayages();
-  renderJournal();
-  renderChecklist();
-  renderPaiements();
-  renderDocs();
+  if(datesEl){var pills='';if(c.date_mariage)pills+='<span class="hero-date-pill"><strong>Mariage</strong> &mdash; '+fd(c.date_mariage)+'</span>';if(c.date_livraison)pills+='<span class="hero-date-pill"><strong>Livraison</strong> &mdash; '+fd(c.date_livraison)+'</span>';datesEl.innerHTML=pills;}
+  var waLink='https://wa.me/33698942000';
+  document.querySelectorAll('#cl-wa-btn').forEach(function(el){el.href=waLink;});
+  renderPlanning();renderMesures();renderEssayages();renderJournal();renderChecklist();renderPaiements();renderDocs();
 }
 
-function renderPlanning() {
-  var c = document.getElementById('cl-planning');
-  if (!c) return;
-  var plan = (CARNET && CARNET.planning) || [];
-  if (!plan.length) { c.innerHTML = '<p class="mu italic" style="padding:16px 0">Le planning sera mis a jour par l\'atelier.</p>'; return; }
-  var fn = false; c.innerHTML = '<div class="plan-list">';
-  plan.forEach(function(s) {
-    var done = s.statut === 'realise', isN = !done && !fn;
-    if (isN) fn = true;
-    var dot = done ? 'done' : isN ? 'next' : 'future';
-    var badge = done ? '<span class="plan-badge pb-done">Realise</span>'
-      : isN ? '<span class="plan-badge pb-next">Prochain RDV</span>'
-      : '<span class="plan-badge pb-future">A venir</span>';
-    c.innerHTML += '<div class="plan-item"><div class="plan-dot ' + dot + '"></div>'
-      + '<div style="flex:1"><div class="plan-title">' + esc(s.titre || '') + '</div>'
-      + (s.date ? '<div class="plan-date">' + fd(s.date) + '</div>' : '') + '</div>' + badge + '</div>';
+function renderPlanning(){
+  var c=document.getElementById('cl-planning');if(!c)return;
+  var plan=(CARNET&&CARNET.planning)||[];
+  if(!plan.length){c.innerHTML='<p class="mu italic" style="padding:16px 0">Le planning sera mis a jour par l\'atelier.</p>';return;}
+  var fn=false;c.innerHTML='<div class="plan-list">';
+  plan.forEach(function(s){
+    var done=s.statut==='realise',isN=!done&&!fn;if(isN)fn=true;
+    var dot=done?'done':isN?'next':'future';
+    var badge=done?'<span class="plan-badge pb-done">Realise</span>':isN?'<span class="plan-badge pb-next">Prochain RDV</span>':'<span class="plan-badge pb-future">A venir</span>';
+    c.innerHTML+='<div class="plan-item"><div class="plan-dot '+dot+'"></div><div style="flex:1"><div class="plan-title">'+esc(s.titre||'')+'</div>'+(s.date?'<div class="plan-date">'+fd(s.date)+'</div>':'')+'</div>'+badge+'</div>';
   });
-  c.innerHTML += '</div>';
+  c.innerHTML+='</div>';
 }
 
-function renderMesures() {
-  var c = document.getElementById('cl-mesures');
-  if (!c) return;
-  var m = (CARNET && CARNET.mesures) || {};
-  var html = ''; var hasAny = false;
-  MG.forEach(function(grp) {
-    var filled = grp.fields.filter(function(f) { return m[f[0]] && m[f[0]] !== ''; });
-    if (!filled.length) return; hasAny = true;
-    html += '<div class="mes-group"><div class="mes-group-title">' + grp.label + '</div><div class="mes-grid-view">';
-    filled.forEach(function(f) {
-      html += '<div class="mes-card"><div class="mes-lbl">' + f[1] + '</div><div class="mes-val">' + esc(m[f[0]]) + ' cm</div></div>';
-    });
-    html += '</div></div>';
+function renderMesures(){
+  var c=document.getElementById('cl-mesures');if(!c)return;
+  var m=(CARNET&&CARNET.mesures)||{};var html='';var hasAny=false;
+  MG.forEach(function(grp){
+    var filled=grp.fields.filter(function(f){return m[f[0]]&&m[f[0]]!=='';});
+    if(!filled.length)return;hasAny=true;
+    html+='<div class="mes-group"><div class="mes-group-title">'+grp.label+'</div><div class="mes-grid-view">';
+    filled.forEach(function(f){html+='<div class="mes-card"><div class="mes-lbl">'+f[1]+'</div><div class="mes-val">'+esc(m[f[0]])+' cm</div></div>';});
+    html+='</div></div>';
   });
-  c.innerHTML = hasAny ? html : '';
+  c.innerHTML=hasAny?html:'';
 }
 
-function renderEssayages() {
-  var c = document.getElementById('cl-essayages');
-  if (!c) return;
-  var essa = (CARNET && CARNET.essayages) || [];
-  if (!essa.length) { c.innerHTML = '<p class="mu italic">Aucun essayage enregistre pour le moment.</p>'; return; }
-  c.innerHTML = '';
-  essa.forEach(function(e, i) {
-    var photos = (e.photos && e.photos.length) ? e.photos : (e.photo_url ? [e.photo_url] : []);
-    var gallHtml = '';
-    if (photos.length) {
-      gallHtml = '<div class="gallery-grid">';
-      photos.forEach(function(url) {
-        gallHtml += '<div class="gallery-item"><img src="' + esc(url) + '" alt="photo" loading="lazy" data-url="' + esc(url) + '"></div>';
+function getAllEssayagePhotos() {
+  var all = [];
+  ((CARNET&&CARNET.essayages)||[]).forEach(function(e) {
+    var photos = (e.photos&&e.photos.length)?e.photos:(e.photo_url?[e.photo_url]:[]);
+    photos.forEach(function(url){ all.push({url:url, caption:(e.num||e.date||'')}); });
+  });
+  return all;
+}
+
+function getAllJournalPhotos() {
+  var all = [];
+  ((CARNET&&CARNET.journal)||[]).forEach(function(e) {
+    var photos = (e.photos&&e.photos.length)?e.photos:(e.photo_url?[e.photo_url]:[]);
+    photos.forEach(function(url){ all.push({url:url, caption:(e.titre||e.date||'')}); });
+  });
+  return all;
+}
+
+function renderEssayages(){
+  var c=document.getElementById('cl-essayages');if(!c)return;
+  var essa=(CARNET&&CARNET.essayages)||[];
+  if(!essa.length){c.innerHTML='<p class="mu italic">Aucun essayage enregistre pour le moment.</p>';return;}
+  c.innerHTML='';
+  var allPhotos=getAllEssayagePhotos();
+  essa.forEach(function(e,i){
+    var photos=(e.photos&&e.photos.length)?e.photos:(e.photo_url?[e.photo_url]:[]);
+    var gallHtml='';
+    if(photos.length){
+      gallHtml='<div class="gallery-grid">';
+      photos.forEach(function(url,pi){
+        gallHtml+='<div class="gallery-item"><img src="'+esc(url)+'" alt="photo" loading="lazy" data-essa-url="'+esc(url)+'"></div>';
       });
-      gallHtml += '</div>';
+      gallHtml+='</div>';
     }
-    var div = document.createElement('div');
-    div.className = 'essa-item';
-    div.innerHTML = '<div class="essa-hd">'
-      + '<span class="essa-date-lbl">' + fd(e.date) + '</span>'
-      + '<span class="essa-num">' + esc(e.num || ('Essayage ' + (i+1))) + '</span></div>'
-      + '<div class="essa-body">' + esc(e.notes || '') + '</div>'
-      + gallHtml;
+    var videoHtml = e.video_url ? renderVideoBlock(e.video_url) : '';
+    var div=document.createElement('div');div.className='essa-item';
+    div.innerHTML='<div class="essa-hd"><span class="essa-date-lbl">'+fd(e.date)+'</span><span class="essa-num">'+esc(e.num||('Essayage '+(i+1)))+'</span></div>'
+      +'<div class="essa-body">'+esc(e.notes||'')+'</div>'
+      +videoHtml+gallHtml;
     c.appendChild(div);
   });
 }
 
-function renderJournal() {
-  var c = document.getElementById('cl-journal');
-  if (!c) return;
-  var j = (CARNET && CARNET.journal) || [];
-  if (!j.length) { c.innerHTML = '<p class="mu italic">Le journal sera alimente au fil de la creation.</p>'; return; }
-  c.innerHTML = '';
-  j.forEach(function(e) {
-    var photos = (e.photos && e.photos.length) ? e.photos : (e.photo_url ? [e.photo_url] : []);
-    var mainImg = photos.length ? '<img class="journal-img" src="' + esc(photos[0]) + '" alt="journal" loading="lazy" data-url="' + esc(photos[0]) + '">' : '';
-    var extraHtml = '';
-    if (photos.length > 1) {
-      extraHtml = '<div class="gallery-grid" style="margin-top:8px">';
-      photos.slice(1).forEach(function(url) {
-        extraHtml += '<div class="gallery-item"><img src="' + esc(url) + '" alt="photo" loading="lazy" data-url="' + esc(url) + '"></div>';
-      });
-      extraHtml += '</div>';
+function renderJournal(){
+  var c=document.getElementById('cl-journal');if(!c)return;
+  var j=(CARNET&&CARNET.journal)||[];
+  if(!j.length){c.innerHTML='<p class="mu italic">Le journal sera alimente au fil de la creation.</p>';return;}
+  c.innerHTML='';
+  var allPhotos=getAllJournalPhotos();
+  j.forEach(function(e){
+    var photos=(e.photos&&e.photos.length)?e.photos:(e.photo_url?[e.photo_url]:[]);
+    var mainImg=photos.length?'<img class="journal-img" src="'+esc(photos[0])+'" alt="journal" loading="lazy" data-jrn-url="'+esc(photos[0])+'" style="cursor:pointer">':'';
+    var extraHtml='';
+    if(photos.length>1){
+      extraHtml='<div class="gallery-grid" style="margin-top:8px">';
+      photos.slice(1).forEach(function(url){extraHtml+='<div class="gallery-item"><img src="'+esc(url)+'" alt="photo" loading="lazy" data-jrn-url="'+esc(url)+'"></div>';});
+      extraHtml+='</div>';
     }
-    var div = document.createElement('div');
-    div.className = 'journal-item';
-    div.innerHTML = mainImg + '<div class="journal-body">'
-      + '<div class="journal-meta">' + fd(e.date) + '</div>'
-      + '<div class="journal-title">' + esc(e.titre || '') + '</div>'
-      + '<div class="journal-text">' + esc(e.texte || '') + '</div>'
-      + extraHtml + '</div>';
+    var videoHtml = e.video_url ? renderVideoBlock(e.video_url) : '';
+    var div=document.createElement('div');div.className='journal-item';
+    div.innerHTML=mainImg+'<div class="journal-body"><div class="journal-meta">'+fd(e.date)+'</div><div class="journal-title">'+esc(e.titre||'')+'</div><div class="journal-text">'+esc(e.texte||'')+'</div>'+videoHtml+extraHtml+'</div>';
     c.appendChild(div);
   });
 }
 
-function renderChecklist() {
-  var c = document.getElementById('cl-checklist');
-  if (!c) return;
-  var cl = (CARNET && CARNET.checklist);
-  if (!cl || !cl.length) {
-    var flat = [];
-    DC.forEach(function(cat) { cat.items.forEach(function(item) { flat.push({cat:cat.cat, texte:item.texte, delai:item.delai||'', fait:false}); }); });
-    CARNET.checklist = flat;
-    sp('jb_carnets', 'id=eq.' + CARNET.id, {checklist:flat}).catch(function(){});
-    cl = flat;
-  } else {
-    var existing = {};
-    cl.forEach(function(i) { existing[i.texte] = true; });
-    var added = false;
-    DC.forEach(function(cat) {
-      cat.items.forEach(function(item) {
-        if (!existing[item.texte]) { cl.push({cat:cat.cat, texte:item.texte, delai:item.delai||'', fait:false}); added = true; }
-      });
-    });
-    if (added) sp('jb_carnets', 'id=eq.' + CARNET.id, {checklist:cl}).catch(function(){});
+function renderChecklist(){
+  var c=document.getElementById('cl-checklist');if(!c)return;
+  var cl=(CARNET&&CARNET.checklist);
+  if(!cl||!cl.length){
+    var flat=[];DC.forEach(function(cat){cat.items.forEach(function(item){flat.push({cat:cat.cat,texte:item.texte,delai:item.delai||'',fait:false});});});
+    CARNET.checklist=flat;sp('jb_carnets','id=eq.'+CARNET.id,{checklist:flat}).catch(function(){});cl=flat;
   }
-  var today = new Date(); today.setHours(0,0,0,0);
-  var mar = CARNET.date_mariage ? new Date(CARNET.date_mariage) : null;
-  var bycat = {};
-  cl.forEach(function(item) { if (!bycat[item.cat]) bycat[item.cat] = []; bycat[item.cat].push(item); });
-  c.innerHTML = '';
-  Object.keys(bycat).forEach(function(catName) {
-    var div = document.createElement('div');
-    div.className = 'check-cat';
-    var items = bycat[catName];
-    var html = '<div class="check-cat-title">' + esc(catName) + '</div>';
-    items.forEach(function(item, i) {
-      var globalIdx = cl.indexOf(item);
-      var delay = '';
-      if (item.delai && mar) {
-        var targetDate = new Date(mar); targetDate.setDate(targetDate.getDate() - parseInt(item.delai));
-        var daysLeft = Math.ceil((targetDate - today) / 86400000);
-        if (daysLeft > 0) delay = '<div class="check-delay">Dans ' + daysLeft + ' jours</div>';
-        else if (daysLeft === 0) delay = '<div class="check-delay" style="color:var(--go)">Aujourd\'hui</div>';
-        else delay = '<div class="check-delay" style="color:#c0392b">Depasse</div>';
+  var today=new Date();today.setHours(0,0,0,0);
+  var mar=CARNET.date_mariage?new Date(CARNET.date_mariage):null;
+  var bycat={};cl.forEach(function(item){if(!bycat[item.cat])bycat[item.cat]=[];bycat[item.cat].push(item);});
+  c.innerHTML='';
+  Object.keys(bycat).forEach(function(catName){
+    var div=document.createElement('div');div.className='check-cat';
+    var items=bycat[catName];var html='<div class="check-cat-title">'+esc(catName)+'</div>';
+    items.forEach(function(item){
+      var globalIdx=cl.indexOf(item);var delay='';
+      if(item.delai&&mar){
+        var targetDate=new Date(mar);targetDate.setDate(targetDate.getDate()-parseInt(item.delai));
+        var daysLeft=Math.ceil((targetDate-today)/86400000);
+        if(daysLeft>0)delay='<div class="check-delay">Dans '+daysLeft+' jours</div>';
+        else if(daysLeft===0)delay='<div class="check-delay" style="color:var(--go)">Aujourd\'hui</div>';
+        else delay='<div class="check-delay" style="color:#c0392b">Depasse</div>';
       }
-      html += '<div class="check-item' + (item.fait ? ' done' : '') + '">'
-        + '<input type="checkbox" id="chk-' + globalIdx + '"' + (item.fait ? ' checked' : '') + ' data-idx="' + globalIdx + '">'
-        + '<label for="chk-' + globalIdx + '">' + esc(item.texte) + delay + '</label></div>';
+      html+='<div class="check-item'+(item.fait?' done':'')+'"><input type="checkbox" id="chk-'+globalIdx+'"'+(item.fait?' checked':'')+' data-idx="'+globalIdx+'"><label for="chk-'+globalIdx+'">'+esc(item.texte)+delay+'</label></div>';
     });
-    div.innerHTML = html;
-    c.appendChild(div);
+    div.innerHTML=html;c.appendChild(div);
   });
 }
 
-function toggleCheck(idx) {
-  if (!CARNET || !CARNET.checklist || !CARNET.checklist[idx]) return;
-  CARNET.checklist[idx].fait = !CARNET.checklist[idx].fait;
-  sp('jb_carnets', 'id=eq.' + CARNET.id, {checklist:CARNET.checklist}).catch(function(){});
+function toggleCheck(idx){
+  if(!CARNET||!CARNET.checklist||!CARNET.checklist[idx])return;
+  CARNET.checklist[idx].fait=!CARNET.checklist[idx].fait;
+  sp('jb_carnets','id=eq.'+CARNET.id,{checklist:CARNET.checklist}).catch(function(){});
 }
 
-function renderPaiements() {
-  var c = document.getElementById('cl-pay-rows');
-  if (!c) return;
-  c.innerHTML = '';
-  var hasContent = false;
-  var cal = (CARNET && CARNET.calendrier_paiements) || (DEVIS && DEVIS.calendrier_paiements) || [];
-  if (cal.length) {
-    c.innerHTML += '<div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--go);padding:8px 0 6px;border-bottom:.5px solid var(--br);margin-bottom:8px">Echeancier de paiement</div>';
-    cal.forEach(function(p, idx) {
-      var st = p.statut || 'a_venir';
-      var regle = st === 'regle';
-      var row = document.createElement('div');
-      row.className = 'pay-row';
-      row.style.gridTemplateColumns = '1.5fr 1fr 1fr 1fr';
-      var l1 = document.createElement('span'); l1.style.cssText = 'font-size:12px;color:var(--mu)'; l1.textContent = p.type||p.label||'';
-      var l2 = document.createElement('span'); l2.style.cssText = 'font-size:12px'; l2.textContent = p.echeance||'';
-      var l3 = document.createElement('span'); l3.className = 'pay-amount'; l3.textContent = fmt(p.montant||0);
-      var btn = document.createElement('button');
-      btn.style.cssText = 'border:none;cursor:pointer;font-size:10px;padding:5px 12px;font-family:Jost,sans-serif;'+(regle?'background:rgba(60,130,70,.1);color:var(--go)':'background:rgba(196,166,106,.12);color:#8C6A2F');
-      btn.textContent = regle ? 'Regle' : 'A regler';
-      btn.addEventListener('click', (function(i){ return function(){ togglePaiement(i); }; })(idx));
-      row.appendChild(l1); row.appendChild(l2); row.appendChild(l3); row.appendChild(btn);
-      c.appendChild(row);
-      hasContent = true;
+function renderPaiements(){
+  var c=document.getElementById('cl-pay-rows');if(!c)return;c.innerHTML='';
+  var hasContent=false;
+  var cal=(CARNET&&CARNET.calendrier_paiements)||(DEVIS&&DEVIS.calendrier_paiements)||[];
+  if(cal.length){
+    c.innerHTML+='<div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--go);padding:8px 0 6px;border-bottom:.5px solid var(--br);margin-bottom:8px">Echeancier de paiement</div>';
+    cal.forEach(function(p,idx){
+      var st=p.statut||'a_venir';var regle=st==='regle';
+      var row=document.createElement('div');row.className='pay-row';row.style.gridTemplateColumns='1.5fr 1fr 1fr 1fr';
+      var l1=document.createElement('span');l1.style.cssText='font-size:12px;color:var(--mu)';l1.textContent=p.type||p.label||'';
+      var l2=document.createElement('span');l2.style.cssText='font-size:12px';l2.textContent=p.echeance||'';
+      var l3=document.createElement('span');l3.className='pay-amount';l3.textContent=fmt(p.montant||0);
+      var btn=document.createElement('button');
+      btn.style.cssText='border:none;cursor:pointer;font-size:10px;padding:5px 12px;font-family:Jost,sans-serif;'+(regle?'background:rgba(60,130,70,.1);color:var(--go)':'background:rgba(196,166,106,.12);color:#8C6A2F');
+      btn.textContent=regle?'Regle':'A regler';
+      btn.addEventListener('click',(function(i){return function(){togglePaiement(i);};})(idx));
+      row.appendChild(l1);row.appendChild(l2);row.appendChild(l3);row.appendChild(btn);c.appendChild(row);hasContent=true;
     });
   }
-  if (!hasContent) c.innerHTML = '<p class="mu italic" style="padding:16px 0">Informations non disponibles.</p>';
-
-  // Bloc infos paiement + Stripe — toujours visible
-  var methodsEl = document.getElementById('cl-pay-methods');
-  if (methodsEl) {
-    methodsEl.style.display = 'block';
-    var cfg = CARNET._cfg || {};
-    // Atelier peut etre un objet ou une chaine JSON
-    var a = cfg.atelier || {};
-    if (typeof a === 'string') { try { a = JSON.parse(a); } catch(e) { a = {}; } }
-
-    // Moyens de paiement texte
-    var textEl = document.getElementById('cl-pay-methods-text');
-    if (textEl) {
-      var lines = [];
-      if (a.iban) lines.push('Virement IBAN : ' + esc(a.iban));
-      if (a.cheque) lines.push('Cheque a l\'ordre de : ' + esc(a.cheque));
-      if (a.paypal) lines.push('PayPal : ' + esc(a.paypal));
-      if (!lines.length) lines.push('Virement bancaire · Especes · Carte bancaire');
-      if (a.conditions_paiement) lines.push(esc(a.conditions_paiement));
-      textEl.innerHTML = lines.join('<br>');
-    }
-
-    // Stripe
-    var stripeWrap = document.getElementById('cl-pay-stripe-wrap');
-    var stripeBtn = document.getElementById('cl-pay-stripe-btn');
-    var stripeUrl = document.getElementById('cl-pay-stripe-url');
-    var stripeLink = a.stripe_link || 'https://buy.stripe.com/cNi14gfeRabUdwb8BxaEE00';
-    if (stripeWrap) {
-      stripeWrap.style.display = 'block';
-      if (stripeBtn) stripeBtn.href = stripeLink;
-      if (stripeUrl) stripeUrl.textContent = stripeLink;
-    }
+  if(!hasContent)c.innerHTML='<p class="mu italic" style="padding:16px 0">Informations non disponibles.</p>';
+  var methodsEl=document.getElementById('cl-pay-methods');
+  if(methodsEl){
+    methodsEl.style.display='block';
+    var cfg=CARNET._cfg||{};var a=cfg.atelier||{};
+    if(typeof a==='string'){try{a=JSON.parse(a);}catch(e){a={};}}
+    var textEl=document.getElementById('cl-pay-methods-text');
+    if(textEl){var lines=[];if(a.iban)lines.push('Virement IBAN : '+esc(a.iban));if(a.cheque)lines.push('Cheque a l\'ordre de : '+esc(a.cheque));if(a.paypal)lines.push('PayPal : '+esc(a.paypal));if(!lines.length)lines.push('Virement bancaire · Especes · Carte bancaire');if(a.conditions_paiement)lines.push(esc(a.conditions_paiement));textEl.innerHTML=lines.join('<br>');}
+    var stripeWrap=document.getElementById('cl-pay-stripe-wrap');var stripeBtn=document.getElementById('cl-pay-stripe-btn');var stripeUrl=document.getElementById('cl-pay-stripe-url');
+    var stripeLink=a.stripe_link||'https://buy.stripe.com/cNi14gfeRabUdwb8BxaEE00';
+    if(stripeWrap){stripeWrap.style.display='block';if(stripeBtn)stripeBtn.href=stripeLink;if(stripeUrl)stripeUrl.textContent=stripeLink;}
   }
 }
 
-function renderDocs() {
-  var c = document.getElementById('cl-docs');
-  if (!c) return;
-  var docs = (CARNET && CARNET.documents) || [];
-  if (!docs.length) { c.innerHTML = '<p class="mu italic">Aucun document disponible.</p>'; return; }
-  c.innerHTML = '';
-  docs.forEach(function(d) {
-    var div = document.createElement('div');
-    div.className = 'doc-item';
-    var icons = {devis:'document', facture:'receipt', autre:'attach'};
-    div.innerHTML = '<div class="doc-icon">&#128196;</div>'
-      + '<div style="flex:1"><div class="doc-name">' + esc(d.nom || 'Document') + '</div>'
-      + '<div class="doc-type">' + esc(d.type || '') + (d.date ? ' &mdash; ' + fd(d.date) : '') + '</div></div>'
-      + (d.url ? '<a href="' + esc(d.url) + '" target="_blank" class="doc-dl">Telecharger</a>' : '');
+function renderDocs(){
+  var c=document.getElementById('cl-docs');if(!c)return;
+  var docs=(CARNET&&CARNET.documents)||[];
+  if(!docs.length){c.innerHTML='<p class="mu italic">Aucun document disponible.</p>';return;}
+  c.innerHTML='';
+  docs.forEach(function(d){
+    var div=document.createElement('div');div.className='doc-item';
+    div.innerHTML='<div class="doc-icon">&#128196;</div><div style="flex:1"><div class="doc-name">'+esc(d.nom||'Document')+'</div><div class="doc-type">'+esc(d.type||'')+(d.date?' &mdash; '+fd(d.date):'')+'</div></div>'+(d.url?'<a href="'+esc(d.url)+'" target="_blank" class="doc-dl">Telecharger</a>':'');
     c.appendChild(div);
   });
 }
 
 /* ---- RENDER ADMIN ---- */
-function renderAdmin() {
-  if (!CARNET) return;
-  var barEl = document.getElementById('bo-bride-label');
-  var codeEl = document.getElementById('bo-code-label');
-  if (barEl) barEl.textContent = 'Carnet de ' + (CARNET.bride_nom || '');
-  if (codeEl) codeEl.textContent = 'Code : ' + (CARNET.code_acces || '');
-  try { fillInfos(); } catch(e) { console.error("fillInfos:", e); }
-  try { renderBoPlanning(); } catch(e) { console.error("renderBoPlanning:", e); }
-  try { renderBoMesures(); } catch(e) { console.error("renderBoMesures:", e); }
-  try { renderBoEssayages(); } catch(e) { console.error("renderBoEssayages:", e); }
-  try { renderBoJournal(); } catch(e) { console.error("renderBoJournal:", e); }
-  try { renderBoPaiements(); } catch(e) { console.error("renderBoPaiements:", e); }
-  try { renderBoDocs(); } catch(e) { console.error("renderBoDocs:", e); }
+function renderAdmin(){
+  if(!CARNET)return;
+  var barEl=document.getElementById('bo-bride-label');var codeEl=document.getElementById('bo-code-label');
+  if(barEl)barEl.textContent='Carnet de '+(CARNET.bride_nom||'');
+  if(codeEl)codeEl.textContent='Code : '+(CARNET.code_acces||'');
+  try{fillInfos();}catch(e){console.error("fillInfos:",e);}
+  try{renderBoPlanning();}catch(e){console.error("renderBoPlanning:",e);}
+  try{renderBoMesures();}catch(e){console.error("renderBoMesures:",e);}
+  try{renderBoEssayages();}catch(e){console.error("renderBoEssayages:",e);}
+  try{renderBoJournal();}catch(e){console.error("renderBoJournal:",e);}
+  try{renderBoPaiements();}catch(e){console.error("renderBoPaiements:",e);}
+  try{renderBoDocs();}catch(e){console.error("renderBoDocs:",e);}
 }
 
-function fillInfos() {
-  setv('bo-nom', CARNET.bride_nom);
-  setv('bo-modele', CARNET.modele_nom);
-  setv('bo-mariage', CARNET.date_mariage);
-  setv('bo-livraison', CARNET.date_livraison);
-  setv('bo-phrase', CARNET.phrase_signature);
+function fillInfos(){setv('bo-nom',CARNET.bride_nom);setv('bo-modele',CARNET.modele_nom);setv('bo-mariage',CARNET.date_mariage);setv('bo-livraison',CARNET.date_livraison);setv('bo-phrase',CARNET.phrase_signature);}
+
+async function saveInfos(){
+  var updates={bride_nom:val('bo-nom'),modele_nom:val('bo-modele'),date_mariage:val('bo-mariage')||null,date_livraison:val('bo-livraison')||null,phrase_signature:val('bo-phrase')};
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,updates);Object.assign(CARNET,updates);showSaved('saved-infos');toast('Informations enregistrees');}catch(e){toast('Erreur : '+e.message);}
 }
 
-async function saveInfos() {
-  var updates = {
-    bride_nom: val('bo-nom'),
-    modele_nom: val('bo-modele'),
-    date_mariage: val('bo-mariage') || null,
-    date_livraison: val('bo-livraison') || null,
-    phrase_signature: val('bo-phrase')
-  };
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, updates);
-    Object.assign(CARNET, updates);
-    showSaved('saved-infos');
-    toast('Informations enregistrees');
-  } catch(e) { toast('Erreur : ' + e.message); }
-}
-
-/* BO PLANNING */
-function renderBoPlanning() {
-  var c = document.getElementById('bo-planning-list');
-  if (!c) return;
-  var plan = CARNET.planning || [];
-  c.innerHTML = '';
-  plan.forEach(function(s, i) {
-    var row = document.createElement('div');
-    row.className = 'plan-edit-row';
-    row.innerHTML = '<span style="font-size:13px">' + esc(s.titre || '') + '</span>'
-      + '<span style="font-size:12px;color:var(--mu)">' + fd(s.date) + '</span>'
-      + '<select data-plan-idx="' + i + '" style="border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px">'
-      + '<option value="a_venir"' + (s.statut === 'a_venir' ? ' selected' : '') + '>A venir</option>'
-      + '<option value="realise"' + (s.statut === 'realise' ? ' selected' : '') + '>Realise</option>'
-      + '</select>'
-      + '<button data-del-plan="' + i + '" style="background:none;border:none;font-size:18px;color:var(--mu);cursor:pointer">x</button>';
+function renderBoPlanning(){
+  var c=document.getElementById('bo-planning-list');if(!c)return;
+  var plan=CARNET.planning||[];c.innerHTML='';
+  plan.forEach(function(s,i){
+    var row=document.createElement('div');row.className='plan-edit-row';
+    row.innerHTML='<span style="font-size:13px">'+esc(s.titre||'')+'</span><span style="font-size:12px;color:var(--mu)">'+fd(s.date)+'</span>'
+      +'<select data-plan-idx="'+i+'" style="border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px">'
+      +'<option value="a_venir"'+(s.statut==='a_venir'?' selected':'')+'>A venir</option>'
+      +'<option value="realise"'+(s.statut==='realise'?' selected':'')+'>Realise</option></select>'
+      +'<button data-del-plan="'+i+'" style="background:none;border:none;font-size:18px;color:var(--mu);cursor:pointer">x</button>';
     c.appendChild(row);
   });
-  if (plan.length) {
-    var saveRow = document.createElement('div');
-    saveRow.className = 'action-row';
-    saveRow.innerHTML = '<button class="btn-dark" id="btn-save-plan">Enregistrer le planning</button><span class="saved-msg" id="saved-plan">Enregistre</span>';
-    c.appendChild(saveRow);
-  }
+  if(plan.length){var saveRow=document.createElement('div');saveRow.className='action-row';saveRow.innerHTML='<button class="btn-dark" id="btn-save-plan">Enregistrer le planning</button><span class="saved-msg" id="saved-plan">Enregistre</span>';c.appendChild(saveRow);}
 }
 
-async function addPlanStep() {
-  var titre = val('bo-p-titre'); if (!titre) return;
-  var step = {titre:titre, date:val('bo-p-date'), statut:val('bo-p-statut')};
-  var plan = CARNET.planning || []; plan.push(step);
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {planning:plan});
-    CARNET.planning = plan;
-    setv('bo-p-titre',''); setv('bo-p-date','');
-    renderBoPlanning(); renderPlanning();
-    toast('Etape ajoutee');
-  } catch(e) { toast('Erreur : ' + e.message); }
+async function addPlanStep(){
+  var titre=val('bo-p-titre');if(!titre)return;
+  var step={titre:titre,date:val('bo-p-date'),statut:val('bo-p-statut')};
+  var plan=CARNET.planning||[];plan.push(step);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{planning:plan});CARNET.planning=plan;setv('bo-p-titre','');setv('bo-p-date','');renderBoPlanning();renderPlanning();toast('Etape ajoutee');}catch(e){toast('Erreur : '+e.message);}
 }
 
-async function savePlanning() {
-  var plan = CARNET.planning || [];
-  document.querySelectorAll('[data-plan-idx]').forEach(function(s) {
-    var i = parseInt(s.getAttribute('data-plan-idx'));
-    if (plan[i]) plan[i].statut = s.value;
+async function savePlanning(){
+  var plan=CARNET.planning||[];
+  document.querySelectorAll('[data-plan-idx]').forEach(function(s){var i=parseInt(s.getAttribute('data-plan-idx'));if(plan[i])plan[i].statut=s.value;});
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{planning:plan});CARNET.planning=plan;renderPlanning();showSaved('saved-plan');toast('Planning enregistre');}catch(e){toast('Erreur : '+e.message);}
+}
+
+async function delPlanStep(i){
+  var plan=CARNET.planning||[];plan.splice(i,1);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{planning:plan});CARNET.planning=plan;renderBoPlanning();renderPlanning();toast('Supprime');}catch(e){toast('Erreur');}
+}
+
+function renderBoMesures(){
+  var c=document.getElementById('bo-mes-form');if(!c)return;
+  var m=CARNET.mesures||{};var html='';
+  MG.forEach(function(grp){
+    html+='<div style="margin-bottom:18px"><div class="card-title">'+grp.label+'</div><div class="mes-bo-grid">';
+    grp.fields.forEach(function(f){html+='<div class="mes-bo-field"><label>'+f[1]+'</label><input type="number" id="mes-'+f[0]+'" value="'+esc(m[f[0]]||'')+'" step="0.5" min="0" placeholder="cm"></div>';});
+    html+='</div></div>';
   });
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {planning:plan});
-    CARNET.planning = plan;
-    renderPlanning(); showSaved('saved-plan'); toast('Planning enregistre');
-  } catch(e) { toast('Erreur : ' + e.message); }
+  c.innerHTML=html;
 }
 
-async function delPlanStep(i) {
-  var plan = CARNET.planning || []; plan.splice(i, 1);
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {planning:plan});
-    CARNET.planning = plan; renderBoPlanning(); renderPlanning(); toast('Supprime');
-  } catch(e) { toast('Erreur'); }
+async function saveMesures(){
+  var m={};MG.forEach(function(grp){grp.fields.forEach(function(f){var v=val('mes-'+f[0]);if(v)m[f[0]]=v;});});
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{mesures:m});CARNET.mesures=m;renderMesures();showSaved('saved-mes');toast('Mesures enregistrees');}catch(e){toast('Erreur : '+e.message);}
 }
 
-/* BO MESURES */
-function renderBoMesures() {
-  var c = document.getElementById('bo-mes-form');
-  if (!c) return;
-  var m = CARNET.mesures || {};
-  var html = '';
-  MG.forEach(function(grp) {
-    html += '<div style="margin-bottom:18px"><div class="card-title">' + grp.label + '</div><div class="mes-bo-grid">';
-    grp.fields.forEach(function(f) {
-      html += '<div class="mes-bo-field"><label>' + f[1] + '</label>'
-        + '<input type="number" id="mes-' + f[0] + '" value="' + esc(m[f[0]] || '') + '" step="0.5" min="0" placeholder="cm"></div>';
-    });
-    html += '</div></div>';
-  });
-  c.innerHTML = html;
-}
-
-async function saveMesures() {
-  var m = {};
-  MG.forEach(function(grp) {
-    grp.fields.forEach(function(f) {
-      var v = val('mes-' + f[0]);
-      if (v) m[f[0]] = v;
-    });
-  });
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {mesures:m});
-    CARNET.mesures = m; renderMesures(); showSaved('saved-mes'); toast('Mesures enregistrees');
-  } catch(e) { toast('Erreur : ' + e.message); }
-}
-
-/* BO ESSAYAGES */
-function renderBoEssayages() {
-  var c = document.getElementById('bo-essa-list');
-  if (!c) return;
-  var essa = CARNET.essayages || [];
-  c.innerHTML = '';
-  essa.forEach(function(e, i) {
-    var photos = (e.photos && e.photos.length) ? e.photos : (e.photo_url ? [e.photo_url] : []);
-    var gallHtml = '';
-    if (photos.length) {
-      gallHtml = '<div class="gallery-grid" style="padding:6px 16px">';
-      photos.forEach(function(url) {
-        gallHtml += '<div class="gallery-item"><img src="' + esc(url) + '" alt="photo" data-url="' + esc(url) + '"></div>';
-      });
-      gallHtml += '</div>';
-    }
-    var div = document.createElement('div');
-    div.className = 'essa-item';
-    div.style.marginBottom = '12px';
-    div.id = 'essa-item-' + i;
-    div.innerHTML = '<div style="padding:12px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;gap:10px">'
-      + '<span class="essa-date-lbl">' + fd(e.date) + '</span>'
-      + '<span class="essa-num" style="flex:1">' + esc(e.num || ('Essayage ' + (i+1))) + '</span>'
-      + '<button onclick="editEssayage(' + i + ')" style="background:#C4A66A;color:#fff;border:none;cursor:pointer;font-size:10px;padding:5px 12px;letter-spacing:.1em;font-family:Jost,sans-serif">Modifier</button>'
-      + '<button data-del-essa="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;line-height:1">x</button>'
-      + '</div>'
-      + '<div id="essa-view-' + i + '">'
-      + '<div class="essa-body">' + esc(e.notes || '') + '</div>'
-      + gallHtml
-      + '</div>'
-      + '<div id="essa-edit-' + i + '" style="display:none;padding:12px 16px;background:var(--iv);border-top:.5px solid var(--br)">'
-      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
-      + '<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Date</label><input type="date" id="essa-ed-date-' + i + '" value="' + esc(e.date||'') + '" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
-      + '<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Libellé</label><input type="text" id="essa-ed-num-' + i + '" value="' + esc(e.num||'') + '" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
-      + '</div>'
-      + '<div style="margin-bottom:10px"><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Compte-rendu</label><textarea id="essa-ed-notes-' + i + '" rows="4" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px;resize:vertical">' + esc(e.notes||'') + '</textarea></div>'
-      + '<div style="display:flex;gap:8px">'
-      + '<button onclick="saveEditEssayage(' + i + ')" style="background:var(--tx);color:var(--gl);border:none;padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Enregistrer</button>'
-      + '<button onclick="cancelEditEssayage(' + i + ')" style="background:none;border:.5px solid var(--br);color:var(--mu);padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Annuler</button>'
-      + '</div></div>';
+function renderBoEssayages(){
+  var c=document.getElementById('bo-essa-list');if(!c)return;
+  var essa=CARNET.essayages||[];c.innerHTML='';
+  essa.forEach(function(e,i){
+    var photos=(e.photos&&e.photos.length)?e.photos:(e.photo_url?[e.photo_url]:[]);
+    var gallHtml='';
+    if(photos.length){gallHtml='<div class="gallery-grid" style="padding:6px 16px">';photos.forEach(function(url){gallHtml+='<div class="gallery-item"><img src="'+esc(url)+'" alt="photo" data-url="'+esc(url)+'"></div>';});gallHtml+='</div>';}
+    var videoInfo = e.video_url ? '<div style="font-size:11px;color:var(--go);padding:8px 16px;">&#9654; Video : <a href="'+esc(e.video_url)+'" target="_blank" style="color:var(--go)">'+esc(e.video_url.substring(0,50))+'...</a></div>' : '';
+    var div=document.createElement('div');div.className='essa-item';div.style.marginBottom='12px';div.id='essa-item-'+i;
+    div.innerHTML='<div style="padding:12px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;gap:10px">'
+      +'<span class="essa-date-lbl">'+fd(e.date)+'</span>'
+      +'<span class="essa-num" style="flex:1">'+esc(e.num||('Essayage '+(i+1)))+'</span>'
+      +'<button onclick="editEssayage('+i+')" style="background:#C4A66A;color:#fff;border:none;cursor:pointer;font-size:10px;padding:5px 12px;letter-spacing:.1em;font-family:Jost,sans-serif">Modifier</button>'
+      +'<button data-del-essa="'+i+'" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;line-height:1">x</button></div>'
+      +'<div id="essa-view-'+i+'"><div class="essa-body">'+esc(e.notes||'')+'</div>'+videoInfo+gallHtml+'</div>'
+      +'<div id="essa-edit-'+i+'" style="display:none;padding:12px 16px;background:var(--iv);border-top:.5px solid var(--br)">'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
+      +'<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Date</label><input type="date" id="essa-ed-date-'+i+'" value="'+esc(e.date||'')+'" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      +'<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Libelle</label><input type="text" id="essa-ed-num-'+i+'" value="'+esc(e.num||'')+'" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      +'</div>'
+      +'<div style="margin-bottom:10px"><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Compte-rendu</label><textarea id="essa-ed-notes-'+i+'" rows="4" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px;resize:vertical">'+esc(e.notes||'')+'</textarea></div>'
+      +'<div style="margin-bottom:10px"><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Lien video</label><input type="url" id="essa-ed-video-'+i+'" value="'+esc(e.video_url||'')+'" placeholder="https://youtube.com/..." style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      +'<div style="display:flex;gap:8px">'
+      +'<button onclick="saveEditEssayage('+i+')" style="background:var(--tx);color:var(--gl);border:none;padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Enregistrer</button>'
+      +'<button onclick="cancelEditEssayage('+i+')" style="background:none;border:.5px solid var(--br);color:var(--mu);padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Annuler</button>'
+      +'</div></div>';
     c.appendChild(div);
   });
 }
 
-function editEssayage(i) {
-  document.getElementById('essa-view-' + i).style.display = 'none';
-  document.getElementById('essa-edit-' + i).style.display = 'block';
-}
-function cancelEditEssayage(i) {
-  document.getElementById('essa-view-' + i).style.display = 'block';
-  document.getElementById('essa-edit-' + i).style.display = 'none';
-}
-async function saveEditEssayage(i) {
-  var essa = CARNET.essayages || [];
-  essa[i].date = document.getElementById('essa-ed-date-' + i).value;
-  essa[i].num = document.getElementById('essa-ed-num-' + i).value;
-  essa[i].notes = document.getElementById('essa-ed-notes-' + i).value;
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {essayages: essa});
-    CARNET.essayages = essa;
-    renderBoEssayages(); renderEssayages();
-    toast('Essayage modifie');
-  } catch(e) { toast('Erreur : ' + e.message); }
+function editEssayage(i){document.getElementById('essa-view-'+i).style.display='none';document.getElementById('essa-edit-'+i).style.display='block';}
+function cancelEditEssayage(i){document.getElementById('essa-view-'+i).style.display='block';document.getElementById('essa-edit-'+i).style.display='none';}
+async function saveEditEssayage(i){
+  var essa=CARNET.essayages||[];
+  essa[i].date=document.getElementById('essa-ed-date-'+i).value;
+  essa[i].num=document.getElementById('essa-ed-num-'+i).value;
+  essa[i].notes=document.getElementById('essa-ed-notes-'+i).value;
+  essa[i].video_url=document.getElementById('essa-ed-video-'+i).value;
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{essayages:essa});CARNET.essayages=essa;renderBoEssayages();renderEssayages();toast('Essayage modifie');}catch(e){toast('Erreur : '+e.message);}
 }
 
-function previewPhotos(inputId, previewId) {
-  var input = document.getElementById(inputId);
-  var preview = document.getElementById(previewId);
-  if (!input || !preview) return;
-  preview.innerHTML = '';
-  Array.from(input.files).forEach(function(file) {
-    var reader = new FileReader();
-    reader.onload = function(ev) {
-      var img = document.createElement('img');
-      img.src = ev.target.result;
-      img.className = 'preview-thumb';
-      preview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
-  });
+function previewPhotos(inputId,previewId){
+  var input=document.getElementById(inputId);var preview=document.getElementById(previewId);if(!input||!preview)return;
+  preview.innerHTML='';
+  Array.from(input.files).forEach(function(file){var reader=new FileReader();reader.onload=function(ev){var img=document.createElement('img');img.src=ev.target.result;img.className='preview-thumb';preview.appendChild(img);};reader.readAsDataURL(file);});
 }
 
-async function uploadPhoto(file) {
-  var ext = file.name.split('.').pop().toLowerCase();
-  var fname = 'carnets/' + CARNET.id + '/' + Date.now() + '-' + Math.random().toString(36).substr(2,5) + '.' + ext;
-  try {
-    var r = await fetch(SU + '/storage/v1/object/jb-media/' + fname, {
-      method: 'POST',
-      headers: {'apikey':SK, 'Authorization':'Bearer '+SK, 'Content-Type':file.type, 'x-upsert':'true'},
-      body: file
-    });
-    if (!r.ok) throw new Error('upload failed');
-    return SU + '/storage/v1/object/public/jb-media/' + fname;
-  } catch(e) {
-    return new Promise(function(res) {
-      var rd = new FileReader();
-      rd.onload = function(ev) { res(ev.target.result); };
-      rd.readAsDataURL(file);
-    });
+async function uploadPhoto(file){
+  var ext=file.name.split('.').pop().toLowerCase();
+  var fname='carnets/'+CARNET.id+'/'+Date.now()+'-'+Math.random().toString(36).substr(2,5)+'.'+ext;
+  try{
+    var r=await fetch(SU+'/storage/v1/object/jb-media/'+fname,{method:'POST',headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':file.type,'x-upsert':'true'},body:file});
+    if(!r.ok)throw new Error('upload failed');
+    return SU+'/storage/v1/object/public/jb-media/'+fname;
+  }catch(e){
+    return new Promise(function(res){var rd=new FileReader();rd.onload=function(ev){res(ev.target.result);};rd.readAsDataURL(file);});
   }
 }
 
-async function uploadFiles(inputId) {
-  var input = document.getElementById(inputId);
-  if (!input || !input.files || !input.files.length) return [];
-  var urls = [];
-  for (var i = 0; i < input.files.length; i++) {
-    var url = await uploadPhoto(input.files[i]);
-    if (url) urls.push(url);
-  }
-  input.value = '';
-  return urls;
+async function uploadFiles(inputId){
+  var input=document.getElementById(inputId);if(!input||!input.files||!input.files.length)return[];
+  var urls=[];for(var i=0;i<input.files.length;i++){var url=await uploadPhoto(input.files[i]);if(url)urls.push(url);}
+  input.value='';return urls;
 }
 
-async function saveEssayage() {
-  var d = val('bo-e-date'), n = val('bo-e-notes');
-  if (!d && !n) { toast('Renseignez la date ou les observations'); return; }
-  var btn = document.getElementById('btn-save-essa');
-  if (btn) { btn.textContent = 'Envoi...'; btn.disabled = true; }
-  try {
-    var photos = await uploadFiles('bo-e-photos');
-    var entry = {date:d, num:val('bo-e-num'), notes:n, photos:photos, photo_url:photos[0]||''};
-    var essa = CARNET.essayages || []; essa.push(entry);
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {essayages:essa});
-    CARNET.essayages = essa;
-    setv('bo-e-date',''); setv('bo-e-num',''); setv('bo-e-notes','');
-    document.getElementById('bo-e-preview').innerHTML = '';
-    renderBoEssayages(); renderEssayages();
-    toast('Essayage enregistre');
-  } catch(e) { toast('Erreur : ' + e.message); }
-  finally { if (btn) { btn.textContent = 'Enregistrer cet essayage'; btn.disabled = false; } }
+async function saveEssayage(){
+  var d=val('bo-e-date'),n=val('bo-e-notes'),videoUrl=val('bo-e-video');
+  if(!d&&!n){toast('Renseignez la date ou les observations');return;}
+  var btn=document.getElementById('btn-save-essa');if(btn){btn.textContent='Envoi...';btn.disabled=true;}
+  try{
+    var photos=await uploadFiles('bo-e-photos');
+    var entry={date:d,num:val('bo-e-num'),notes:n,photos:photos,photo_url:photos[0]||'',video_url:videoUrl};
+    var essa=CARNET.essayages||[];essa.push(entry);
+    await sp('jb_carnets','id=eq.'+CARNET.id,{essayages:essa});
+    CARNET.essayages=essa;
+    setv('bo-e-date','');setv('bo-e-num','');setv('bo-e-notes','');setv('bo-e-video','');
+    document.getElementById('bo-e-preview').innerHTML='';
+    renderBoEssayages();renderEssayages();toast('Essayage enregistre');
+  }catch(e){toast('Erreur : '+e.message);}
+  finally{if(btn){btn.textContent='Enregistrer cet essayage';btn.disabled=false;}}
 }
 
-async function delEssayage(i) {
-  var essa = CARNET.essayages || []; essa.splice(i, 1);
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {essayages:essa});
-    CARNET.essayages = essa; renderBoEssayages(); renderEssayages(); toast('Supprime');
-  } catch(e) { toast('Erreur'); }
+async function delEssayage(i){
+  var essa=CARNET.essayages||[];essa.splice(i,1);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{essayages:essa});CARNET.essayages=essa;renderBoEssayages();renderEssayages();toast('Supprime');}catch(e){toast('Erreur');}
 }
 
-/* BO JOURNAL */
-function renderBoJournal() {
-  var c = document.getElementById('bo-journal-list');
-  if (!c) return;
-  var j = CARNET.journal || [];
-  c.innerHTML = '';
-  j.forEach(function(e, i) {
-    var photos = (e.photos && e.photos.length) ? e.photos : (e.photo_url ? [e.photo_url] : []);
-    var gallHtml = '';
-    if (photos.length) {
-      gallHtml = '<div class="gallery-grid" style="padding:6px 0">';
-      photos.forEach(function(url) {
-        gallHtml += '<div class="gallery-item"><img src="' + esc(url) + '" alt="photo" data-url="' + esc(url) + '"></div>';
-      });
-      gallHtml += '</div>';
-    }
-    var div = document.createElement('div');
-    div.className = 'journal-item';
-    div.id = 'jrn-item-' + i;
-    div.style.cssText = 'padding:16px;background:white;border:.5px solid var(--br);margin-bottom:10px;flex-direction:column;gap:8px';
-    div.innerHTML = '<div style="display:flex;align-items:flex-start;gap:10px;padding-bottom:8px;border-bottom:.5px solid var(--br);margin-bottom:8px">'
-      + '<div style="flex:1"><span class="journal-meta">' + fd(e.date) + '</span><div class="journal-title">' + esc(e.titre||'') + '</div></div>'
-      + '<button onclick="editJournal(' + i + ')" style="background:#C4A66A;color:#fff;border:none;cursor:pointer;font-size:10px;padding:5px 12px;letter-spacing:.1em;font-family:Jost,sans-serif;white-space:nowrap">Modifier</button>'
-      + '<button data-del-jrn="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;line-height:1">x</button>'
-      + '</div>'
-      + '<div id="jrn-view-' + i + '">'
-      + '<div class="journal-text">' + esc(e.texte||'') + '</div>'
-      + gallHtml
-      + '</div>'
-      + '<div id="jrn-edit-' + i + '" style="display:none;border-top:.5px solid var(--br);padding-top:12px;margin-top:8px">'
-      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
-      + '<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Date</label><input type="date" id="jrn-ed-date-' + i + '" value="' + esc(e.date||'') + '" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
-      + '<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Titre</label><input type="text" id="jrn-ed-titre-' + i + '" value="' + esc(e.titre||'') + '" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
-      + '</div>'
-      + '<div style="margin-bottom:10px"><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Récit</label><textarea id="jrn-ed-texte-' + i + '" rows="5" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px;resize:vertical">' + esc(e.texte||'') + '</textarea></div>'
-      + '<div style="display:flex;gap:8px">'
-      + '<button onclick="saveEditJournal(' + i + ')" style="background:var(--tx);color:var(--gl);border:none;padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Enregistrer</button>'
-      + '<button onclick="cancelEditJournal(' + i + ')" style="background:none;border:.5px solid var(--br);color:var(--mu);padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Annuler</button>'
-      + '</div></div>';
+function renderBoJournal(){
+  var c=document.getElementById('bo-journal-list');if(!c)return;
+  var j=CARNET.journal||[];c.innerHTML='';
+  j.forEach(function(e,i){
+    var photos=(e.photos&&e.photos.length)?e.photos:(e.photo_url?[e.photo_url]:[]);
+    var gallHtml='';
+    if(photos.length){gallHtml='<div class="gallery-grid" style="padding:6px 0">';photos.forEach(function(url){gallHtml+='<div class="gallery-item"><img src="'+esc(url)+'" alt="photo" data-url="'+esc(url)+'"></div>';});gallHtml+='</div>';}
+    var videoInfo = e.video_url ? '<div style="font-size:11px;color:var(--go);margin-bottom:8px;">&#9654; Video : <a href="'+esc(e.video_url)+'" target="_blank" style="color:var(--go)">'+esc(e.video_url.substring(0,50))+'...</a></div>' : '';
+    var div=document.createElement('div');div.className='journal-item';div.id='jrn-item-'+i;
+    div.style.cssText='padding:16px;background:white;border:.5px solid var(--br);margin-bottom:10px;flex-direction:column;gap:8px';
+    div.innerHTML='<div style="display:flex;align-items:flex-start;gap:10px;padding-bottom:8px;border-bottom:.5px solid var(--br);margin-bottom:8px">'
+      +'<div style="flex:1"><span class="journal-meta">'+fd(e.date)+'</span><div class="journal-title">'+esc(e.titre||'')+'</div></div>'
+      +'<button onclick="editJournal('+i+')" style="background:#C4A66A;color:#fff;border:none;cursor:pointer;font-size:10px;padding:5px 12px;letter-spacing:.1em;font-family:Jost,sans-serif;white-space:nowrap">Modifier</button>'
+      +'<button data-del-jrn="'+i+'" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;line-height:1">x</button></div>'
+      +'<div id="jrn-view-'+i+'"><div class="journal-text">'+esc(e.texte||'')+'</div>'+videoInfo+gallHtml+'</div>'
+      +'<div id="jrn-edit-'+i+'" style="display:none;border-top:.5px solid var(--br);padding-top:12px;margin-top:8px">'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
+      +'<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Date</label><input type="date" id="jrn-ed-date-'+i+'" value="'+esc(e.date||'')+'" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      +'<div><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Titre</label><input type="text" id="jrn-ed-titre-'+i+'" value="'+esc(e.titre||'')+'" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      +'</div>'
+      +'<div style="margin-bottom:10px"><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Recit</label><textarea id="jrn-ed-texte-'+i+'" rows="5" style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px;resize:vertical">'+esc(e.texte||'')+'</textarea></div>'
+      +'<div style="margin-bottom:10px"><label style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:4px">Lien video</label><input type="url" id="jrn-ed-video-'+i+'" value="'+esc(e.video_url||'')+'" placeholder="https://youtube.com/..." style="width:100%;border:.5px solid var(--bs);padding:8px;font-family:Jost,sans-serif;font-size:12px"></div>'
+      +'<div style="display:flex;gap:8px">'
+      +'<button onclick="saveEditJournal('+i+')" style="background:var(--tx);color:var(--gl);border:none;padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Enregistrer</button>'
+      +'<button onclick="cancelEditJournal('+i+')" style="background:none;border:.5px solid var(--br);color:var(--mu);padding:9px 18px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Annuler</button>'
+      +'</div></div>';
     c.appendChild(div);
   });
 }
 
-function editJournal(i) {
-  document.getElementById('jrn-view-' + i).style.display = 'none';
-  document.getElementById('jrn-edit-' + i).style.display = 'block';
-}
-function cancelEditJournal(i) {
-  document.getElementById('jrn-view-' + i).style.display = 'block';
-  document.getElementById('jrn-edit-' + i).style.display = 'none';
-}
-async function saveEditJournal(i) {
-  var j = CARNET.journal || [];
-  j[i].date = document.getElementById('jrn-ed-date-' + i).value;
-  j[i].titre = document.getElementById('jrn-ed-titre-' + i).value;
-  j[i].texte = document.getElementById('jrn-ed-texte-' + i).value;
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {journal: j});
-    CARNET.journal = j;
-    renderBoJournal(); renderJournal();
-    toast('Entree modifiee');
-  } catch(e) { toast('Erreur : ' + e.message); }
+function editJournal(i){document.getElementById('jrn-view-'+i).style.display='none';document.getElementById('jrn-edit-'+i).style.display='block';}
+function cancelEditJournal(i){document.getElementById('jrn-view-'+i).style.display='block';document.getElementById('jrn-edit-'+i).style.display='none';}
+async function saveEditJournal(i){
+  var j=CARNET.journal||[];
+  j[i].date=document.getElementById('jrn-ed-date-'+i).value;
+  j[i].titre=document.getElementById('jrn-ed-titre-'+i).value;
+  j[i].texte=document.getElementById('jrn-ed-texte-'+i).value;
+  j[i].video_url=document.getElementById('jrn-ed-video-'+i).value;
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{journal:j});CARNET.journal=j;renderBoJournal();renderJournal();toast('Entree modifiee');}catch(e){toast('Erreur : '+e.message);}
 }
 
-async function saveJournal() {
-  var titre = val('bo-j-titre'); if (!titre) { toast('Renseignez un titre'); return; }
-  var btn = document.getElementById('btn-save-jrn');
-  if (btn) { btn.textContent = 'Envoi...'; btn.disabled = true; }
-  try {
-    var photos = await uploadFiles('bo-j-photos');
-    var entry = {date:val('bo-j-date'), titre:titre, texte:val('bo-j-texte'), photos:photos, photo_url:photos[0]||''};
-    var j = CARNET.journal || []; j.unshift(entry);
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {journal:j});
-    CARNET.journal = j;
-    setv('bo-j-date',''); setv('bo-j-titre',''); setv('bo-j-texte','');
-    document.getElementById('bo-j-preview').innerHTML = '';
-    renderBoJournal(); renderJournal();
-    toast('Entree publiee');
-  } catch(e) { toast('Erreur : ' + e.message); }
-  finally { if (btn) { btn.textContent = 'Publier'; btn.disabled = false; } }
+async function saveJournal(){
+  var titre=val('bo-j-titre');if(!titre){toast('Renseignez un titre');return;}
+  var btn=document.getElementById('btn-save-jrn');if(btn){btn.textContent='Envoi...';btn.disabled=true;}
+  try{
+    var photos=await uploadFiles('bo-j-photos');var videoUrl=val('bo-j-video');
+    var entry={date:val('bo-j-date'),titre:titre,texte:val('bo-j-texte'),photos:photos,photo_url:photos[0]||'',video_url:videoUrl};
+    var j=CARNET.journal||[];j.unshift(entry);
+    await sp('jb_carnets','id=eq.'+CARNET.id,{journal:j});
+    CARNET.journal=j;
+    setv('bo-j-date','');setv('bo-j-titre','');setv('bo-j-texte','');setv('bo-j-video','');
+    document.getElementById('bo-j-preview').innerHTML='';
+    renderBoJournal();renderJournal();toast('Entree publiee');
+  }catch(e){toast('Erreur : '+e.message);}
+  finally{if(btn){btn.textContent='Publier';btn.disabled=false;}}
 }
 
-async function togglePaiement(idx) {
-  var cal = (CARNET && CARNET.calendrier_paiements) || [];
-  if (!cal[idx]) return;
-  var prev = cal[idx].statut || 'a_venir';
-  cal[idx].statut = (prev === 'regle') ? 'a_venir' : 'regle';
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {calendrier_paiements: cal});
-    CARNET.calendrier_paiements = cal;
-    renderPaiements();
-    toast(cal[idx].statut === 'regle' ? 'Paiement marque regle' : 'Paiement marque a venir');
-  } catch(e) { toast('Erreur : ' + e.message); }
+async function togglePaiement(idx){
+  var cal=(CARNET&&CARNET.calendrier_paiements)||[];if(!cal[idx])return;
+  var prev=cal[idx].statut||'a_venir';cal[idx].statut=(prev==='regle')?'a_venir':'regle';
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{calendrier_paiements:cal});CARNET.calendrier_paiements=cal;renderPaiements();toast(cal[idx].statut==='regle'?'Regle':'A regler');}catch(e){toast('Erreur');}
 }
 
-async function delJournal(i) {
-  var j = CARNET.journal || []; j.splice(i, 1);
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {journal:j});
-    CARNET.journal = j; renderBoJournal(); renderJournal(); toast('Supprime');
-  } catch(e) { toast('Erreur'); }
+async function delJournal(i){
+  var j=CARNET.journal||[];j.splice(i,1);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{journal:j});CARNET.journal=j;renderBoJournal();renderJournal();toast('Supprime');}catch(e){toast('Erreur');}
 }
 
-/* BO PAIEMENTS */
-function renderBoPaiements() {
-  renderBoPayFactures();
-  renderBoPayRows();
-}
+function renderBoPaiements(){renderBoPayRows();}
 
-function renderBoPayFactures() {
-  var c = document.getElementById('bo-pay-factures');
-  if (!c) return;
-  var factures = (CARNET && CARNET.factures_client) || [];
-  if (!factures.length) { c.innerHTML = '<p class="mu italic" style="font-size:12px">Aucune facture liee. Ajoutez des lignes manuellement ci-dessous ou via le logiciel atelier.</p>'; return; }
-  c.innerHTML = '';
-  factures.forEach(function(f, i) {
-    var row = document.createElement('div');
-    row.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr auto auto;gap:8px;margin-bottom:8px;align-items:center;padding:10px 14px;background:var(--iv);border:.5px solid var(--br)';
-    row.innerHTML = '<div>'
-      + '<input type="text" value="' + esc(f.numero||'') + '" data-fac-edit-num="' + i + '" style="border:.5px solid var(--bs);padding:6px 8px;font-size:12px;font-family:Jost,sans-serif;width:100%;background:white">'
-      + '<input type="text" value="' + esc(f.echeance||'') + '" data-fac-edit-desc="' + i + '" style="border:.5px solid var(--bs);padding:6px 8px;font-size:11px;font-family:Jost,sans-serif;width:100%;background:white;margin-top:4px;color:var(--mu)" placeholder="Description">'
-      + '</div>'
-      + '<input type="number" value="' + (f.montant||0) + '" data-fac-edit-amt="' + i + '" style="border:.5px solid var(--bs);padding:8px;font-size:13px;font-family:Cormorant Garamond,serif;width:100%;text-align:right;background:white" step="0.01" min="0">'
-      + '<select data-fac-idx="' + i + '" style="border:.5px solid var(--bs);padding:9px;font-family:Jost,sans-serif;font-size:12px">'
-      + '<option value="a_regler"' + (f.statut!=='regle'?' selected':'') + '>A regler</option>'
-      + '<option value="regle"' + (f.statut==='regle'?' selected':'') + '>Reglee</option>'
-      + '</select>'
-      + '<button data-del-fac="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;padding:0 4px">x</button>';
+function renderBoPayRows(){
+  var c=document.getElementById('bo-pay-rows');if(!c)return;
+  var cal=(CARNET&&CARNET.calendrier_paiements)||(DEVIS&&DEVIS.calendrier_paiements)||[];
+  if(!cal.length){c.innerHTML='<p class="mu italic" style="font-size:12px">Aucun echeancier.</p>';return;}
+  c.innerHTML='';
+  cal.forEach(function(p,i){
+    var row=document.createElement('div');row.className='pay-bo-row';
+    row.innerHTML='<span style="font-size:13px">'+esc(p.type||p.label||'')+'</span>'
+      +'<span style="font-family:Cormorant Garamond,serif;font-size:16px">'+fmt(p.montant||0)+'</span>'
+      +'<select data-pay-idx="'+i+'" style="border:.5px solid var(--bs);padding:9px;font-family:Jost,sans-serif;font-size:12px">'
+      +'<option value="a_venir"'+(p.statut==='a_venir'?' selected':'')+'>A venir</option>'
+      +'<option value="en_attente"'+(p.statut==='en_attente'?' selected':'')+'>En attente</option>'
+      +'<option value="regle"'+(p.statut==='regle'?' selected':'')+'>Regle</option></select>'
+      +'<button data-del-pay="'+i+'" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px">x</button>';
     c.appendChild(row);
   });
 }
 
-async function delFacLine(i) {
-  var factures = (CARNET && CARNET.factures_client) || [];
-  factures.splice(i, 1);
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {factures_client: factures});
-    CARNET.factures_client = factures;
-    renderBoPayFactures();
-    renderPaiements();
-    toast('Ligne supprimee');
-  } catch(e) { toast('Erreur : ' + e.message); }
+function addPayLine(){
+  var label=val('bo-pay-lbl');var amt=parseFloat(val('bo-pay-amt'))||0;if(!label&&!amt)return;
+  var cal=CARNET.calendrier_paiements||[];cal.push({type:label,label:label,montant:amt,statut:val('bo-pay-sta'),echeance:''});
+  CARNET.calendrier_paiements=cal;setv('bo-pay-lbl','');setv('bo-pay-amt','');renderBoPayRows();
 }
 
-function renderBoPayRows() {
-  var c = document.getElementById('bo-pay-rows');
-  if (!c) return;
-  var cal = (CARNET && CARNET.calendrier_paiements) || (DEVIS && DEVIS.calendrier_paiements) || [];
-  if (!cal.length) { c.innerHTML = '<p class="mu italic" style="font-size:12px">Aucun echeancier.</p>'; return; }
-  c.innerHTML = '';
-  cal.forEach(function(p, i) {
-    var row = document.createElement('div');
-    row.className = 'pay-bo-row';
-    row.innerHTML = '<span style="font-size:13px">' + esc(p.type||p.label||'') + '</span>'
-      + '<span style="font-family:Cormorant Garamond,serif;font-size:16px">' + fmt(p.montant||0) + '</span>'
-      + '<select data-pay-idx="' + i + '" style="border:.5px solid var(--bs);padding:9px;font-family:Jost,sans-serif;font-size:12px">'
-      + '<option value="a_venir"' + (p.statut==='a_venir'?' selected':'') + '>A venir</option>'
-      + '<option value="en_attente"' + (p.statut==='en_attente'?' selected':'') + '>En attente</option>'
-      + '<option value="regle"' + (p.statut==='regle'?' selected':'') + '>Regle</option>'
-      + '</select>'
-      + '<button data-del-pay="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px">x</button>';
-    c.appendChild(row);
-  });
+function delPayLine(i){var cal=CARNET.calendrier_paiements||[];cal.splice(i,1);CARNET.calendrier_paiements=cal;renderBoPayRows();}
+
+async function savePaiements(){
+  var cal=CARNET.calendrier_paiements||[];
+  document.querySelectorAll('[data-pay-idx]').forEach(function(s){var i=parseInt(s.getAttribute('data-pay-idx'));if(cal[i])cal[i].statut=s.value;});
+  try{
+    await sp('jb_carnets','id=eq.'+CARNET.id,{calendrier_paiements:cal});
+    CARNET.calendrier_paiements=cal;
+    if(DEVIS){try{await sp('jb_devis','id=eq.'+DEVIS.id,{calendrier_paiements:cal});DEVIS.calendrier_paiements=cal;}catch(e){}}
+    renderPaiements();showSaved('saved-pay');toast('Paiements enregistres');
+  }catch(e){toast('Erreur : '+e.message);}
 }
 
-function addPayLine() {
-  var label = val('bo-pay-lbl'); var amt = parseFloat(val('bo-pay-amt'))||0;
-  if (!label && !amt) return;
-  var cal = CARNET.calendrier_paiements || [];
-  cal.push({type:label, label:label, montant:amt, statut:val('bo-pay-sta'), echeance:''});
-  CARNET.calendrier_paiements = cal;
-  setv('bo-pay-lbl',''); setv('bo-pay-amt','');
-  renderBoPayRows();
-}
-
-function delPayLine(i) {
-  var cal = CARNET.calendrier_paiements || []; cal.splice(i, 1);
-  CARNET.calendrier_paiements = cal; renderBoPayRows();
-}
-
-async function savePaiements() {
-  var cal = CARNET.calendrier_paiements || [];
-  document.querySelectorAll('[data-pay-idx]').forEach(function(s) {
-    var i = parseInt(s.getAttribute('data-pay-idx')); if (cal[i]) cal[i].statut = s.value;
-  });
-  var factures = CARNET.factures_client || [];
-  // Save statut changes
-  document.querySelectorAll('[data-fac-idx]').forEach(function(s) {
-    var i = parseInt(s.getAttribute('data-fac-idx')); if (factures[i]) factures[i].statut = s.value;
-  });
-  // Save edited fields (numero, description, montant)
-  document.querySelectorAll('[data-fac-edit-num]').forEach(function(s) {
-    var i = parseInt(s.getAttribute('data-fac-edit-num')); if (factures[i]) factures[i].numero = s.value;
-  });
-  document.querySelectorAll('[data-fac-edit-desc]').forEach(function(s) {
-    var i = parseInt(s.getAttribute('data-fac-edit-desc')); if (factures[i]) factures[i].echeance = s.value;
-  });
-  document.querySelectorAll('[data-fac-edit-amt]').forEach(function(s) {
-    var i = parseInt(s.getAttribute('data-fac-edit-amt')); if (factures[i]) factures[i].montant = parseFloat(s.value) || 0;
-  });
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {calendrier_paiements:cal, factures_client:factures});
-    CARNET.calendrier_paiements = cal; CARNET.factures_client = factures;
-    if (DEVIS) {
-      try { await sp('jb_devis', 'id=eq.' + DEVIS.id, {calendrier_paiements:cal}); DEVIS.calendrier_paiements = cal; } catch(e) {}
-    }
-    renderPaiements(); showSaved('saved-pay'); toast('Paiements enregistres');
-  } catch(e) { toast('Erreur : ' + e.message); }
-}
-
-/* BO DOCUMENTS */
-function renderBoDocs() {
-  var c = document.getElementById('bo-docs-list');
-  if (!c) return;
-  var docs = CARNET.documents || [];
-  c.innerHTML = '';
-  docs.forEach(function(d, i) {
-    var div = document.createElement('div');
-    div.className = 'doc-item';
-    div.innerHTML = '<div class="doc-icon">&#128196;</div>'
-      + '<div style="flex:1"><div class="doc-name">' + esc(d.nom||'Document') + '</div>'
-      + '<div class="doc-type">' + esc(d.type||'') + (d.date?' &mdash; '+fd(d.date):'') + '</div></div>'
-      + (d.url ? '<a href="' + esc(d.url) + '" target="_blank" class="doc-dl">Voir</a>' : '')
-      + '<button data-del-doc="' + i + '" style="background:none;border:none;color:var(--mu);cursor:pointer;margin-left:8px;font-size:18px">x</button>';
+function renderBoDocs(){
+  var c=document.getElementById('bo-docs-list');if(!c)return;
+  var docs=CARNET.documents||[];c.innerHTML='';
+  docs.forEach(function(d,i){
+    var div=document.createElement('div');div.className='doc-item';
+    div.innerHTML='<div class="doc-icon">&#128196;</div><div style="flex:1"><div class="doc-name">'+esc(d.nom||'Document')+'</div><div class="doc-type">'+esc(d.type||'')+(d.date?' &mdash; '+fd(d.date):'')+'</div></div>'+(d.url?'<a href="'+esc(d.url)+'" target="_blank" class="doc-dl">Voir</a>':'')+'<button data-del-doc="'+i+'" style="background:none;border:none;color:var(--mu);cursor:pointer;margin-left:8px;font-size:18px">x</button>';
     c.appendChild(div);
   });
 }
 
-async function addDoc() {
-  var nom = val('bo-doc-nom'); if (!nom) { toast('Renseignez un nom'); return; }
-  var doc = {nom:nom, type:val('bo-doc-type'), date:val('bo-doc-date'), url:val('bo-doc-url')};
-  var docs = CARNET.documents || []; docs.push(doc);
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {documents:docs});
-    CARNET.documents = docs;
-    setv('bo-doc-nom',''); setv('bo-doc-url','');
-    renderBoDocs(); renderDocs(); toast('Document ajoute');
-  } catch(e) { toast('Erreur : ' + e.message); }
+async function addDoc(){
+  var nom=val('bo-doc-nom');if(!nom){toast('Renseignez un nom');return;}
+  var doc={nom:nom,type:val('bo-doc-type'),date:val('bo-doc-date'),url:val('bo-doc-url')};
+  var docs=CARNET.documents||[];docs.push(doc);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{documents:docs});CARNET.documents=docs;setv('bo-doc-nom','');setv('bo-doc-url','');renderBoDocs();renderDocs();toast('Document ajoute');}catch(e){toast('Erreur : '+e.message);}
 }
 
-async function delDoc(i) {
-  var docs = CARNET.documents || []; docs.splice(i, 1);
-  try {
-    await sp('jb_carnets', 'id=eq.' + CARNET.id, {documents:docs});
-    CARNET.documents = docs; renderBoDocs(); renderDocs(); toast('Supprime');
-  } catch(e) { toast('Erreur'); }
+async function delDoc(i){
+  var docs=CARNET.documents||[];docs.splice(i,1);
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{documents:docs});CARNET.documents=docs;renderBoDocs();renderDocs();toast('Supprime');}catch(e){toast('Erreur');}
 }
 
 /* ---- DATA ---- */
 var MG=[
   {label:'Stature',fields:[['stature','Stature']]},
-  {label:'Buste',fields:[
-    ['b_poitrine','Tour de poitrine'],['b_dessus_poitrine','Tour dessus poitrine'],['b_dessous_poitrine','Tour dessous poitrine'],
-    ['b_taille','Tour de taille'],['b_hanches','Tour de hanches'],['b_pos_hanches','Long. position hanches'],
-    ['b_bassin','Tour de bassin'],['b_pos_bassin','Long. position bassin'],['b_cou','Tour de cou'],
-    ['b_carrure_devant','Carrure devant'],['b_enc_milieu','Lg encolure milieu devant'],
-    ['b_epaule','Long. épaule'],['b_pointe_enc_sein','Pointe enc. — pointe sein'],
-    ['b_sein_taille','Pointe sein — haut. taille'],['b_ecart_sein','Écartement pointe sein'],
-    ['b_aisselle_taille','Lg aisselle — taille'],['b_carrure_dos','Carrure dos'],['b_montant_dos','Montant dos'],
-    ['b_7c_taille_dos','Lg 7ème cerv. — taille dos'],['b_taille_dos_sol','Haut. taille dos — sol'],
-    ['b_taille_cote_sol','Lg taille côté — sol'],['b_7c_sol','Haut. 7ème cerv. — sol'],['b_perineal','Montant périnéal']
-  ]},
-  {label:'Bras droit',fields:[['brd_aisselle','Tour bras aisselle'],['brd_biceps','Tour biceps'],['brd_coude','Tour coude'],['brd_poignet','Tour poignet'],['brd_ep_coude','Long. épaule — coude'],['brd_bras','Long. de bras']]},
-  {label:'Bras gauche',fields:[['brg_aisselle','Tour bras aisselle'],['brg_biceps','Tour biceps'],['brg_coude','Tour coude'],['brg_poignet','Tour poignet'],['brg_ep_coude','Long. épaule — coude'],['brg_bras','Long. de bras']]},
-  {label:'Jambe',fields:[
-    ['j_cuisse','Tour cuisse'],['j_genoux','Tour genoux'],['j_mollet','Tour mollet'],['j_cheville','Tour cheville'],
-    ['j_entrejambe','Haut. entrejambe'],['j_taille_genoux','Haut. taille — genoux'],['j_genoux_sol','Haut. genoux — sol'],
-    ['j_enfour_devant','Enfourchure devant'],['j_enfour_dos','Enfourchure dos'],['j_jupe_taille','Lg jupe / taille']
-  ]},
-  {label:'Tête',fields:[['te_tete','Tour de tête'],['te_haut_7c','Haut. tête — 7ème cerv.']]}
-]
-var DC=[
+  {label:'Buste',fields:[['b_poitrine','Tour de poitrine'],['b_dessus_poitrine','Tour dessus poitrine'],['b_dessous_poitrine','Tour dessous poitrine'],['b_taille','Tour de taille'],['b_hanches','Tour de hanches'],['b_pos_hanches','Long. position hanches'],['b_bassin','Tour de bassin'],['b_pos_bassin','Long. position bassin'],['b_cou','Tour de cou'],['b_carrure_devant','Carrure devant'],['b_enc_milieu','Lg encolure milieu devant'],['b_epaule','Long. epaule'],['b_pointe_enc_sein','Pointe enc. — pointe sein'],['b_sein_taille','Pointe sein — haut. taille'],['b_ecart_sein','Ecartement pointe sein'],['b_aisselle_taille','Lg aisselle — taille'],['b_carrure_dos','Carrure dos'],['b_montant_dos','Montant dos'],['b_7c_taille_dos','Lg 7eme cerv. — taille dos'],['b_taille_dos_sol','Haut. taille dos — sol'],['b_taille_cote_sol','Lg taille cote — sol'],['b_7c_sol','Haut. 7eme cerv. — sol'],['b_perineal','Montant perineal']]},
+  {label:'Bras droit',fields:[['brd_aisselle','Tour bras aisselle'],['brd_biceps','Tour biceps'],['brd_coude','Tour coude'],['brd_poignet','Tour poignet'],['brd_ep_coude','Long. epaule — coude'],['brd_bras','Long. de bras']]},
+  {label:'Bras gauche',fields:[['brg_aisselle','Tour bras aisselle'],['brg_biceps','Tour biceps'],['brg_coude','Tour coude'],['brg_poignet','Tour poignet'],['brg_ep_coude','Long. epaule — coude'],['brg_bras','Long. de bras']]},
+  {label:'Jambe',fields:[['j_cuisse','Tour cuisse'],['j_genoux','Tour genoux'],['j_mollet','Tour mollet'],['j_cheville','Tour cheville'],['j_entrejambe','Haut. entrejambe'],['j_taille_genoux','Haut. taille — genoux'],['j_genoux_sol','Haut. genoux — sol'],['j_enfour_devant','Enfourchure devant'],['j_enfour_dos','Enfourchure dos'],['j_jupe_taille','Lg jupe / taille']]},
+  {label:'Tete',fields:[['te_tete','Tour de tete'],['te_haut_7c','Haut. tete — 7eme cerv.']]}
+];
+var DC=[{cat:"1. Vision & cadre du mariage",items:[{texte:"Definir la date du mariage",delai:"548"},{texte:"Definir le budget global et sa repartition",delai:"540"},{texte:"Estimer le nombre d'invites",delai:"540"},{texte:"Definir le style du mariage",delai:"530"},{texte:"Creer un moodboard d'inspiration",delai:"520"},{texte:"Deposer le dossier de mariage civil a la mairie",delai:"500"},{texte:"Ouvrir une liste de mariage ou cagnotte",delai:"490"}]},{cat:"2. Lieux & logistique",items:[{texte:"Reserver le lieu de reception",delai:"480"},{texte:"Reserver le lieu de ceremonie",delai:"470"},{texte:"Prevoir un plan B en cas de meteo defavorable",delai:"460"},{texte:"Verifier acces, stationnement et contraintes",delai:"440"},{texte:"Verifier les horaires autorises",delai:"430"}]},{cat:"3. Invites & experience",items:[{texte:"Etablir la liste definitive des invites",delai:"420"},{texte:"Envoyer les Save the Date",delai:"390"},{texte:"Creer un site internet du mariage",delai:"380"},{texte:"Rediger et envoyer les faire-part",delai:"300"},{texte:"Suivre les reponses RSVP",delai:"270"},{texte:"Organiser les hebergements pour les invites",delai:"260"},{texte:"Creer le plan de table",delai:"120"},{texte:"Choisir et commander les cadeaux invites",delai:"90"}]},{cat:"4. Prestataires principaux",items:[{texte:"Reserver le photographe",delai:"450"},{texte:"Reserver le traiteur",delai:"430"},{texte:"Definir le menu",delai:"200"},{texte:"Reserver le DJ ou groupe de musique",delai:"420"},{texte:"Reserver le fleuriste",delai:"360"},{texte:"Valider les compositions florales",delai:"90"},{texte:"Reserver la coiffeuse pour le jour J",delai:"220"},{texte:"Reserver la maquilleuse pour le jour J",delai:"215"},{texte:"Planifier les essais coiffure et maquillage",delai:"150"}]},{cat:"5. Decoration & univers visuel",items:[{texte:"Definir l'ambiance et la palette de couleurs",delai:"400"},{texte:"Reserver ou acheter la decoration",delai:"200"},{texte:"Creer la papeterie",delai:"120"},{texte:"Prevoir un livre d'or ou alternative creative",delai:"90"}]},{cat:"6. Animations & invites",items:[{texte:"Prevoir les animations : photobooth, jeux",delai:"200"},{texte:"Organiser les surprises : discours, videos",delai:"120"},{texte:"Planifier l'enterrement de vie de jeune fille",delai:"195"}]},{cat:"7. Coordination & organisation",items:[{texte:"Creer le planning detaille du jour J",delai:"60"},{texte:"Definir le deroulement avec l'officiant",delai:"90"},{texte:"Envoyer le planning a chaque prestataire",delai:"30"},{texte:"Confirmer tous les prestataires",delai:"14"},{texte:"Verifier tous les horaires et adresses",delai:"7"},{texte:"Preparer les enveloppes de reglement",delai:"5"}]},{cat:"8. Beaute & preparation",items:[{texte:"Mettre en place une routine soin",delai:"180"},{texte:"Reserver manucure et pedicure",delai:"21"},{texte:"Planifier un moment de detente la veille",delai:"1"},{texte:"Apprendre a marcher avec vos chaussures",delai:"30"}]},{cat:"9. Logistique personnelle",items:[{texte:"Preparer la valise du voyage de noces",delai:"7"},{texte:"Preparer une trousse de secours",delai:"7"},{texte:"Recuperer la robe chez Josephine Bono",delai:"3"},{texte:"Recuperer les alliances",delai:"3"},{texte:"Ranger tous les documents et enveloppes",delai:"2"}]},{cat:"10. Derniers details",items:[{texte:"Finaliser le nombre d'invites pour le traiteur",delai:"21"},{texte:"Preparer et repeter les discours",delai:"14"},{texte:"Finaliser les playlists avec le DJ",delai:"14"},{texte:"Verifier que tous les paiements sont a jour",delai:"7"},{texte:"Charger tous les appareils photo",delai:"1"},{texte:"Profiter pleinement de chaque instant",delai:"0"}]}];
 
-  {cat:"1. Vision & cadre du mariage",items:[
-    {texte:"Définir la date du mariage",delai:"548"},
-    {texte:"Définir le budget global et sa répartition",delai:"540"},
-    {texte:"Estimer le nombre d'invités",delai:"540"},
-    {texte:"Définir le style du mariage (chic, bohème, minimaliste, champêtre...)",delai:"530"},
-    {texte:"Créer un moodboard d'inspiration (Pinterest, Instagram, magazines)",delai:"520"},
-    {texte:"Définir vos priorités : lieu, ambiance, expérience invités, gastronomie...",delai:"510"},
-    {texte:"Déposer le dossier de mariage civil à la mairie",delai:"500"},
-    {texte:"Ouvrir une liste de mariage ou une cagnotte voyage de noces",delai:"490"}
-  ]},
-  {cat:"2. Lieux & logistique",items:[
-    {texte:"Réserver le lieu de réception — visiter plusieurs domaines, châteaux, mas",delai:"480"},
-    {texte:"Réserver le lieu de cérémonie (mairie, église, cérémonie laïque)",delai:"470"},
-    {texte:"Prévoir un plan B en cas de météo défavorable",delai:"460"},
-    {texte:"Organiser les espaces : cocktail, dîner, piste de danse, espace lounge",delai:"450"},
-    {texte:"Vérifier l'accès, le stationnement et les contraintes du lieu",delai:"440"},
-    {texte:"Vérifier les horaires autorisés (fin de soirée, nuisances sonores)",delai:"430"}
-  ]},
-  {cat:"3. Invités & expérience",items:[
-    {texte:"Établir la liste définitive des invités",delai:"420"},
-    {texte:"Envoyer les Save the Date (cartes ou email)",delai:"390"},
-    {texte:"Créer un site internet du mariage (Zola, Withjoy, Joy...)",delai:"380"},
-    {texte:"Rédiger et envoyer les faire-part",delai:"300"},
-    {texte:"Suivre les réponses RSVP",delai:"270"},
-    {texte:"Organiser les hébergements pour les invités venant de loin",delai:"260"},
-    {texte:"Prévoir le transport des invités (navettes, informations GPS)",delai:"250"},
-    {texte:"Créer le plan de table",delai:"120"},
-    {texte:"Choisir et commander les cadeaux invités (dragées, attentions...)",delai:"90"}
-  ]},
-  {cat:"4. Prestataires principaux",items:[
-    {texte:"Réserver le photographe — les meilleurs partent 18 mois à l'avance",delai:"450"},
-    {texte:"Réserver le vidéaste si souhaité",delai:"440"},
-    {texte:"Réserver le traiteur — plusieurs devis et dégustations",delai:"430"},
-    {texte:"Définir le menu : cocktail, dîner, brunch du lendemain",delai:"200"},
-    {texte:"Gérer les régimes alimentaires spécifiques (allergies, végétarien...)",delai:"130"},
-    {texte:"Réserver le DJ ou le groupe de musique live",delai:"420"},
-    {texte:"Définir les moments clés avec le DJ : entrée, premier dance, bouquet",delai:"90"},
-    {texte:"Réserver le fleuriste — demander une proposition florale complète",delai:"360"},
-    {texte:"Valider les compositions florales (bouquet, arche, centres de table)",delai:"90"},
-    {texte:"Réserver la coiffeuse pour le jour J",delai:"220"},
-    {texte:"Réserver la maquilleuse pour le jour J",delai:"215"},
-    {texte:"Planifier les essais coiffure et maquillage — idéalement avec la robe",delai:"150"}
-  ]},
-  {cat:"5. Décoration & univers visuel",items:[
-    {texte:"Définir l'ambiance générale et la palette de couleurs",delai:"400"},
-    {texte:"Définir les éléments de décoration : tables, cérémonie, extérieur",delai:"300"},
-    {texte:"Réserver ou acheter la décoration — louer si possible",delai:"200"},
-    {texte:"Prévoir la scénographie : arche, allée, fond de cérémonie",delai:"180"},
-    {texte:"Créer la papeterie : menus, plans de table, signalétique, programmes",delai:"120"},
-    {texte:"Prévoir un livre d'or ou une alternative créative (polaroids, ardoise...)",delai:"90"}
-  ]},
-  {cat:"6. Animations & expérience invités",items:[
-    {texte:"Prévoir les animations : photobooth, jeux, animation musicale",delai:"200"},
-    {texte:"Organiser les surprises : discours, vidéos, slideshow",delai:"120"},
-    {texte:"Prévoir une animation dédiée aux enfants",delai:"180"},
-    {texte:"Réserver une garde d'enfants (baby-sitter ou agence spécialisée)",delai:"180"},
-    {texte:"Aménager un espace confortable dédié aux enfants",delai:"90"},
-    {texte:"Planifier l'enterrement de vie de jeune fille (EVJF)",delai:"195"}
-  ]},
-  {cat:"7. Transport & déplacements",items:[
-    {texte:"Organiser le transport des mariés entre les lieux",delai:"200"},
-    {texte:"Prévoir les déplacements cérémonie vers réception pour les invités",delai:"180"},
-    {texte:"Informer les invités des accès et options d'hébergement à proximité",delai:"150"},
-    {texte:"Vérifier le retour des invités le soir (taxis, navettes, covoiturage)",delai:"60"}
-  ]},
-  {cat:"8. Coordination & organisation",items:[
-    {texte:"Créer le planning détaillé du jour J (horaire par horaire)",delai:"60"},
-    {texte:"Définir le déroulé de la cérémonie avec l'officiant",delai:"90"},
-    {texte:"Répartir les rôles entre témoins et proches (accueil, coordination)",delai:"60"},
-    {texte:"Désigner une personne référente pour le jour J — votre chef d'orchestre",delai:"45"},
-    {texte:"Envoyer le planning détaillé à chaque prestataire",delai:"30"},
-    {texte:"Confirmer tous les prestataires une dernière fois",delai:"14"},
-    {texte:"Vérifier tous les horaires et adresses exacts",delai:"7"},
-    {texte:"Préparer les enveloppes de règlement pour chaque prestataire",delai:"5"}
-  ]},
-  {cat:"9. Beauté & préparation personnelle",items:[
-    {texte:"Mettre en place une routine soin : hydratation, protection solaire, sommeil",delai:"180"},
-    {texte:"Planifier les rendez-vous beauté dans les semaines précédant le mariage",delai:"60"},
-    {texte:"Réserver manucure et pédicure — couleur en accord avec la robe",delai:"21"},
-    {texte:"Prévoir un test autobronzant si souhaité — au moins 2 semaines avant",delai:"21"},
-    {texte:"Planifier un moment de détente la veille : spa, massage, bain",delai:"1"},
-    {texte:"Apprendre à marcher avec vos chaussures — portez-les à la maison",delai:"30"}
-  ]},
-  {cat:"10. Logistique personnelle",items:[
-    {texte:"Préparer la valise du voyage de noces",delai:"7"},
-    {texte:"Préparer la valise ou le sac du lendemain",delai:"5"},
-    {texte:"Prévoir une tenue de rechange pour la soirée si souhaité",delai:"60"},
-    {texte:"Préparer une trousse de secours : épingles, aiguille-fil, Biafine, pansements, anti-taches",delai:"7"},
-    {texte:"Récupérer la robe chez Joséphine Bono",delai:"3"},
-    {texte:"Récupérer les alliances chez le joaillier",delai:"3"},
-    {texte:"Ranger tous les accessoires, documents et enveloppes prestataires ensemble",delai:"2"}
-  ]},
-  {cat:"11. Derniers détails",items:[
-    {texte:"Finaliser le nombre d'invités et confirmer au traiteur",delai:"21"},
-    {texte:"Préparer et répéter les discours",delai:"14"},
-    {texte:"Finaliser les playlists avec le DJ",delai:"14"},
-    {texte:"Vérifier que tous les paiements prestataires sont à jour",delai:"7"},
-    {texte:"Imprimer les plans de table et marque-places",delai:"5"},
-    {texte:"Charger tous les appareils photo et téléphones",delai:"1"}
-  ]},
-  {cat:"12. Veille & jour J",items:[
-    {texte:"Préparer tous les éléments nécessaires la veille",delai:"1"},
-    {texte:"Vérifier les accessoires : voile, bijoux, chaussures, jarretière",delai:"1"},
-    {texte:"Se coucher tôt — le repos est le meilleur soin beauté",delai:"1"},
-    {texte:"Manger correctement le matin du mariage",delai:"0"},
-    {texte:"Lâcher prise — tout est prêt, faites confiance à vos prestataires",delai:"0"},
-    {texte:"Profiter pleinement de chaque instant de cette journée unique",delai:"0"}
-  ]}
-]
-/* ---- EVENT LISTENERS (tout centralize ici) ---- */
-document.addEventListener('DOMContentLoaded', function() {
-
-  // Dates par defaut
-  var today = new Date().toISOString().split('T')[0];
-  ['bo-e-date','bo-j-date','bo-doc-date','bo-p-date'].forEach(function(id) {
-    var el = document.getElementById(id); if (el) el.value = today;
-  });
-
-  // Login buttons
-  document.getElementById('btn-client-login').addEventListener('click', loginClient);
-  document.getElementById('btn-admin-login').addEventListener('click', function() { loginAdmin(null); });
-  document.getElementById('btn-show-admin').addEventListener('click', showAdminView);
-  document.getElementById('btn-show-client').addEventListener('click', showClientView);
-
-  // Enter key on inputs
-  document.getElementById('inp-code').addEventListener('keydown', function(e) { if (e.key === 'Enter') loginClient(); });
-  document.getElementById('inp-pwd').addEventListener('keydown', function(e) { if (e.key === 'Enter') loginAdmin(null); });
-
-  // Client navigation
-  document.querySelectorAll('#cl-nav .nav-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() { clNav(btn.getAttribute('data-sec'), btn); });
-  });
-
-  // Admin navigation
-  document.querySelectorAll('.bo-tab').forEach(function(btn) {
-    btn.addEventListener('click', function() { boNav(btn.getAttribute('data-bosec'), btn); });
-  });
-
-  // Admin save buttons
-  document.getElementById('btn-save-infos').addEventListener('click', saveInfos);
-  document.getElementById('btn-save-mes').addEventListener('click', saveMesures);
-  document.getElementById('btn-save-essa').addEventListener('click', saveEssayage);
-  document.getElementById('btn-save-jrn').addEventListener('click', saveJournal);
-  document.getElementById('btn-save-pay').addEventListener('click', savePaiements);
-  document.getElementById('btn-add-plan').addEventListener('click', addPlanStep);
-  document.getElementById('btn-add-pay').addEventListener('click', addPayLine);
-  document.getElementById('btn-add-doc').addEventListener('click', addDoc);
-
-  // Photo previews
-  document.getElementById('bo-e-photos').addEventListener('change', function() { previewPhotos('bo-e-photos', 'bo-e-preview'); });
-  document.getElementById('bo-j-photos').addEventListener('change', function() { previewPhotos('bo-j-photos', 'bo-j-preview'); });
-
+/* ---- EVENT LISTENERS ---- */
+document.addEventListener('DOMContentLoaded',function(){
+  var today=new Date().toISOString().split('T')[0];
+  ['bo-e-date','bo-j-date','bo-doc-date','bo-p-date'].forEach(function(id){var el=document.getElementById(id);if(el)el.value=today;});
+  document.getElementById('btn-client-login').addEventListener('click',loginClient);
+  document.getElementById('btn-admin-login').addEventListener('click',function(){loginAdmin(null);});
+  document.getElementById('btn-show-admin').addEventListener('click',showAdminView);
+  document.getElementById('btn-show-client').addEventListener('click',showClientView);
+  document.getElementById('inp-code').addEventListener('keydown',function(e){if(e.key==='Enter')loginClient();});
+  document.getElementById('inp-pwd').addEventListener('keydown',function(e){if(e.key==='Enter')loginAdmin(null);});
+  document.querySelectorAll('#cl-nav .nav-btn').forEach(function(btn){btn.addEventListener('click',function(){clNav(btn.getAttribute('data-sec'),btn);});});
+  document.querySelectorAll('.bo-tab').forEach(function(btn){btn.addEventListener('click',function(){boNav(btn.getAttribute('data-bosec'),btn);});});
+  document.getElementById('btn-save-infos').addEventListener('click',saveInfos);
+  document.getElementById('btn-save-mes').addEventListener('click',saveMesures);
+  document.getElementById('btn-save-essa').addEventListener('click',saveEssayage);
+  document.getElementById('btn-save-jrn').addEventListener('click',saveJournal);
+  document.getElementById('btn-save-pay').addEventListener('click',savePaiements);
+  document.getElementById('btn-add-plan').addEventListener('click',addPlanStep);
+  document.getElementById('btn-add-pay').addEventListener('click',addPayLine);
+  document.getElementById('btn-add-doc').addEventListener('click',addDoc);
+  document.getElementById('bo-e-photos').addEventListener('change',function(){previewPhotos('bo-e-photos','bo-e-preview');});
+  document.getElementById('bo-j-photos').addEventListener('change',function(){previewPhotos('bo-j-photos','bo-j-preview');});
   // Lightbox
-  document.getElementById('lb-close').addEventListener('click', closeLb);
-  document.getElementById('lb').addEventListener('click', function(e) { if (e.target === this) closeLb(); });
-
-  // Event delegation for dynamic elements
-  document.addEventListener('click', function(e) {
-    // Checklist
-    var chk = e.target.closest('input[data-idx]');
-    if (chk) { toggleCheck(parseInt(chk.getAttribute('data-idx'))); return; }
-
-    // Image lightbox
-    var img = e.target.closest('[data-url]');
-    if (img) { openLb(img.getAttribute('data-url')); return; }
-
-    // Delete planning step
-    var delPlanEl = e.target.closest('[data-del-plan]');
-    if (delPlanEl) { delPlanStep(parseInt(delPlanEl.getAttribute('data-del-plan'))); return; }
-
-    // Save planning
-    if (e.target && e.target.id === 'btn-save-plan') { savePlanning(); return; }
-
-    // Delete essayage
-    var delEssaEl = e.target.closest('[data-del-essa]');
-    if (delEssaEl) { delEssayage(parseInt(delEssaEl.getAttribute('data-del-essa'))); return; }
-
-    // Delete journal
-    var delJrnEl = e.target.closest('[data-del-jrn]');
-    if (delJrnEl) { delJournal(parseInt(delJrnEl.getAttribute('data-del-jrn'))); return; }
-
-    // Delete pay line
-    var delPayEl = e.target.closest('[data-del-pay]');
-    if (delPayEl) { delPayLine(parseInt(delPayEl.getAttribute('data-del-pay'))); return; }
-
-    // Delete facture line
-    var delFacEl = e.target.closest('[data-del-fac]');
-    if (delFacEl) { delFacLine(parseInt(delFacEl.getAttribute('data-del-fac'))); return; }
-
-    // Delete doc
-    var delDocEl = e.target.closest('[data-del-doc]');
-    if (delDocEl) { delDoc(parseInt(delDocEl.getAttribute('data-del-doc'))); return; }
+  document.getElementById('lb-close').addEventListener('click',closeLb);
+  document.getElementById('lb-prev').addEventListener('click',lbPrev);
+  document.getElementById('lb-next').addEventListener('click',lbNext);
+  document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLb();});
+  // Keyboard navigation
+  document.addEventListener('keydown',function(e){
+    var lb=document.getElementById('lb');
+    if(!lb||!lb.classList.contains('open'))return;
+    if(e.key==='ArrowLeft')lbPrev();
+    else if(e.key==='ArrowRight')lbNext();
+    else if(e.key==='Escape')closeLb();
   });
-
-  // Auto-login from URL params
-  var params = new URLSearchParams(window.location.search);
-  var code = params.get('code');
-  var bo = params.get('bo');
-
-  if (bo && code) {
-    // Auto-login back-office depuis le logiciel
-    loginAdmin(bo);
-  } else if (code) {
-    document.getElementById('inp-code').value = code.toUpperCase();
-    loginClient();
-  }
+  // Event delegation
+  document.addEventListener('click',function(e){
+    var chk=e.target.closest('input[data-idx]');if(chk){toggleCheck(parseInt(chk.getAttribute('data-idx')));return;}
+    // Essayage photos — collect all from that section
+    var essaImg=e.target.closest('[data-essa-url]');
+    if(essaImg){
+      var allPhotos=getAllEssayagePhotos().map(function(p){return p.url;});
+      var url=essaImg.getAttribute('data-essa-url');
+      var caption=getAllEssayagePhotos().find(function(p){return p.url===url;});
+      openLb(url,allPhotos,caption?caption.caption:'');return;
+    }
+    // Journal photos — collect all from that section
+    var jrnImg=e.target.closest('[data-jrn-url]');
+    if(jrnImg){
+      var allJrnPhotos=getAllJournalPhotos().map(function(p){return p.url;});
+      var jrnUrl=jrnImg.getAttribute('data-jrn-url');
+      var jrnCaption=getAllJournalPhotos().find(function(p){return p.url===jrnUrl;});
+      openLb(jrnUrl,allJrnPhotos,jrnCaption?jrnCaption.caption:'');return;
+    }
+    // Admin lightbox
+    var img=e.target.closest('[data-url]');if(img){openLb(img.getAttribute('data-url'),[img.getAttribute('data-url')],'');return;}
+    var delPlanEl=e.target.closest('[data-del-plan]');if(delPlanEl){delPlanStep(parseInt(delPlanEl.getAttribute('data-del-plan')));return;}
+    if(e.target&&e.target.id==='btn-save-plan'){savePlanning();return;}
+    var delEssaEl=e.target.closest('[data-del-essa]');if(delEssaEl){delEssayage(parseInt(delEssaEl.getAttribute('data-del-essa')));return;}
+    var delJrnEl=e.target.closest('[data-del-jrn]');if(delJrnEl){delJournal(parseInt(delJrnEl.getAttribute('data-del-jrn')));return;}
+    var delPayEl=e.target.closest('[data-del-pay]');if(delPayEl){delPayLine(parseInt(delPayEl.getAttribute('data-del-pay')));return;}
+    var delDocEl=e.target.closest('[data-del-doc]');if(delDocEl){delDoc(parseInt(delDocEl.getAttribute('data-del-doc')));return;}
+  });
+  // Auto-login from URL
+  var params=new URLSearchParams(window.location.search);
+  var code=params.get('code');var bo=params.get('bo');
+  if(bo&&code){loginAdmin(bo);}else if(code){document.getElementById('inp-code').value=code.toUpperCase();loginClient();}
 });
 </script>
 </body>
