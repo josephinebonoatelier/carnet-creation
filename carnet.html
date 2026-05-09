@@ -373,8 +373,14 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
   </div>
   <div class="bo-sec" id="bo-sec-paiements">
     <div class="sl">Suivi des paiements</div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="card-title">Devis associes</div>
+      <div id="bo-devis-selector" style="margin-bottom:12px">
+        <p class="mu italic" style="font-size:12px">Chargement des devis...</p>
+      </div>
+    </div>
     <div class="card">
-      <div class="card-title">Echeancier</div>
+      <div class="card-title">Echeancier du devis selectionne</div>
       <div id="bo-pay-rows"><p class="mu italic" style="font-size:12px">Aucun echeancier.</p></div>
       <div style="margin-top:14px;border-top:.5px solid var(--br);padding-top:14px">
         <div class="card-title" style="margin-bottom:10px">Ajouter une ligne</div>
@@ -607,7 +613,7 @@ function renderClient(){
   if(datesEl){var pills='';if(c.date_mariage)pills+='<span class="hero-date-pill"><strong>Mariage</strong> &mdash; '+fd(c.date_mariage)+'</span>';if(c.date_livraison)pills+='<span class="hero-date-pill"><strong>Livraison</strong> &mdash; '+fd(c.date_livraison)+'</span>';datesEl.innerHTML=pills;}
   var waLink='https://wa.me/33698942000';
   document.querySelectorAll('#cl-wa-btn').forEach(function(el){el.href=waLink;});
-  renderPlanning();renderMesures();renderEssayages();renderJournal();renderChecklist();renderPaiements();renderDocs();
+  renderPlanning();renderMesures();renderEssayages();renderJournal();renderChecklist();loadAllClientDevis().then(renderPaiements);renderDocs();
 }
 
 function renderPlanning(){
@@ -737,25 +743,84 @@ function toggleCheck(idx){
   sp('jb_carnets','id=eq.'+CARNET.id,{checklist:CARNET.checklist}).catch(function(){});
 }
 
+var ALL_CLIENT_DEVIS = [];
+
+async function loadAllClientDevis() {
+  if (!CARNET) return;
+  var nom = CARNET.bride_nom || '';
+  if (!nom) return;
+  try {
+    var data = await sg('jb_devis', 'client_nom=eq.' + encodeURIComponent(nom) + '&order=created_at.asc');
+    ALL_CLIENT_DEVIS = (data || []).filter(function(d){ return d.calendrier_paiements && d.calendrier_paiements.length; });
+  } catch(e) { ALL_CLIENT_DEVIS = []; }
+}
+
+function renderBoPaiementsSelector() {
+  var c = document.getElementById('bo-devis-selector');
+  if (!c) return;
+  if (!ALL_CLIENT_DEVIS.length) {
+    c.innerHTML = '<p class="mu italic" style="font-size:12px">Aucun devis avec echeancier trouve.</p>';
+    return;
+  }
+  var html = '<div style="display:flex;flex-direction:column;gap:8px">';
+  ALL_CLIENT_DEVIS.forEach(function(d, i) {
+    var total = (d.calendrier_paiements||[]).reduce(function(s,p){return s+(p.montant||0);},0);
+    var regle = (d.calendrier_paiements||[]).filter(function(p){return p.statut==='regle';}).reduce(function(s,p){return s+(p.montant||0);},0);
+    html += '<div data-did="'+d.id+'" id="bo-devis-btn-'+d.id+'" class="bo-devis-card" style="padding:10px 14px;border:.5px solid rgba(196,166,106,.3);cursor:pointer;background:var(--cr);transition:background .15s">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center">'
+      + '<div><div style="font-size:12px;color:var(--tx);font-weight:500">'+(d.numero||'Devis '+( i+1))+'</div>'
+      + '<div style="font-size:10px;color:var(--mu);margin-top:2px">'+(d.statut||'')+'</div></div>'
+      + '<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:16px;color:var(--tx)">'+fmt(total)+'</div>'
+      + '<div style="font-size:10px;color:#2E6E35">'+fmt(regle)+' regle</div></div>'
+      + '</div></div>';
+  });
+  html += '</div>';
+  c.innerHTML = html;
+  if (ALL_CLIENT_DEVIS.length > 0) selectBoDevis(ALL_CLIENT_DEVIS[0].id);
+}
+
+var SELECTED_BO_DEVIS_ID = null;
+function selectBoDevis(id) {
+  SELECTED_BO_DEVIS_ID = id;
+  document.querySelectorAll('[id^="bo-devis-btn-"]').forEach(function(el){
+    el.style.background = el.id === 'bo-devis-btn-'+id ? 'var(--iv)' : 'var(--cr)';
+    el.style.borderColor = el.id === 'bo-devis-btn-'+id ? 'var(--go)' : 'rgba(196,166,106,.3)';
+  });
+  renderBoPayRows();
+}
+
 function renderPaiements(){
   var c=document.getElementById('cl-pay-rows');if(!c)return;c.innerHTML='';
   var hasContent=false;
-  var cal=(CARNET&&CARNET.calendrier_paiements)||(DEVIS&&DEVIS.calendrier_paiements)||[];
-  if(cal.length){
-    c.innerHTML+='<div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--go);padding:8px 0 6px;border-bottom:.5px solid var(--br);margin-bottom:8px">Echeancier de paiement</div>';
+  // Show all devis echéanciers
+  var devisList = ALL_CLIENT_DEVIS.length ? ALL_CLIENT_DEVIS : (DEVIS ? [DEVIS] : []);
+  if (!devisList.length) {
+    var cal=(CARNET&&CARNET.calendrier_paiements)||[];
+    if (cal.length) devisList = [{id:'carnet', numero:'Echeancier', calendrier_paiements:cal, montant_total:0}];
+  }
+  devisList.forEach(function(d) {
+    var cal = d.calendrier_paiements || [];
+    if (!cal.length) return;
+    hasContent = true;
+    var total = cal.reduce(function(s,p){return s+(p.montant||0);},0);
+    var regle = cal.filter(function(p){return p.statut==='regle';}).reduce(function(s,p){return s+(p.montant||0);},0);
+    var header = document.createElement('div');
+    header.style.cssText='display:flex;justify-content:space-between;align-items:baseline;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--go);padding:8px 0 6px;border-bottom:.5px solid var(--br);margin-bottom:8px;margin-top:16px';
+    header.innerHTML='<span>'+(d.numero||'Echeancier')+'</span><span style="font-family:Cormorant Garamond,serif;font-size:13px;color:var(--tx)">'+fmt(regle)+' / '+fmt(total)+'</span>';
+    c.appendChild(header);
     cal.forEach(function(p,idx){
-      var st=p.statut||'a_venir';var regle=st==='regle';
+      var st=p.statut||'a_venir';var regle_item=st==='regle';
       var row=document.createElement('div');row.className='pay-row';row.style.gridTemplateColumns='1.5fr 1fr 1fr 1fr';
       var l1=document.createElement('span');l1.style.cssText='font-size:12px;color:var(--mu)';l1.textContent=p.type||p.label||'';
       var l2=document.createElement('span');l2.style.cssText='font-size:12px';l2.textContent=p.echeance||'';
       var l3=document.createElement('span');l3.className='pay-amount';l3.textContent=fmt(p.montant||0);
       var btn=document.createElement('button');
-      btn.style.cssText='border:none;cursor:pointer;font-size:10px;padding:5px 12px;font-family:Jost,sans-serif;'+(regle?'background:rgba(60,130,70,.1);color:var(--go)':'background:rgba(196,166,106,.12);color:#8C6A2F');
-      btn.textContent=regle?'Regle':'A regler';
-      btn.addEventListener('click',(function(i){return function(){togglePaiement(i);};})(idx));
-      row.appendChild(l1);row.appendChild(l2);row.appendChild(l3);row.appendChild(btn);c.appendChild(row);hasContent=true;
+      btn.style.cssText='border:none;cursor:pointer;font-size:10px;padding:5px 12px;font-family:Jost,sans-serif;'+(regle_item?'background:rgba(60,130,70,.1);color:var(--go)':'background:rgba(196,166,106,.12);color:#8C6A2F');
+      btn.textContent=regle_item?'Regle':'A regler';
+      btn.addEventListener('click',(function(devisId,i){return function(){togglePaiementDevis(devisId,i);};})(d.id,idx));
+      row.appendChild(l1);row.appendChild(l2);row.appendChild(l3);row.appendChild(btn);c.appendChild(row);
     });
-  }
+  });
   if(!hasContent)c.innerHTML='<p class="mu italic" style="padding:16px 0">Informations non disponibles.</p>';
   var methodsEl=document.getElementById('cl-pay-methods');
   if(methodsEl){
@@ -793,7 +858,12 @@ function renderAdmin(){
   try{renderBoMesures();}catch(e){console.error("renderBoMesures:",e);}
   try{renderBoEssayages();}catch(e){console.error("renderBoEssayages:",e);}
   try{renderBoJournal();}catch(e){console.error("renderBoJournal:",e);}
-  try{renderBoPaiements();}catch(e){console.error("renderBoPaiements:",e);}
+  try{
+  loadAllClientDevis().then(function(){
+    renderBoPaiements();
+    renderBoPaiementsSelector();
+  });
+}catch(e){console.error("renderBoPaiements:",e);}
   try{renderBoDocs();}catch(e){console.error("renderBoDocs:",e);}
 }
 
@@ -1000,7 +1070,22 @@ async function saveJournal(){
 async function togglePaiement(idx){
   var cal=(CARNET&&CARNET.calendrier_paiements)||[];if(!cal[idx])return;
   var prev=cal[idx].statut||'a_venir';cal[idx].statut=(prev==='regle')?'a_venir':'regle';
-  try{await sp('jb_carnets','id=eq.'+CARNET.id,{calendrier_paiements:cal});CARNET.calendrier_paiements=cal;renderPaiements();toast(cal[idx].statut==='regle'?'Regle':'A regler');}catch(e){toast('Erreur');}
+  try{await sp('jb_carnets','id=eq.'+CARNET.id,{calendrier_paiements:cal});CARNET.calendrier_paiements=cal;renderPaiements();}catch(e){toast('Erreur');}
+}
+
+async function togglePaiementDevis(devisId, idx) {
+  var d = ALL_CLIENT_DEVIS.find(function(x){return x.id===devisId;});
+  if (!d || !d.calendrier_paiements || !d.calendrier_paiements[idx]) return;
+  var prev = d.calendrier_paiements[idx].statut||'a_venir';
+  d.calendrier_paiements[idx].statut = (prev==='regle') ? 'a_venir' : 'regle';
+  try {
+    // Update the devis in Supabase
+    var url = SU+'/rest/v1/jb_devis?id=eq.'+devisId;
+    var resp = await fetch(url,{method:'PATCH',headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=representation'},body:JSON.stringify({calendrier_paiements:d.calendrier_paiements})});
+    if (!resp.ok) throw new Error('save failed');
+    renderPaiements();
+    toast(d.calendrier_paiements[idx].statut==='regle'?'Regle':'A regler');
+  } catch(e) { toast('Erreur'); }
 }
 
 async function delJournal(i){
@@ -1012,7 +1097,8 @@ function renderBoPaiements(){renderBoPayRows();}
 
 function renderBoPayRows(){
   var c=document.getElementById('bo-pay-rows');if(!c)return;
-  var cal=(CARNET&&CARNET.calendrier_paiements)||(DEVIS&&DEVIS.calendrier_paiements)||[];
+  var selectedDevis = SELECTED_BO_DEVIS_ID ? ALL_CLIENT_DEVIS.find(function(d){return d.id===SELECTED_BO_DEVIS_ID;}) : null;
+  var cal = selectedDevis ? (selectedDevis.calendrier_paiements||[]) : (CARNET&&CARNET.calendrier_paiements)||(DEVIS&&DEVIS.calendrier_paiements)||[];
   if(!cal.length){c.innerHTML='<p class="mu italic" style="font-size:12px">Aucun echeancier.</p>';return;}
   c.innerHTML='';
   cal.forEach(function(p,i){
@@ -1100,6 +1186,10 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('btn-add-plan').addEventListener('click',addPlanStep);
   document.getElementById('btn-add-pay').addEventListener('click',addPayLine);
   document.getElementById('btn-add-doc').addEventListener('click',addDoc);
+  document.addEventListener('click',function(e){
+    var card = e.target.closest('.bo-devis-card');
+    if (card && card.getAttribute('data-did')) { selectBoDevis(card.getAttribute('data-did')); }
+  });
   document.getElementById('bo-e-photos').addEventListener('change',function(){previewPhotos('bo-e-photos','bo-e-preview');});
   document.getElementById('bo-j-photos').addEventListener('change',function(){previewPhotos('bo-j-photos','bo-j-preview');});
   // Lightbox
