@@ -710,11 +710,11 @@ function renderJournal(){
 
 function renderChecklist(){
   var c=document.getElementById('cl-checklist');if(!c)return;
-  var cl=(CARNET&&CARNET.checklist);
-  if(!cl||!cl.length){
-    var flat=[];DC.forEach(function(cat){cat.items.forEach(function(item){flat.push({cat:cat.cat,texte:item.texte,delai:item.delai||'',fait:false});});});
-    CARNET.checklist=flat;sp('jb_carnets','id=eq.'+CARNET.id,{checklist:flat}).catch(function(){});cl=flat;
-  }
+  var saved=(CARNET&&CARNET.checklist)||[];
+  var doneMap={};saved.forEach(function(i){if(i.fait)doneMap[i.texte]=true;});
+  var cl=[];
+  DC.forEach(function(cat){cat.items.forEach(function(item){cl.push({cat:cat.cat,texte:item.texte,delai:item.delai||'',fait:!!doneMap[item.texte]});});});
+  if(cl.length!==saved.length){CARNET.checklist=cl;sp('jb_carnets','id=eq.'+CARNET.id,{checklist:cl}).catch(function(){});}else{CARNET.checklist=cl;}
   var today=new Date();today.setHours(0,0,0,0);
   var mar=CARNET.date_mariage?new Date(CARNET.date_mariage):null;
   var bycat={};cl.forEach(function(item){if(!bycat[item.cat])bycat[item.cat]=[];bycat[item.cat].push(item);});
@@ -747,19 +747,40 @@ var ALL_CLIENT_DEVIS = [];
 
 async function loadAllClientDevis() {
   if (!CARNET) return;
+  ALL_CLIENT_DEVIS = [];
+  // Try by devis_id first (most reliable)
+  if (CARNET.devis_id) {
+    try {
+      var d = await sg('jb_devis', 'id=eq.' + CARNET.devis_id);
+      if (d && d[0] && d[0].calendrier_paiements && d[0].calendrier_paiements.length) {
+        ALL_CLIENT_DEVIS = [d[0]];
+      }
+    } catch(e) {}
+  }
+  // Also search by client name for additional devis
   var nom = CARNET.bride_nom || '';
-  if (!nom) return;
-  try {
-    var data = await sg('jb_devis', 'client_nom=eq.' + encodeURIComponent(nom) + '&order=created_at.asc');
-    ALL_CLIENT_DEVIS = (data || []).filter(function(d){ return d.calendrier_paiements && d.calendrier_paiements.length; });
-  } catch(e) { ALL_CLIENT_DEVIS = []; }
+  if (nom) {
+    try {
+      var data = await sg('jb_devis', 'client_nom=eq.' + encodeURIComponent(nom) + '&order=created_at.asc');
+      (data || []).forEach(function(d) {
+        if (!d.calendrier_paiements || !d.calendrier_paiements.length) return;
+        if (!ALL_CLIENT_DEVIS.find(function(x){return x.id===d.id;})) {
+          ALL_CLIENT_DEVIS.push(d);
+        }
+      });
+    } catch(e) {}
+  }
+  // Fallback: use DEVIS loaded at login
+  if (!ALL_CLIENT_DEVIS.length && DEVIS && DEVIS.calendrier_paiements && DEVIS.calendrier_paiements.length) {
+    ALL_CLIENT_DEVIS = [DEVIS];
+  }
 }
 
 function renderBoPaiementsSelector() {
   var c = document.getElementById('bo-devis-selector');
   if (!c) return;
   if (!ALL_CLIENT_DEVIS.length) {
-    c.innerHTML = '<p class="mu italic" style="font-size:12px">Aucun devis avec echeancier trouve.</p>';
+    c.innerHTML = '<p class="mu italic" style="font-size:12px">Aucun devis avec echeancier trouve. Verifiez que le devis est bien lie a ce carnet.</p>';
     return;
   }
   var html = '<div style="display:flex;flex-direction:column;gap:8px">';
