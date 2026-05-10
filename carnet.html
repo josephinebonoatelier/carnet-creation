@@ -275,6 +275,7 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
       <div class="bo-header-sub" id="bo-code-label"></div>
     </div>
     <div style="display:flex;gap:8px">
+      <a href="https://josephinebono.com/pages/atelier-devis" style="font-family:Jost,sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;background:rgba(196,166,106,.2);color:var(--gl);text-decoration:none;display:inline-flex;align-items:center">&#8592; Logiciel</a>
       <button class="btn-gold" onclick="clSwitch()" style="font-size:9px;padding:8px 14px;letter-spacing:.14em">Vue cliente</button>
       <button class="btn-outline" onclick="boLogout()" style="font-size:9px;padding:8px 14px;letter-spacing:.14em;color:var(--gl);border-color:rgba(255,255,255,.2)">Deconnexion</button>
     </div>
@@ -373,14 +374,8 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
   </div>
   <div class="bo-sec" id="bo-sec-paiements">
     <div class="sl">Suivi des paiements</div>
-    <div class="card" style="margin-bottom:12px">
-      <div class="card-title">Devis associes</div>
-      <div id="bo-devis-selector" style="margin-bottom:12px">
-        <p class="mu italic" style="font-size:12px">Chargement des devis...</p>
-      </div>
-    </div>
     <div class="card">
-      <div class="card-title">Echeancier du devis selectionne</div>
+      <div class="card-title">Echeancier</div>
       <div id="bo-pay-rows"><p class="mu italic" style="font-size:12px">Aucun echeancier.</p></div>
       <div style="margin-top:14px;border-top:.5px solid var(--br);padding-top:14px">
         <div class="card-title" style="margin-bottom:10px">Ajouter une ligne</div>
@@ -776,39 +771,7 @@ async function loadAllClientDevis() {
   }
 }
 
-function renderBoPaiementsSelector() {
-  var c = document.getElementById('bo-devis-selector');
-  if (!c) return;
-  if (!ALL_CLIENT_DEVIS.length) {
-    c.innerHTML = '<p class="mu italic" style="font-size:12px">Aucun devis avec echeancier trouve. Verifiez que le devis est bien lie a ce carnet.</p>';
-    return;
-  }
-  var html = '<div style="display:flex;flex-direction:column;gap:8px">';
-  ALL_CLIENT_DEVIS.forEach(function(d, i) {
-    var total = (d.calendrier_paiements||[]).reduce(function(s,p){return s+(p.montant||0);},0);
-    var regle = (d.calendrier_paiements||[]).filter(function(p){return p.statut==='regle';}).reduce(function(s,p){return s+(p.montant||0);},0);
-    html += '<div data-did="'+d.id+'" id="bo-devis-btn-'+d.id+'" class="bo-devis-card" style="padding:10px 14px;border:.5px solid rgba(196,166,106,.3);cursor:pointer;background:var(--cr);transition:background .15s">'
-      + '<div style="display:flex;justify-content:space-between;align-items:center">'
-      + '<div><div style="font-size:12px;color:var(--tx);font-weight:500">'+(d.numero||'Devis '+( i+1))+'</div>'
-      + '<div style="font-size:10px;color:var(--mu);margin-top:2px">'+(d.statut||'')+'</div></div>'
-      + '<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:16px;color:var(--tx)">'+fmt(total)+'</div>'
-      + '<div style="font-size:10px;color:#2E6E35">'+fmt(regle)+' regle</div></div>'
-      + '</div></div>';
-  });
-  html += '</div>';
-  c.innerHTML = html;
-  if (ALL_CLIENT_DEVIS.length > 0) selectBoDevis(ALL_CLIENT_DEVIS[0].id);
-}
 
-var SELECTED_BO_DEVIS_ID = null;
-function selectBoDevis(id) {
-  SELECTED_BO_DEVIS_ID = id;
-  document.querySelectorAll('[id^="bo-devis-btn-"]').forEach(function(el){
-    el.style.background = el.id === 'bo-devis-btn-'+id ? 'var(--iv)' : 'var(--cr)';
-    el.style.borderColor = el.id === 'bo-devis-btn-'+id ? 'var(--go)' : 'rgba(196,166,106,.3)';
-  });
-  renderBoPayRows();
-}
 
 function renderPaiements(){
   var c=document.getElementById('cl-pay-rows');if(!c)return;c.innerHTML='';
@@ -882,7 +845,6 @@ function renderAdmin(){
   try{
   loadAllClientDevis().then(function(){
     renderBoPaiements();
-    renderBoPaiementsSelector();
   });
 }catch(e){console.error("renderBoPaiements:",e);}
   try{renderBoDocs();}catch(e){console.error("renderBoDocs:",e);}
@@ -1118,8 +1080,7 @@ function renderBoPaiements(){renderBoPayRows();}
 
 function renderBoPayRows(){
   var c=document.getElementById('bo-pay-rows');if(!c)return;
-  var selectedDevis = SELECTED_BO_DEVIS_ID ? ALL_CLIENT_DEVIS.find(function(d){return d.id===SELECTED_BO_DEVIS_ID;}) : null;
-  var cal = selectedDevis ? (selectedDevis.calendrier_paiements||[]) : (CARNET&&CARNET.calendrier_paiements)||(DEVIS&&DEVIS.calendrier_paiements)||[];
+  var cal=(CARNET&&CARNET.calendrier_paiements)||(DEVIS&&DEVIS.calendrier_paiements)||[];
   if(!cal.length){c.innerHTML='<p class="mu italic" style="font-size:12px">Aucun echeancier.</p>';return;}
   c.innerHTML='';
   cal.forEach(function(p,i){
