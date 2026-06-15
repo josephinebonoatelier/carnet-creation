@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bon de mission — Devis auto-entrepreneur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --encre:#22262F;
+    --papier:#F3F1E9;
+    --carte:#FBFAF5;
+    --craie:#E4E8E3;
+    --fil:#A6443B;
+    --laiton:#B0894F;
+    --ardoise:#6A6E77;
+    --ligne:rgba(34,38,47,.13);
+    --ligne-forte:rgba(34,38,47,.28);
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --sans:'Archivo',system-ui,-apple-system,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--papier);
+    color:var(--encre);
+    font-family:var(--sans);
+    line-height:1.5;
+    font-size:16px;
+    padding:28px 18px 80px;
+    background-image:
+      linear-gradient(var(--ligne) 1px,transparent 1px),
+      linear-gradient(90deg,var(--ligne) 1px,transparent 1px);
+    background-size:26px 26px;
+    background-position:-1px -1px;
+  }
+  .sheet{max-width:740px;margin:0 auto}
+
+  /* En-tête */
+  header{
+    background:var(--carte);
+    border:1px solid var(--ligne-forte);
+    padding:30px 28px 26px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--fil);
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:16px;
+  }
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--ligne)}
+  h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(30px,7vw,46px);
+    line-height:1.02;
+    letter-spacing:-.01em;
+  }
+  h1 em{font-style:italic;color:var(--fil)}
+  .lede{
+    margin-top:14px;max-width:54ch;
+    color:var(--ardoise);font-size:15px;
+  }
+
+  /* Sections */
+  section{
+    background:var(--carte);
+    border:1px solid var(--ligne-forte);
+    border-top:none;
+    padding:24px 28px 26px;
+  }
+  .sec-head{
+    display:flex;align-items:baseline;gap:12px;
+    margin-bottom:18px;
+  }
+  .sec-num{
+    font-family:var(--mono);font-size:12px;color:var(--laiton);
+    font-weight:500;
+  }
+  .sec-title{
+    font-family:var(--serif);font-size:21px;font-weight:500;
+  }
+  .sec-note{font-size:13px;color:var(--ardoise);margin-top:-10px;margin-bottom:18px;max-width:58ch}
+
+  /* Champs */
+  .field{margin-bottom:16px}
+  .field:last-child{margin-bottom:0}
+  label{
+    display:block;font-size:13px;font-weight:500;
+    margin-bottom:6px;color:var(--encre);
+  }
+  .hint{font-weight:400;color:var(--ardoise);font-size:12px}
+  input,select{
+    width:100%;
+    font-family:var(--mono);
+    font-size:15px;
+    padding:11px 12px;
+    border:1px solid var(--ligne-forte);
+    background:#fff;
+    color:var(--encre);
+    border-radius:0;
+    -webkit-appearance:none;appearance:none;
+  }
+  select{font-family:var(--sans);cursor:pointer;
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2322262F' stroke-width='1.4' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;
+  }
+  input:focus,select:focus{outline:2px solid var(--laiton);outline-offset:1px;border-color:var(--laiton)}
+
+  /* Ligne quantité × unité = total */
+  .line{
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:12px;align-items:end;
+    padding:14px 0;
+    border-top:1px solid var(--ligne);
+  }
+  .line:first-of-type{border-top:none}
+  .line .lt{
+    font-family:var(--mono);font-size:15px;font-weight:500;
+    text-align:right;min-width:96px;padding-bottom:11px;white-space:nowrap;
+  }
+  .line-label{
+    grid-column:1/-1;font-weight:600;font-size:14px;margin-bottom:2px;
+    display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  }
+  .line-label .sub{font-weight:400;color:var(--ardoise);font-size:12px}
+
+  /* Segmented (base salaire) */
+  .seg{display:flex;border:1px solid var(--ligne-forte);margin-bottom:16px}
+  .seg button{
+    flex:1;border:none;background:#fff;cursor:pointer;
+    font-family:var(--sans);font-size:13px;font-weight:500;
+    padding:10px 6px;color:var(--ardoise);border-left:1px solid var(--ligne);
+  }
+  .seg button:first-child{border-left:none}
+  .seg button[aria-pressed="true"]{background:var(--encre);color:var(--papier)}
+
+  /* Checkbox row */
+  .check{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--ligne)}
+  .check:first-of-type{border-top:none}
+  .check input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:var(--fil)}
+  .check .ctext{font-size:13.5px}
+  .check .ctext b{font-weight:600}
+  .check .ctext small{display:block;color:var(--ardoise);font-size:12px;margin-top:1px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.grid2{grid-template-columns:1fr}}
+
+  /* Résultat */
+  .result{
+    background:var(--encre);
+    color:var(--papier);
+    border:1px solid var(--encre);
+    padding:30px 28px 32px;
+  }
+  .result .eyebrow{color:var(--laiton)}
+  .result .eyebrow::after{background:rgba(243,241,233,.18)}
+  .big{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(44px,13vw,76px);line-height:.95;
+    color:var(--laiton);letter-spacing:-.02em;margin:6px 0 4px;
+  }
+  .big-sub{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(243,241,233,.6)}
+
+  /* Mètre ruban */
+  .tape{margin:26px 0 8px}
+  .tape-ticks{height:11px;position:relative;
+    background-image:repeating-linear-gradient(90deg,rgba(243,241,233,.45) 0 1px,transparent 1px 10%);
+    border-bottom:1px solid rgba(243,241,233,.3);
+  }
+  .tape-bar{height:30px;display:flex;margin-top:1px}
+  .tape-net{background:var(--laiton)}
+  .tape-urssaf{
+    background:var(--fil);
+    background-image:repeating-linear-gradient(45deg,rgba(243,241,233,.18) 0 5px,transparent 5px 10px);
+  }
+  .tape-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;font-size:12.5px}
+  .tape-legend span{display:flex;align-items:center;gap:7px;color:rgba(243,241,233,.85)}
+  .swatch{width:13px;height:13px;flex:none}
+  .sw-net{background:var(--laiton)}
+  .sw-urssaf{background:var(--fil);background-image:repeating-linear-gradient(45deg,rgba(243,241,233,.25) 0 4px,transparent 4px 8px)}
+
+  /* Détail chiffré */
+  .ledger{margin-top:24px;border-top:1px solid rgba(243,241,233,.18)}
+  .ledger .row{
+    display:flex;justify-content:space-between;gap:16px;
+    padding:10px 0;border-bottom:1px solid rgba(243,241,233,.1);
+    font-size:14px;
+  }
+  .ledger .row .v{font-family:var(--mono);font-weight:500;white-space:nowrap}
+  .ledger .row.muted{color:rgba(243,241,233,.7)}
+  .ledger .row.strong{font-size:15.5px;font-weight:600;border-bottom:none;padding-top:14px}
+  .ledger .row.strong .v{color:var(--laiton)}
+  .verify{
+    margin-top:16px;padding:14px 16px;
+    border:1px solid rgba(176,137,79,.5);
+    font-size:13.5px;display:flex;gap:10px;align-items:flex-start;
+  }
+  .verify .vmark{color:var(--laiton);font-family:var(--mono);font-weight:600;flex:none}
+  .verify b{color:var(--papier)}
+
+  /* Actions */
+  .actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+  .btn{
+    font-family:var(--sans);font-size:13px;font-weight:600;
+    padding:11px 18px;border:1px solid var(--ligne-forte);
+    background:var(--carte);color:var(--encre);cursor:pointer;
+  }
+  .btn-print{background:var(--encre);color:var(--papier);border-color:var(--encre)}
+  .btn:focus-visible{outline:2px solid var(--laiton);outline-offset:2px}
+
+  footer{font-size:11.5px;color:var(--ardoise);margin-top:22px;line-height:1.6;max-width:64ch}
+  footer b{color:var(--encre);font-weight:600}
+
+  @media(prefers-reduced-motion:no-preference){
+    .big{transition:none}
+  }
+
+  /* Impression */
+  @media print{
+    body{background:#fff;padding:0;font-size:12px}
+    .no-print{display:none!important}
+    header,section,.result{border:none;padding:14px 0}
+    .result{background:#fff;color:#000}
+    .big{color:#000}
+    .result .eyebrow,.big-sub,.ledger .row.muted{color:#444}
+    .ledger .row,.ledger{border-color:#bbb}
+    .tape-net{background:#999}.tape-urssaf{background:#ccc}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header>
+    <div class="eyebrow">Atelier · Bon de mission</div>
+    <h1>Devis de <em>mission</em></h1>
+    <p class="lede">Pour une mission de couturier en déplacement chez un confectionneur. Renseigne chaque coût réel : l'outil calcule le montant à facturer pour qu'après paiement de l'URSSAF, il te reste exactement tes coûts.</p>
+  </header>
+
+  <!-- 1. Statut -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Statut &amp; cotisations</span></div>
+    <p class="sec-note">En micro-entreprise, l'URSSAF se calcule sur la totalité du chiffre d'affaires — frais de déplacement compris. C'est pourquoi ils sont ajoutés « par-dessus ».</p>
+    <div class="field">
+      <label for="activite">Nature de l'activité <span class="hint">(détermine le taux)</span></label>
+      <select id="activite"></select>
+    </div>
+    <div class="check"><input type="checkbox" id="cfp" checked><div class="ctext"><b>Inclure la contribution à la formation pro (CFP)</b><small id="cfp-lbl">Petit prélèvement payé avec l'URSSAF.</small></div></div>
+    <div class="check"><input type="checkbox" id="ir"><div class="ctext"><b>Versement libératoire de l'impôt sur le revenu</b><small id="ir-lbl">À cocher s'il a opté pour payer l'IR en même temps que l'URSSAF. Le résultat est alors net d'impôt.</small></div></div>
+    <div class="check"><input type="checkbox" id="tva"><div class="ctext"><b>Assujetti à la TVA (20 %)</b><small>À laisser décoché en franchise en base. Si coché, la TVA s'ajoute au total et reste neutre (collectée puis reversée).</small></div></div>
+  </section>
+
+  <!-- 2. Salaire -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Rémunération</span></div>
+    <p class="sec-note">Base 35 h / semaine. La mission se compte en jours ; renseigne les heures par jour si besoin.</p>
+    <div class="seg" role="group" aria-label="Base de rémunération">
+      <button type="button" data-base="jour" aria-pressed="true">Taux / jour</button>
+      <button type="button" data-base="heure" aria-pressed="false">Taux / heure</button>
+      <button type="button" data-base="mois" aria-pressed="false">Salaire mensuel visé</button>
+    </div>
+    <div class="grid2">
+      <div class="field" id="wrap-montant">
+        <label id="lbl-montant" for="sal-montant">Taux par jour (net visé)</label>
+        <input id="sal-montant" inputmode="decimal" value="180">
+      </div>
+      <div class="field" id="wrap-heures">
+        <label for="heures-jour">Heures par jour</label>
+        <input id="heures-jour" inputmode="decimal" value="7">
+      </div>
+    </div>
+    <div class="field">
+      <label for="jours">Nombre de jours de mission</label>
+      <input id="jours" inputmode="decimal" value="5">
+    </div>
+  </section>
+
+  <!-- 3. Déplacements -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Déplacements</span></div>
+
+    <div class="line">
+      <div class="line-label">Frais kilométriques <span class="sub">distance × tarif</span></div>
+      <div><label for="km-q">Kilomètres</label><input id="km-q" inputmode="decimal" value="0"></div>
+      <div><label for="km-u">€ / km</label><input id="km-u" inputmode="decimal" value="0.40"></div>
+      <div class="lt" id="km-t">0,00 €</div>
+    </div>
+
+    <div class="line">
+      <div class="line-label">Péage <span class="sub">trajets × montant</span></div>
+      <div><label for="pe-q">Trajets</label><input id="pe-q" inputmode="decimal" value="0"></div>
+      <div><label for="pe-u">€ / trajet</label><input id="pe-u" inputmode="decimal" value="0"></div>
+      <div class="lt" id="pe-t">0,00 €</div>
+    </div>
+
+    <div class="line">
+      <div class="line-label">Train <span class="sub">trajets × billet</span></div>
+      <div><label for="tr-q">Trajets</label><input id="tr-q" inputmode="decimal" value="0"></div>
+      <div><label for="tr-u">€ / billet</label><input id="tr-u" inputmode="decimal" value="0"></div>
+      <div class="lt" id="tr-t">0,00 €</div>
+    </div>
+  </section>
+
+  <!-- 4. Logement -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Logement</span></div>
+    <div class="line">
+      <div class="line-label">Hébergement <span class="sub">nuits × prix</span></div>
+      <div><label for="lo-q">Nuits</label><input id="lo-q" inputmode="decimal" value="0"></div>
+      <div><label for="lo-u">€ / nuit</label><input id="lo-u" inputmode="decimal" value="0"></div>
+      <div class="lt" id="lo-t">0,00 €</div>
+    </div>
+    <div class="line">
+      <div class="line-label">Autres frais <span class="sub">repas, matériel…</span></div>
+      <div style="grid-column:1/3"><label for="au-u">Montant libre</label><input id="au-u" inputmode="decimal" value="0"></div>
+      <div class="lt" id="au-t">0,00 €</div>
+    </div>
+  </section>
+
+  <!-- Résultat -->
+  <div class="result" id="result">
+    <div class="eyebrow">Chiffre à facturer</div>
+    <div class="big" id="r-ca">0,00 €</div>
+    <div class="big-sub" id="r-ca-sub">montant HT à porter sur le devis</div>
+
+    <div class="tape" aria-hidden="true">
+      <div class="tape-ticks"></div>
+      <div class="tape-bar">
+        <div class="tape-net" id="bar-net" style="width:80%"></div>
+        <div class="tape-urssaf" id="bar-urssaf" style="width:20%"></div>
+      </div>
+      <div class="tape-legend">
+        <span><i class="swatch sw-net"></i> Vos coûts (net)</span>
+        <span><i class="swatch sw-urssaf"></i> Cotisations URSSAF</span>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span>Rémunération</span><span class="v" id="led-sal">0,00 €</span></div>
+      <div class="row"><span>Déplacements (km, péage, train)</span><span class="v" id="led-depl">0,00 €</span></div>
+      <div class="row"><span>Logement &amp; autres</span><span class="v" id="led-log">0,00 €</span></div>
+      <div class="row strong"><span>Total de vos coûts (net visé)</span><span class="v" id="led-net">0,00 €</span></div>
+      <div class="row muted"><span id="led-taux-lbl">Cotisations à ajouter (taux)</span><span class="v" id="led-urssaf">0,00 €</span></div>
+      <div class="row muted" id="led-tva-row" style="display:none"><span>TVA 20 % (neutre)</span><span class="v" id="led-tva">0,00 €</span></div>
+      <div class="row strong" id="led-ttc-row" style="display:none"><span>Total TTC à encaisser</span><span class="v" id="led-ttc">0,00 €</span></div>
+    </div>
+
+    <div class="verify">
+      <span class="vmark">✓</span>
+      <div id="verify-txt">Après paiement de l'URSSAF, il reste <b>0,00 €</b> — exactement le total de ses coûts.</div>
+    </div>
+
+    <div class="actions no-print">
+      <button class="btn btn-print" onclick="window.print()">Imprimer / PDF</button>
+      <button class="btn" id="reset">Réinitialiser</button>
+    </div>
+  </div>
+
+  <footer class="no-print">
+    <b>Note.</b> Taux URSSAF 2026 indicatifs : vente de marchandises 12,3 %, prestation de services artisanale ou commerciale (BIC) 21,2 %, prestation libérale (BNC hors CIPAV) 25,6 %, plus CFP (0,1 à 0,3 %). Le versement libératoire de l'IR (1 à 2,2 %) est optionnel. Vérifier le taux exact selon le code APE de l'auto-entrepreneur. Cet outil aide à chiffrer un devis et ne remplace pas un conseil comptable.
+  </footer>
+</div>
+
+<script>
+const EUR = new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'});
+const f = n => EUR.format(isFinite(n)?n:0);
+
+// Config activités : [libellé, taux social, CFP, IR libératoire]
+const ACT = [
+  {id:'svc_art', lbl:'Prestation de services artisanale (BIC)', soc:.212, cfp:.003, ir:.017},
+  {id:'svc_com', lbl:'Prestation de services commerciale (BIC)', soc:.212, cfp:.001, ir:.017},
+  {id:'vente',   lbl:'Vente de marchandises (BIC)',             soc:.123, cfp:.001, ir:.010},
+  {id:'bnc',     lbl:'Prestation libérale (BNC, hors CIPAV)',   soc:.256, cfp:.002, ir:.022},
+];
+
+const $ = id => document.getElementById(id);
+const num = id => { const v = parseFloat(($(id).value||'0').replace(',','.')); return isFinite(v)?v:0; };
+
+// Remplir le select
+const sel = $('activite');
+ACT.forEach((a,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${a.lbl} — ${(a.soc*100).toLocaleString('fr-FR',{maximumFractionDigits:1})} %`;sel.appendChild(o);});
+
+// Base de rémunération
+let base = 'jour';
+const labels = {jour:'Taux par jour (net visé)', heure:'Taux par heure (net visé)', mois:'Salaire mensuel net visé'};
+document.querySelectorAll('.seg button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    base=b.dataset.base;
+    document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed', x===b?'true':'false'));
+    $('lbl-montant').textContent = labels[base];
+    $('wrap-heures').style.display = (base==='jour') ? 'none' : '';
+    if(base==='jour') $('sal-montant').value='180';
+    if(base==='heure') $('sal-montant').value='26';
+    if(base==='mois') $('sal-montant').value='2600';
+    calc();
+  });
+});
+$('wrap-heures').style.display='none'; // 'jour' par défaut
+
+function salaire(){
+  const jours = num('jours');
+  const h = num('heures-jour');
+  const m = num('sal-montant');
+  if(base==='jour') return m*jours;
+  if(base==='heure') return m*h*jours;
+  // mensuel -> jour : ~ h/jour * 5 j * 52 sem / 12 mois = h*21,667 h/mois ; taux jour = mois / (jours ouvrés/mois)
+  const joursMois = (5*52/12); // 21,667
+  return (m/joursMois)*jours;
+}
+
+function calc(){
+  // lignes
+  const kmT = num('km-q')*num('km-u'); $('km-t').textContent=f(kmT);
+  const peT = num('pe-q')*num('pe-u'); $('pe-t').textContent=f(peT);
+  const trT = num('tr-q')*num('tr-u'); $('tr-t').textContent=f(trT);
+  const loT = num('lo-q')*num('lo-u'); $('lo-t').textContent=f(loT);
+  const auT = num('au-u');             $('au-t').textContent=f(auT);
+
+  const sal = salaire();
+  const depl = kmT+peT+trT;
+  const logautres = loT+auT;
+  const net = sal+depl+logautres;
+
+  // taux
+  const a = ACT[+sel.value];
+  let taux = a.soc;
+  if($('cfp').checked) taux += a.cfp;
+  if($('ir').checked)  taux += a.ir;
+
+  // CFP label
+  $('cfp-lbl').textContent = `Petit prélèvement payé avec l'URSSAF (${(a.cfp*100).toLocaleString('fr-FR',{maximumFractionDigits:1})} %).`;
+  $('ir-lbl').textContent  = `À cocher s'il a opté pour le versement libératoire (+${(a.ir*100).toLocaleString('fr-FR',{maximumFractionDigits:1})} %). Le résultat est alors net d'impôt.`;
+
+  // gross-up : CA tel que CA*(1-taux) = net
+  const ca = taux<1 ? net/(1-taux) : net;
+  const urssaf = ca - net;
+
+  // TVA
+  const tvaOn = $('tva').checked;
+  const tva = tvaOn ? ca*0.20 : 0;
+  const ttc = ca + tva;
+
+  // affichage
+  $('r-ca').textContent = f(ca);
+  $('r-ca-sub').textContent = tvaOn ? 'montant HT — voir TTC plus bas' : 'montant HT à porter sur le devis';
+  $('led-sal').textContent = f(sal);
+  $('led-depl').textContent = f(depl);
+  $('led-log').textContent = f(logautres);
+  $('led-net').textContent = f(net);
+  $('led-taux-lbl').textContent = `Cotisations à ajouter (${(taux*100).toLocaleString('fr-FR',{maximumFractionDigits:1})} % du CA)`;
+  $('led-urssaf').textContent = f(urssaf);
+
+  $('led-tva-row').style.display = tvaOn?'flex':'none';
+  $('led-ttc-row').style.display = tvaOn?'flex':'none';
+  $('led-tva').textContent = f(tva);
+  $('led-ttc').textContent = f(ttc);
+
+  // mètre
+  const pNet = ca>0 ? Math.max(2,Math.min(98,(net/ca)*100)) : 80;
+  $('bar-net').style.width = pNet+'%';
+  $('bar-urssaf').style.width = (100-pNet)+'%';
+
+  $('verify-txt').innerHTML = `Il facture <b>${f(ca)}</b>, paie <b>${f(urssaf)}</b> d'URSSAF${$('ir').checked?' (impôt inclus)':''}, et il lui reste <b>${f(net)}</b> — exactement le total de ses coûts.`;
+}
+
+document.querySelectorAll('input,select').forEach(el=>{
+  el.addEventListener('input',calc);
+  el.addEventListener('change',calc);
+});
+$('reset').addEventListener('click',()=>{
+  ['km-q','pe-q','pe-u','tr-q','tr-u','lo-q','lo-u','au-u'].forEach(id=>$(id).value='0');
+  $('km-u').value='0.40'; $('jours').value='5'; $('heures-jour').value='7';
+  $('cfp').checked=true; $('ir').checked=false; $('tva').checked=false; sel.value=0;
+  calc();
+});
+calc();
+</script>
+</body>
+</html>
