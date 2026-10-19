@@ -213,7 +213,7 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--tx);min-heig
       <button class="nav-btn" data-sec="essayages">Essayages</button>
       <button class="nav-btn" data-sec="journal">Journal</button>
       <button class="nav-btn" data-sec="checklist">Preparations</button>
-      <button class="nav-btn" data-sec="paiements">Paiements</button>
+      <button class="nav-btn" id="nav-paiements" data-sec="paiements">Paiements</button>
     </nav>
   </div>
   <div class="hero-top">
@@ -525,6 +525,55 @@ function showAdminView(){document.getElementById('lc-v-client').style.display='n
 function showClientView(){document.getElementById('lc-v-admin').style.display='none';document.getElementById('lc-v-client').style.display='block';}
 function dbg(msg){console.log('[carnet]',msg);}
 
+async function loginBoutique(codeBoutique) {
+  try {
+    // Find boutique by code_carnet_boutique
+    var data = await sg('jb_clients', 'code_carnet_boutique=eq.'+codeBoutique.toUpperCase()+'&type_client=eq.boutique');
+    if (!data || !data.length) {
+      alert('Code boutique introuvable.');
+      return;
+    }
+    var boutique = data[0];
+    // Load all mariees linked to this boutique
+    var mariees = await sg('jb_carnets', 'select=id,bride_nom,code_acces,date_mariage,modele_nom');
+    // Filter by boutique_ref - need to cross-reference jb_clients
+    var marieeClients = await sg('jb_clients', 'boutique_ref=eq.'+boutique.id);
+    var marieeCarnets = (mariees||[]).filter(function(cn) {
+      return (marieeClients||[]).some(function(mc){ return mc.nom === cn.bride_nom; });
+    });
+    renderBoutiqueList(boutique, marieeCarnets);
+  } catch(e) { alert('Erreur : '+e.message); }
+}
+
+function renderBoutiqueList(boutique, carnets) {
+  // Hide login, show boutique list
+  ['pg-login','pg-client','pg-admin'].forEach(function(pid){
+    var p=document.getElementById(pid);if(p){p.style.display='none';p.classList.remove('active');}
+  });
+  var wrap = document.getElementById('pg-boutique');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.id = 'pg-boutique';
+    document.body.appendChild(wrap);
+  }
+  wrap.style.display = 'block';
+  wrap.innerHTML = '<div style="background:var(--tx);padding:16px 28px;display:flex;justify-content:space-between;align-items:center">'
+    +'<div><div style="font-family:Cormorant Garamond,serif;font-size:20px;color:var(--gl);letter-spacing:.06em">'+esc(boutique.nom)+'</div>'
+    +'<div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,217,184,.4);margin-top:2px">Carnet des mariees</div></div>'
+    +'</div>'
+    +'<div style="max-width:680px;margin:32px auto;padding:0 20px">'
+    +(carnets.length ? carnets.map(function(cn) {
+      var url = window.location.pathname+'?code='+cn.code_acces;
+      return '<a href="'+url+'" style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:white;border:.5px solid var(--br);margin-bottom:8px;text-decoration:none;color:var(--tx)">'
+        +'<div><div style="font-family:Cormorant Garamond,serif;font-size:18px">'+esc(cn.bride_nom)+'</div>'
+        +'<div style="font-size:11px;color:var(--mu);margin-top:3px">'+esc(cn.modele_nom||'')+'</div></div>'
+        +'<div style="text-align:right"><div style="font-size:11px;color:var(--mu)">'+(cn.date_mariage?fd(cn.date_mariage):'--')+'</div>'
+        +'<div style="font-size:9px;letter-spacing:.1em;color:var(--go);margin-top:4px">Voir le carnet --></div></div>'
+        +'</a>';
+    }).join('') : '<p style="font-family:Cormorant Garamond,serif;font-size:18px;color:var(--mu);font-style:italic;text-align:center;padding:40px">Aucune mariee enregistree.</p>')
+    +'</div>';
+}
+
 async function loginClient(){
   var code=val('inp-code').toUpperCase().trim();
   var errEl=document.getElementById('err-client');errEl.style.display='none';
@@ -535,6 +584,11 @@ async function loginClient(){
     var data=await sg('jb_carnets','code_acces=eq.'+code);
     if(!data||!data.length){errEl.textContent='Code introuvable.';errEl.style.display='block';return;}
     CARNET=data[0];
+    // Check if boutique mariee (load from jb_clients)
+    try {
+      var clients = await sg('jb_clients','nom=eq.'+encodeURIComponent(CARNET.bride_nom)+'&select=boutique_ref');
+      CARNET._isBoutiqueMariee = clients && clients[0] && clients[0].boutique_ref ? true : false;
+    } catch(e) { CARNET._isBoutiqueMariee = false; }
     if(CARNET.devis_id){try{var dd=await sg('jb_devis','id=eq.'+CARNET.devis_id);if(dd&&dd[0])DEVIS=dd[0];}catch(e){}}
     try{var cfg=await sg('jb_config','limit=1');if(cfg&&cfg[0])CARNET._cfg=cfg[0];}catch(e){}
     openClient();
@@ -564,6 +618,11 @@ async function loginAdmin(pwd){
     dbg('carnet found: '+(data&&data.length?data[0].bride_nom:'NONE'));
     if(!data||!data.length){showPage('pg-login');showAdminView();errEl.textContent='Carnet introuvable : '+code;errEl.style.display='block';return;}
     CARNET=data[0];
+    // Check if boutique mariee (load from jb_clients)
+    try {
+      var clients = await sg('jb_clients','nom=eq.'+encodeURIComponent(CARNET.bride_nom)+'&select=boutique_ref');
+      CARNET._isBoutiqueMariee = clients && clients[0] && clients[0].boutique_ref ? true : false;
+    } catch(e) { CARNET._isBoutiqueMariee = false; }
     if(CARNET.devis_id){try{var dd2=await sg('jb_devis','id=eq.'+CARNET.devis_id);if(dd2&&dd2[0])DEVIS=dd2[0];}catch(e){}}
     dbg('calling openAdmin...');
     openAdmin();
@@ -593,6 +652,9 @@ function boNav(sec,btn){
 /* ---- RENDER CLIENT ---- */
 function renderClient(){
   if(!CARNET)return;
+  // Hide paiements if boutique mariee
+  var navPay = document.getElementById('nav-paiements');
+  if (navPay) navPay.style.display = CARNET._isBoutiqueMariee ? 'none' : '';
   var c=CARNET;
   var nomEl=document.getElementById('cl-nom');if(nomEl)nomEl.textContent=c.bride_nom||'';
   var modEl=document.getElementById('cl-modele');if(modEl)modEl.textContent=c.modele_nom||'';
@@ -1217,8 +1279,10 @@ document.addEventListener('DOMContentLoaded',function(){
   });
   // Auto-login from URL
   var params=new URLSearchParams(window.location.search);
-  var code=params.get('code');var bo=params.get('bo');
-  if(bo&&code){loginAdmin(bo);}else if(code){document.getElementById('inp-code').value=code.toUpperCase();loginClient();}
+  var code=params.get('code');var bo=params.get('bo');var boutique=params.get('boutique');
+  if(boutique){loginBoutique(boutique);}
+  else if(bo&&code){loginAdmin(bo);}
+  else if(code){document.getElementById('inp-code').value=code.toUpperCase();loginClient();}
 });
 </script>
 </body>
